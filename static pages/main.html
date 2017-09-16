@@ -5,11 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Main</title>
     <link rel="stylesheet" href="../lib/bootstrap-4.0.0-beta-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../lib/open-iconic-master/font/css/open-iconic-bootstrap.min.css">
     <style>
-        .card {
-            margin-left: 5px;
-            margin-right: 5px;
+        .customCard {
             margin-bottom: 10px;
+        }
+        .customLink {
+            display: inline-block;
+        }
+        .productPrice {
+            font-size: 1.5em;
+        }
+        .priceButton {
+            padding-left: 20px;
+            padding-right: 20px;
         }
     </style>
 </head>
@@ -30,100 +39,162 @@
                 <a class="nav-link" href="#">Contact us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#">EN/UA</a>
+                <a class="nav-link customLink active" href="#">EN</a><span style="color: #fff;">&#x2F;</span><a href="#" class="nav-link customLink">UA</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <label for="login" style="color: white; margin-right: 10px;">Login</label>
             <input id="login" class="form-control mr-sm-2" type="text" placeholder="Login, email or phone number" aria-label="Login">
             <label for="passwr" style="color: white; margin-right: 10px;">Password</label>
-            <input id="passwr" class="form-control mr-sm-2" type="text" placeholder="Password" aria-label="Password">
+            <input id="passwr" class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Password">
             <button class="btn btn-success my-2 my-sm-0" style="margin-right: 10px;" type="button">Log in</button>
-            <button class="btn btn-primary my-2 my-sm-0" type="button">Sign up</button>
+            <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#signupModal" type="button">Sign up</button>
+            <!-- Modal -->
+            <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Sign up</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="username">Name</label>
+                                    <input type="text" class="form-control" id="username" placeholder="Name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="surname">Surname</label>
+                                    <input type="text" class="form-control" id="surname" placeholder="Surname" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="age">Age</label>
+                                    <input type="text" class="form-control" id="age" placeholder="Age" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" placeholder="name@example.com" />
+                                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone number</label>
+                                    <input type="tel" class="form-control" id="phone" placeholder="Mobile phone number" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" placeholder="Password" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Confirm password</label>
+                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Sign Up</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </nav>
 
 <div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <button type="button" class="btn btn-lg btn-block" style="background-color: #007bff; color: #fff; margin-top: 15px;">
+                Basket <img src="../lib/glyph-iconset-master/svg/si-glyph-trolley-2.svg" style="width: 25px; height: 25px; color: #fff;"/>
+                <span class="badge badge-success">3</span>
+            </button>
+        </div>
+    </div>
+
     <div class="row" style="margin-top: 15px;">
-        <div class="col-md-2">
+        <div class="col-12 col-md-3" id="sidebar-left">
             <ul class="list-group" id="list-tab" role="tablist">
-                <a href="#" class="list-group-item list-group-item-action active">Guitars</a>
-                <a href="#" class="list-group-item list-group-item-action">Combos</a>
-                <a href="#" class="list-group-item list-group-item-action">Amps</a>
-                <a href="#" class="list-group-item list-group-item-action">Cabinets</a>
-                <a href="#" class="list-group-item list-group-item-action">Effects</a>
-                <a href="#" class="list-group-item list-group-item-action">Strings</a>
-                <a href="#" class="list-group-item list-group-item-action">Picks</a>
+                <a href="#listCollapseGuitar" class="list-group-item list-group-item-success list-group-item-action" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Guitars <span class="oi oi-chevron-bottom float-right"></span></a>
+                <div class="collapse" id="listCollapseGuitar">
+                    <a href="#" class="list-group-item list-group-item-action">Acoustic</a>
+                    <a href="#" class="list-group-item list-group-item-action">Electric</a>
+                    <a href="#" class="list-group-item list-group-item-action">Bass</a>
+                    <a href="#" class="list-group-item list-group-item-action">Classic</a>
+                </div>
+                <a href="#listCollapseCombo" class="list-group-item list-group-item-success list-group-item-action" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Combos <span class="oi oi-chevron-bottom float-right"></span></a>
+                <div class="collapse" id="listCollapseCombo">
+                    <a href="#" class="list-group-item list-group-item-action">Transistor</a>
+                    <a href="#" class="list-group-item list-group-item-action">Lamp</a>
+                    <a href="#" class="list-group-item list-group-item-action">Hybrid</a>
+                </div>
+                <a href="#listCollapseAmp" class="list-group-item list-group-item-success list-group-item-action" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Amps <span class="oi oi-chevron-bottom float-right"></span></a>
+                <div class="collapse" id="listCollapseAmp">
+                    <a href="#" class="list-group-item list-group-item-action">Transistor</a>
+                    <a href="#" class="list-group-item list-group-item-action">Lamp</a>
+                    <a href="#" class="list-group-item list-group-item-action">Hybrid</a>
+                </div>
+                <a href="#" class="list-group-item list-group-item-success list-group-item-action">Cabinets</a>
+                <a href="#listCollapseEffect" class="list-group-item list-group-item-success list-group-item-action" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Effects <span class="oi oi-chevron-bottom float-right"></span></a>
+                <div class="collapse" id="listCollapseEffect">
+                    <a href="#" class="list-group-item list-group-item-action">Distortion</a>
+                    <a href="#" class="list-group-item list-group-item-action">Delay</a>
+                    <a href="#" class="list-group-item list-group-item-action">Reverb</a>
+                    <a href="#" class="list-group-item list-group-item-action">Wah-Wah</a>
+                    <a href="#" class="list-group-item list-group-item-action">Horus</a>
+                </div>
+                <a href="#listCollapseString" class="list-group-item list-group-item-success list-group-item-action" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Strings <span class="oi oi-chevron-bottom float-right"></span></a>
+                <div class="collapse" id="listCollapseString">
+                    <a href="#" class="list-group-item list-group-item-action">Distortion</a>
+                    <a href="#" class="list-group-item list-group-item-action">Delay</a>
+                    <a href="#" class="list-group-item list-group-item-action">Reverb</a>
+                    <a href="#" class="list-group-item list-group-item-action">Wah-Wah</a>
+                    <a href="#" class="list-group-item list-group-item-action">Horus</a>
+                </div>
+                <a href="#" class="list-group-item list-group-item-success list-group-item-action">Picks</a>
             </ul>
         </div>
-        <div class="col-md-10">
+        <div class="col-12 col-md-9" id="products">
             <div class="row">
-                <div class="card" style="width: 15rem;">
+                <div class="col-sm-12">
+                    <div class="card customCard" style="margin-top: 15px;">
+                        <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
+                        <div class="card-body">
+                            <h3 class="card-title">Gibson Les Paul</h3>
+                            <p class="card-text">Some text quickly writing by me. Very important information.</p>
+                            <span class="productPrice">$100.0</span>
+                            <a href="#" class="btn btn-success float-right priceButton">Buy</a>
+                        </div>
+                    </div>
+                    <div class="card customCard">
+                        <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
+                        <div class="card-body">
+                            <h3 class="card-title">Gibson Les Paul</h3>
+                            <p class="card-text">Some text quickly writing by me. Very important information.</p>
+                            <span class="productPrice">$100.0</span>
+                            <a href="#" class="btn btn-success float-right priceButton">Buy</a>
+                        </div>
+                    </div><div class="card customCard">
                     <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
                     <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <p class="card-text">Some text quickly writing by me</p>
-                        <a href="#" class="btn btn-primary">Buy</a>
+                        <h3 class="card-title">Gibson Les Paul</h3>
+                        <p class="card-text">Some text quickly writing by me. Very important information.</p>
+                        <span class="productPrice">$100.0</span>
+                        <a href="#" class="btn btn-success float-right priceButton">Buy</a>
                     </div>
                 </div>
-                <div class="card" style="width: 15rem;">
-                    <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
-                    <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <p class="card-text">Some text quickly writing by me</p>
-                        <a href="#" class="btn btn-primary">Buy</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 15rem;">
-                    <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
-                    <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <p class="card-text">Some text quickly writing by me</p>
-                        <a href="#" class="btn btn-primary">Buy</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 15rem;">
-                    <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
-                    <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <p class="card-text">Some text quickly writing by me</p>
-                        <a href="#" class="btn btn-primary">Buy</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 15rem;">
-                    <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
-                    <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <p class="card-text">Some text quickly writing by me</p>
-                        <a href="#" class="btn btn-primary">Buy</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 15rem;">
-                    <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
-                    <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <p class="card-text">Some text quickly writing by me</p>
-                        <a href="#" class="btn btn-primary">Buy</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 15rem;">
-                    <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
-                    <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
-                        <p class="card-text">Some text quickly writing by me</p>
-                        <a href="#" class="btn btn-primary">Buy</a>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row" id="footer">
-        <div class="col-12" style="background-color: #212529; color: white;">
-            There must be footer
-        </div>
-    </div>
+
 </div>
+
+<nav class="navbar navbar-dark bg-dark" id="footer">
+    <h4 class="text-white">Footer</h4>
+    <span class="text-muted">Some very useful information</span>
+</nav>
 
 <script src="../lib/jquery-3.2.1.min.js"></script>
 <script src="../lib/popper.js-1.12.5/dist/umd/popper.min.js"></script>
