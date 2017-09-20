@@ -58,14 +58,14 @@
                 Something happens! Maybe you add new category, change exist one or delete.
             </div>
 
-            <div class="d-flex flex-row align-items-center">
-                <h4 style="display: inline-block; margin-right: 15px;">List of categories</h4>
-                <button type="button" class="btn btn-primary btn-sm">Add new</button>
-            </div>
-
-            <!-- Category list -->
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="list-category" role="tabpanel">
+                    <div class="d-flex flex-row align-items-center">
+                        <h4 style="display: inline-block; margin-right: 15px;">List of categories</h4>
+                        <button type="button" class="btn btn-primary btn-sm">Add new</button>
+                    </div>
+
+                    <!-- Category list -->
                     <div id="categoryAccordion" data-children=".item">
                         <div class="item">
                             <a data-toggle="collapse" data-parent="#categoryAccordion" href="#categoryGuitars">Guitars</a>
@@ -162,11 +162,11 @@
                                         <div class="form-row">
                                             <div class="col">
                                                 <label for="fieldName">Name</label>
-                                                <input type="text" class="form-control" id="fieldName" placeholder="Filed name" />
+                                                <input type="text" class="form-control" id="fieldName" placeholder="Field name" />
                                             </div>
                                             <div class="col">
                                                 <label for="filedType">Type</label>
-                                                <select class="form-control" id="filedType">
+                                                <select class="form-control" id="fieldType">
                                                     <option>Text</option>
                                                     <option>Number</option>
                                                     <option>Date</option>
@@ -226,7 +226,9 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-outline-danger">&times;</button>
+                                                <button type="button" class="btn btn-outline-danger" title="Remove category field">
+                                                    <span class="oi oi-trash"></span>
+                                                </button>
                                             </td>
                                         </tr>
                                         <tr>
@@ -241,7 +243,9 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-outline-danger">&times;</button>
+                                                <button type="button" class="btn btn-outline-danger" title="Remove category field">
+                                                    <span class="oi oi-trash"></span>
+                                                </button>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -282,11 +286,611 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="list-product" role="tabpanel">2</div>
-                <div class="tab-pane fade" id="list-user" role="tabpanel">3</div>
-                <div class="tab-pane fade" id="list-provider" role="tabpanel">4</div>
-                <div class="tab-pane fade" id="list-order" role="tabpanel">5</div>
-                <div class="tab-pane fade" id="list-statistic" role="tabpanel">6</div>
+                <div class="tab-pane fade" id="list-product" role="tabpanel">
+                    <h4 style="display: inline-block; margin-right: 15px;">Products</h4>
+
+                    <!-- List of products. Can be filtered. -->
+                    <form class="form-inline justify-content-center">
+                        <label for="selectCategory" class="mr-sm-2">Select category</label>
+                        <select id="selectCategory" class="form-control mb-2 mr-sm-2 mb-sm-0">
+                            <option>Guitars</option>
+                            <option>Combos</option>
+                            <option>Amps</option>
+                            <option>Strings</option>
+                            <option>Effects</option>
+                            <option>Other</option>
+                        </select>
+
+                        <label for="filter" class="mr-sm-2">Filter</label>
+                        <input type="text" id="filter" class="form-control mb-2 mr-sm-2 mb-sm-0" />
+                    </form>
+
+                    <!-- Add new product -->
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-5">
+                            <h5>Add new product</h5>
+                            <form>
+                                <div class="form-group row">
+                                    <label for="addProductCategory" class="col-sm-2 col-form-label">Category</label>
+                                    <div class="col-10">
+                                        <select class="form-control" id="addProductCategory">
+                                            <option>Guitars</option>
+                                            <option>Combos</option>
+                                            <option>Amps</option>
+                                            <option>Strings</option>
+                                            <option>Effects</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="addProductType" class="col-sm-2 col-form-label">Type</label>
+                                    <div class="col-10">
+                                        <select class="form-control" id="addProductType">
+                                            <option>Acoustic</option>
+                                            <option>Electric</option>
+                                            <option>Bass</option>
+                                            <option>Classic</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="addProductManufacturer" class="col-sm-3 col-form-label">Manufacturer</label>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="addProductManufacturer" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="addProductModel" class="col-sm-2 col-form-label">Model</label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="addProductModel" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="addProductPhoto" class="col-sm-2 col-form-label">Photos</label>
+                                    <div class="col-10">
+                                        <input type="file" class="form-control-file" id="addProductPhoto" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="addProductPrice" class="col-sm-2 col-form-label">Price</label>
+                                    <div class="col-10">
+                                        <input type="number" class="form-control" id="addProductPrice" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-10">
+                                        <button type="button" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Change product -->
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-5">
+                            <h5>Change product: <a href="#">Gibson Les Paul</a></h5>
+                            <form>
+                                <div class="form-group row">
+                                    <label for="changeProductCategory" class="col-sm-2 col-form-label">Category</label>
+                                    <div class="col-10">
+                                        <select class="form-control" id="changeProductCategory">
+                                            <option>Guitars</option>
+                                            <option>Combos</option>
+                                            <option>Amps</option>
+                                            <option>Strings</option>
+                                            <option>Effects</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="changeProductType" class="col-sm-2 col-form-label">Type</label>
+                                    <div class="col-10">
+                                        <select class="form-control" id="changeProductType">
+                                            <option>Acoustic</option>
+                                            <option>Electric</option>
+                                            <option>Bass</option>
+                                            <option>Classic</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="changeProductManufacturer" class="col-sm-3 col-form-label">Manufacturer</label>
+                                    <div class="col-9">
+                                        <input type="text" class="form-control" id="changeProductManufacturer" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="changeProductModel" class="col-sm-2 col-form-label">Model</label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="changeProductModel" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="changeProductPhoto" class="col-sm-2 col-form-label">Photos</label>
+                                    <div class="col-10">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <img src="img/lespaul.jpg" style="width: 100%">
+                                            </div>
+                                            <div class="col-3">
+                                                <img src="img/lespaul.jpg" style="width: 100%">
+                                            </div>
+                                            <div class="col-3">
+                                                <img src="img/lespaul.jpg" style="width: 100%">
+                                            </div>
+                                            <div class="col-3">
+                                                <img src="img/lespaul.jpg" style="width: 100%">
+                                            </div>
+                                            <div class="col-3">
+                                                <img src="img/lespaul.jpg" style="width: 100%">
+                                            </div>
+                                            <div class="col-3">
+                                                <img src="img/lespaul.jpg" style="width: 100%">
+                                            </div>
+                                        </div>
+                                        <input type="file" class="form-control-file" id="changeProductPhoto" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="changeProductPrice" class="col-sm-2 col-form-label">Price</label>
+                                    <div class="col-10">
+                                        <input type="number" class="form-control" id="changeProductPrice" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-10">
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="list-user" role="tabpanel">
+                    <h4 style="display: inline-block; margin-right: 15px;">Users</h4>
+
+                    <!-- Users list -->
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Role</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Other</th>
+                            <th>Control</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Vitaliy</td>
+                            <td>Senenko</td>
+                            <td>admin</td>
+                            <td>+38-093-059-23-40</td>
+                            <td>senenkovitalik@gmail.com</td>
+                            <td>Some data</td>
+                            <td>
+                                <button type="button" class="btn btn-outline-info" title="Change user data"><span class="oi oi-pencil"></span></button>
+                                <button type="button" class="btn btn-outline-danger" title="Delete user"><span class="oi oi-trash"></span></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Ivan</td>
+                            <td>Ivanov</td>
+                            <td>client</td>
+                            <td>+38-093-666-66-66</td>
+                            <td>ivanov@gmail.com</td>
+                            <td>Client number one</td>
+                            <td>
+                                <button type="button" class="btn btn-outline-info" title="Change user data"><span class="oi oi-pencil"></span></button>
+                                <button type="button" class="btn btn-outline-danger" title="Delete user"><span class="oi oi-trash"></span></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Petro</td>
+                            <td>Buy</td>
+                            <td>user</td>
+                            <td>+38-066-11-61-66</td>
+                            <td>pbuy@gmail.com</td>
+                            <td>Be careful with this guy!</td>
+                            <td>
+                                <button type="button" class="btn btn-outline-info" title="Change user data"><span class="oi oi-pencil"></span></button>
+                                <button type="button" class="btn btn-outline-danger" title="Delete user"><span class="oi oi-trash"></span></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Add new user -->
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-5">
+                            <h5>Add new user</h5>
+                            <form>
+                                <div class="form-group row">
+                                    <label for="newUserName" class="col-sm-2 col-form-label"><strong>Name</strong></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="newUserName" placeholder="Name" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="newUserSurname" class="col-sm-2 col-form-label"><strong>Surname</strong></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="newUserSurname" placeholder="Surname" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="newUserRole" class="col-sm-2 col-form-label"><strong>Role</strong></label>
+                                    <div class="col-10">
+                                        <select class="form-control" id="newUserRole">
+                                            <option>admin</option>
+                                            <option>user</option>
+                                            <option>client</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="newUserEmail" class="col-sm-2 col-form-label"><strong>Email</strong></label>
+                                    <div class="col-10">
+                                        <input type="email" class="form-control" id="newUserEmail" placeholder="Email" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="newUserOther" class="col-sm-2 col-form-label"><strong>Other</strong></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="newUserOther" placeholder="Other" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-10">
+                                        <button type="button" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Change user data -->
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-5">
+                            <h5>Change user: <a href="#">Vitaliy Senenko</a></h5>
+                            <form>
+                                <div class="form-group row">
+                                    <label for="changeUserName" class="col-sm-2 col-form-label"><strong>Name</strong></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="changeUserName" placeholder="Name" value="Vitaliy">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="changeSurame" class="col-sm-2 col-form-label"><strong>Surname</strong></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="changeSurame" placeholder="Surname" value="Senenko">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="changeUserRole" class="col-sm-2 col-form-label"><strong>Role</strong></label>
+                                    <div class="col-10">
+                                        <select class="form-control" id="changeUserRole">
+                                            <option>admin</option>
+                                            <option>user</option>
+                                            <option>client</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="changeUserEmail" class="col-sm-2 col-form-label"><strong>Email</strong></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="changeUserEmail" placeholder="Email" value="senenkovitalik|@gmail.com">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="changeUserOther" class="col-sm-2 col-form-label"><strong>Other</strong></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="changeUserOther" placeholder="Other" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-10">
+                                        <button type="button" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="list-provider" role="tabpanel">
+                    <h4 style="display: inline-block; margin-right: 15px;">Providers</h4>
+
+                    <!-- Providers list -->
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Current account</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Other</th>
+                            <th>Control</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Gibson Ltd.</td>
+                                <td>1254-5632-8956-4587</td>
+                                <td>+1-122-236-23-23</td>
+                                <td>gibson@gmail.com</td>
+                                <td>USA, San Francisco, Red st., 15</td>
+                                <td>Some data</td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-info" title="Change provider data"><span class="oi oi-pencil"></span></button>
+                                    <button type="button" class="btn btn-outline-danger" title="Delete provider account"><span class="oi oi-trash"></span></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Fender Ltd.</td>
+                                <td>1254-5632-0000-4587</td>
+                                <td>+1-122-223-00-00</td>
+                                <td>fender@gmail.com</td>
+                                <td>USA, Denwer, Black st., 19</td>
+                                <td>Some data</td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-info" title="Change provider data"><span class="oi oi-pencil"></span></button>
+                                    <button type="button" class="btn btn-outline-danger" title="Delete provider account"><span class="oi oi-trash"></span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Add new provider -->
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-5">
+                            <h5>Add new user</h5>
+                            <form>
+                                <!--Name-->
+                                <div class="form-group row">
+                                    <label for="addProviderName" class="col-sm-2 col-form-label"><strong>Name</strong></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="addProviderName" placeholder="Name" value="">
+                                    </div>
+                                </div>
+
+                                <!-- Bank Account-->
+                                <div class="form-group row">
+                                    <label for="addProviderAccount" class="col-sm-2 col-form-label"><strong>Current account</strong></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="addProviderAccount" placeholder="Bank account" value="">
+                                    </div>
+                                </div>
+
+                                <!--Phone-->
+                                <div class="form-group row">
+                                    <label for="addProviderPhone" class="col-sm-2 col-form-label"><strong>Phone</strong></label>
+                                    <div class="col-10">
+                                        <input type="tel" class="form-control" id="addProviderPhone" placeholder="+x-xxx-xxx-xx-xx" />
+                                    </div>
+                                </div>
+
+                                <!--Email-->
+                                <div class="form-group row">
+                                    <label for="addProviderEmail" class="col-sm-2 col-form-label"><strong>Email</strong></label>
+                                    <div class="col-10">
+                                        <input type="email" class="form-control" id="addProviderEmail" placeholder="Email" value="">
+                                    </div>
+                                </div>
+
+                                <!--Address-->
+                                <div class="form-group row">
+                                    <label for="addProviderAddress" class="col-sm-2 col-form-label"><strong>Address</strong></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="addProviderAddress" placeholder="Address" value="">
+                                    </div>
+                                </div>
+
+                                <!--Other-->
+                                <div class="form-group row">
+                                    <label for="addProviderOther" class="col-sm-2 col-form-label"><strong>Other</strong></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="addProviderOther" placeholder="Other" value="">
+                                    </div>
+                                </div>
+
+                                <!--Submit-->
+                                <div class="form-group row">
+                                    <div class="col-10">
+                                        <button type="button" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Change provider data -->
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-5">
+                            <h5>Change provider: <a href="#">Gibson Ltd.</a></h5>
+                            <form>
+                                <!--Name-->
+                                <div class="form-group row">
+                                    <label for="newUserName" class="col-sm-2 col-form-label"><strong>Name</strong></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="addProviderName" placeholder="Name" value="">
+                                    </div>
+                                </div>
+
+                                <!-- Bank Account-->
+                                <div class="form-group row">
+                                    <label for="addProviderAccount" class="col-sm-2 col-form-label"><strong>Current account</strong></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="addProviderAccount" placeholder="Bank account" value="">
+                                    </div>
+                                </div>
+
+                                <!--Phone-->
+                                <div class="form-group row">
+                                    <label for="addProviderPhone" class="col-sm-2 col-form-label"><strong>Phone</strong></label>
+                                    <div class="col-10">
+                                        <input type="tel" class="form-control" id="addProviderPhone" placeholder="+x-xxx-xxx-xx-xx" />
+                                    </div>
+                                </div>
+
+                                <!--Email-->
+                                <div class="form-group row">
+                                    <label for="addProviderEmail" class="col-sm-2 col-form-label"><strong>Email</strong></label>
+                                    <div class="col-10">
+                                        <input type="email" class="form-control" id="addProviderEmail" placeholder="Email" value="">
+                                    </div>
+                                </div>
+
+                                <!--Address-->
+                                <div class="form-group row">
+                                    <label for="addProviderAddress" class="col-sm-2 col-form-label"><strong>Address</strong></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="addProviderAddress" placeholder="Address" value="">
+                                    </div>
+                                </div>
+
+                                <!--Other-->
+                                <div class="form-group row">
+                                    <label for="addProviderOther" class="col-sm-2 col-form-label"><strong>Other</strong></label>
+                                    <div class="col-10">
+                                        <input type="text" class="form-control" id="addProviderOther" placeholder="Other" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-10">
+                                        <button type="button" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="list-order" role="tabpanel">
+                    <h4 style="display: inline-block; margin-right: 15px;">Orders</h4>
+
+                    <!-- Orders list -->
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>DateTime</th>
+                            <th>User</th>
+                            <th>Products</th>
+                            <th>Type of delivery</th>
+                            <th>Address</th>
+                            <th>Detail</th>
+                            <th>Status</th>
+                            <th>Control</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>19-09-2017 12:00</td>
+                            <td>
+                                <a href="#">Vitaliy Senenko</a>
+                            </td>
+                            <td>Gibson Les Paul, Fender Startocaster</td>
+                            <td>Courier</td>
+                            <td>Kyiv, Morozova str., 17</td>
+                            <td></td>
+                            <td class="table-danger">Pending</td>
+                            <td>
+                                <button type="button" class="btn btn-outline-info" title="Change provider data"><span class="oi oi-pencil"></span></button>
+                                <button type="button" class="btn btn-outline-danger" title="Delete provider account"><span class="oi oi-trash"></span></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>19-09-2017 15:45</td>
+                            <td>
+                                <a href="#">Anonymous</a>
+                            </td>
+                            <td>Marshal AVT 20</td>
+                            <td>Self-checkout</td>
+                            <td>-</td>
+                            <td>Call before delivery</td>
+                            <td class="table-success">Completed</td>
+                            <td>
+                                <button type="button" class="btn btn-outline-info" title="Change provider data"><span class="oi oi-pencil"></span></button>
+                                <button type="button" class="btn btn-outline-danger" title="Delete provider account"><span class="oi oi-trash"></span></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>18-09-2017 09:05</td>
+                            <td>
+                                <a href="#">Anonymous</a>
+                            </td>
+                            <td>Messa Boogie</td>
+                            <td>Courier</td>
+                            <td>Kyiv, Morozova str., 17</td>
+                            <td></td>
+                            <td>Canceled</td>
+                            <td>
+                                <button type="button" class="btn btn-outline-info" title="Change provider data"><span class="oi oi-pencil"></span></button>
+                                <button type="button" class="btn btn-outline-danger" title="Delete provider account"><span class="oi oi-trash"></span></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>18-09-2017 09:05</td>
+                            <td>
+                                <a href="#">Petro Vasechkin</a>
+                            </td>
+                            <td>Cort MX300</td>
+                            <td>Courier</td>
+                            <td>Kyiv, Morozova str., 17</td>
+                            <td></td>
+                            <td class="table-primary">Delivering</td>
+                            <td>
+                                <button type="button" class="btn btn-outline-info" title="Change provider data"><span class="oi oi-pencil"></span></button>
+                                <button type="button" class="btn btn-outline-danger" title="Delete provider account"><span class="oi oi-trash"></span></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="list-statistic" role="tabpanel">
+                    <h4 style="display: inline-block; margin-right: 15px;">Statistics</h4>
+                    <p>There are must a lot of charts and tables</p>
+                </div>
             </div>
         </div>
     </div>
