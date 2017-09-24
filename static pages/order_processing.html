@@ -34,12 +34,18 @@
 </nav>
 
 <div class="container">
+    <!--Header-->
     <div class="row">
         <div class="col-12">
             <h1>Order processing</h1>
         </div>
+    </div>
+
+    <div class="row">
         <!--Products list-->
-        <div class="col-12 mb-2" style="font-size: 0.8rem;">
+        <div class="col-sm-12 order-lg-2 col-lg-6  mb-2" style="font-size: 0.8rem;">
+            <h4>Your order</h4>
+
             <!-- product item -->
             <div class="row p-1">
                 <div class="col-2">
@@ -90,8 +96,9 @@
             </div>
 
         </div>
-        <!--User data-->
-        <div class="col-12">
+
+        <div class="col-sm-12 order-lg-1 col-lg-6">
+            <!--User data-->
             <h4><span class="badge badge-pill badge-success">1</span> Contacts</h4>
             <form>
                 <div class="form-group">
@@ -106,11 +113,8 @@
                     <button type="button" class="btn btn-success form-control">Next</button>
                 </div>
             </form>
-        </div>
-    </div>
-    <!--Type of delivery and payment-->
-    <div class="row">
-        <div class="col-12">
+
+            <!--Type of delivery and payment-->
             <h4><span class="badge badge-pill badge-dark">2</span> Type of delivery and payment</h4>
             <form>
                 <!--Type of delivery-->
@@ -181,11 +185,8 @@
                     </div>
                 </div>
             </form>
-        </div>
-    </div>
-    <!--Summary-->
-    <div class="row">
-        <div class="col-12">
+
+            <!--Summary-->
             <h2>Summary</h2>
             <div class="row justify-content-between">
                 <div class="col-auto">3 products in total</div>
@@ -203,11 +204,12 @@
             <button type="button" class="btn btn-success btn-block mb-2">Confirm the order</button>
         </div>
     </div>
-    <!--Footer-->
-    <div class="row">
-        <div class="col">&reg; 2017 Internet-shop "GuitarShop&trade;" - wonderful music for all!</div>
-    </div>
 </div>
+
+<!--Footer-->
+<nav class="navbar navbar-dark bg-dark">
+    <div class="text-center" style="color: #ffffff;">&reg; 2017 Internet-shop "GuitarShop&trade;" - wonderful music for all!</div>
+</nav>
 
 <script src="../lib/jquery-3.2.1.min.js"></script>
 <script src="../lib/popper.js-1.12.5/dist/umd/popper.min.js"></script>

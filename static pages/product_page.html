@@ -6,6 +6,7 @@
     <title>Product page</title>
     <link rel="stylesheet" href="../lib/bootstrap-4.0.0-beta-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../lib/open-iconic-master/font/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -35,6 +36,7 @@
 </nav>
 
 <div class="container-fluid">
+    <!--Breadcrumb-->
     <div class="row">
         <nav class="breadcrumb w-100" style="border-radius: 0">
             <a class="breadcrumb-item" href="#">Home</a>
@@ -43,26 +45,41 @@
             <span class="breadcrumb-item active">Gibson</span>
         </nav>
     </div>
+
+    <!--Product name-->
     <div class="row">
-        <div class="col-auto">
+        <div class="col-12">
             <h1>Gibson Les Paul</h1>
         </div>
     </div>
+
     <div class="row">
-        <div class="col-12">
-            <div class="text-center mb-1" style="font-size: 1.2rem; background-color: #fff3b5;"><strong>1500.00 USD</strong></div>
-            <button type="button" class="btn btn-success btn-block mb-1">Buy</button>
+        <!--Price and Buy button-->
+        <div class="col-12 col-lg-6 order-lg-2 mb-2">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-6 text-center">
+                    <div style="font-size: 1.3rem; background-color: #fff3b5;">
+                        <strong>1500.00 USD</strong>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-6 mb-2">
+                                <button type="button" class="btn btn-success btn-block">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i> Buy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
+        <!--Product info-->
+        <div class="col-12 col-lg-6 order-lg-1">
             <nav class="nav nav-pills flex-column flex-sm-row" role="tablist">
                 <a class="flex-sm-fill text-sm-center nav-link active" href="#overview" data-toggle="tab" role="tab" aria-expanded="true">Overview</a>
                 <a class="flex-sm-fill text-sm-center nav-link" href="#characteristic" data-toggle="tab" role="tab" aria-expanded="false">Characteristic</a>
                 <a class="flex-sm-fill text-sm-center nav-link" href="#photos" data-toggle="tab" role="tab" aria-expanded="false">Photos</a>
                 <a class="flex-sm-fill text-sm-center nav-link" href="#comments" data-toggle="tab" role="tab" aria-expanded="false">Comments</a>
             </nav>
-            <div class="tab-content">
+            <div class="tab-content mt-2">
                 <div class="tab-pane active" id="overview" role="tabpanel">
                     <img src="img/lespaul.jpg" class="w-100">
                     <img src="img/lp1.jpg" class="w-100">
@@ -75,47 +92,47 @@
                 <div class="tab-pane" id="characteristic" role="tabpanel">
                     <table class="table table-sm">
                         <tbody>
-                        <tr>
-                            <td colspan="2" class="table-info text-center"><strong>Construction</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Body type</td>
-                            <td>Solid, Single cut</td>
-                        </tr>
-                        <tr>
-                            <td>Neck joint</td>
-                            <td>Sent-in</td>
-                        </tr>
-                        <tr>
-                            <td>Scale</td>
-                            <td>24.75"</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="table-info text-center"><strong>Woods</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Body</td>
-                            <td>MAhogany, Maple top</td>
-                        </tr>
-                        <tr>
-                            <td>Neck</td>
-                            <td>Mahogany</td>
-                        </tr>
-                        <tr>
-                            <td>Fretboard</td>
-                            <td>Ebony</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" class="table-info text-center"><strong>Hardware</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Bridge</td>
-                            <td>Tune-o-matic</td>
-                        </tr>
-                        <tr>
-                            <td>Pickup(s)</td>
-                            <td>A Burstbucker 3 humbucker at the bridge, P-90H at the neck, and a piezoelectric built into the bridge.</td>
-                        </tr>
+                            <tr>
+                                <td colspan="2" class="table-info text-center"><strong>Construction</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-4">Body type</td>
+                                <td class="d-inline-block col-8">Solid, Single cut</td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-4">Neck joint</td>
+                                <td class="d-inline-block col-8">Sent-in</td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-4">Scale</td>
+                                <td class="d-inline-block col-8">24.75"</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="table-info text-center"><strong>Woods</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-4">Body</td>
+                                <td class="d-inline-block col-8">Mahogany, Maple top</td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-4">Neck</td>
+                                <td class="d-inline-block col-8">Mahogany</td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-4">Fretboard</td>
+                                <td class="d-inline-block col-8">Ebony</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="table-info text-center"><strong>Hardware</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-4">Bridge</td>
+                                <td class="d-inline-block col-8">Tune-o-matic</td>
+                            </tr>
+                            <tr>
+                                <td class="d-inline-block col-4">Pickup(s)</td>
+                                <td class="d-inline-block col-8">A Burstbucker 3 humbucker at the bridge, P-90H at the neck, and a piezoelectric built into the bridge.</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -157,6 +174,11 @@
         </div>
     </div>
 </div>
+
+<!--Footer-->
+<nav class="navbar navbar-dark bg-dark">
+    <div class="text-center" style="color: #ffffff;">&reg; 2017 Internet-shop "GuitarShop&trade;" - wonderful music for all!</div>
+</nav>
 
 <script src="../lib/jquery-3.2.1.min.js"></script>
 <script src="../lib/popper.js-1.12.5/dist/umd/popper.min.js"></script>
