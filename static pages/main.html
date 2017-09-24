@@ -9,7 +9,8 @@
     <style>
         .customCard {
             margin-bottom: 10px;
-        }
+            width: 250px;
+            margin-right: 10px;        }
         .customLink {
             display: inline-block;
         }
@@ -19,6 +20,12 @@
         .priceButton {
             padding-left: 20px;
             padding-right: 20px;
+        }
+
+        @media only screen and (max-width: 500px) {
+            .customCard {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -104,9 +111,11 @@
 </nav>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <button type="button" class="btn btn-lg btn-block" data-toggle="modal" data-target="#basketModal" style="background-color: #007bff; color: #fff; margin-top: 15px;">
+    <!--Categories and products items-->
+    <div class="row" style="margin-top: 15px;">
+        <!--Basket-->
+        <div class="col-12 col-md-2 order-lg-3">
+            <button type="button" class="btn btn-lg btn-block" data-toggle="modal" data-target="#basketModal" style="background-color: #007bff; color: #fff;">
                 Basket <img src="../lib/glyph-iconset-master/svg/si-glyph-trolley-2.svg" style="width: 25px; height: 25px; color: #fff;"/>
                 <span class="badge badge-success">3</span>
             </button>
@@ -121,9 +130,6 @@
                             </button>
                         </div>
                         <div class="modal-body">
-
-
-
 
                             <div class="productItem" style="margin-bottom: 15px;">
                                 <div class="row">
@@ -182,11 +188,9 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row" style="margin-top: 15px;">
-        <div class="col-12 col-md-3" id="sidebar-left">
-            <ul class="list-group" id="list-tab" role="tablist">
+        <!--Categories-->
+        <div class="col-12 col-md-2 order-lg-1" id="sidebar-left">
+            <div class="list-group" id="list-tab" role="tablist">
                 <a href="#listCollapseGuitar" class="list-group-item list-group-item-success list-group-item-action" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Guitars <span class="oi oi-chevron-bottom float-right"></span></a>
                 <div class="collapse" id="listCollapseGuitar">
                     <a href="#" class="list-group-item list-group-item-action">Acoustic</a>
@@ -224,12 +228,13 @@
                     <a href="#" class="list-group-item list-group-item-action">Horus</a>
                 </div>
                 <a href="#" class="list-group-item list-group-item-success list-group-item-action">Picks</a>
-            </ul>
+            </div>
         </div>
-        <div class="col-12 col-md-9" id="products">
+        <!--Products items-->
+        <div class="col-12 col-md-8 order-lg-2" id="products">
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="card customCard" style="margin-top: 15px;">
+                <div class="col-sm-12 d-flex flex-wrap justify-content-center justify-content-lg-start">
+                    <div class="card customCard">
                         <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
                         <div class="card-body">
                             <h3 class="card-title">Gibson Les Paul</h3>
@@ -246,25 +251,88 @@
                             <span class="productPrice">$100.0</span>
                             <a href="#" class="btn btn-success float-right priceButton">Buy</a>
                         </div>
-                    </div><div class="card customCard">
-                    <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
-                    <div class="card-body">
-                        <h3 class="card-title">Gibson Les Paul</h3>
-                        <p class="card-text">Some text quickly writing by me. Very important information.</p>
-                        <span class="productPrice">$100.0</span>
-                        <a href="#" class="btn btn-success float-right priceButton">Buy</a>
                     </div>
-                </div>
+                    <div class="card customCard">
+                        <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
+                        <div class="card-body">
+                            <h3 class="card-title">Gibson Les Paul</h3>
+                            <p class="card-text">Some text quickly writing by me. Very important information.</p>
+                            <span class="productPrice">$100.0</span>
+                            <a href="#" class="btn btn-success float-right priceButton">Buy</a>
+                        </div>
+                    </div>
+                    <div class="card customCard">
+                        <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
+                        <div class="card-body">
+                            <h3 class="card-title">Gibson Les Paul</h3>
+                            <p class="card-text">Some text quickly writing by me. Very important information.</p>
+                            <span class="productPrice">$100.0</span>
+                            <a href="#" class="btn btn-success float-right priceButton">Buy</a>
+                        </div>
+                    </div>
+                    <div class="card customCard">
+                        <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
+                        <div class="card-body">
+                            <h3 class="card-title">Gibson Les Paul</h3>
+                            <p class="card-text">Some text quickly writing by me. Very important information.</p>
+                            <span class="productPrice">$100.0</span>
+                            <a href="#" class="btn btn-success float-right priceButton">Buy</a>
+                        </div>
+                    </div>
+                    <div class="card customCard">
+                        <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
+                        <div class="card-body">
+                            <h3 class="card-title">Gibson Les Paul</h3>
+                            <p class="card-text">Some text quickly writing by me. Very important information.</p>
+                            <span class="productPrice">$100.0</span>
+                            <a href="#" class="btn btn-success float-right priceButton">Buy</a>
+                        </div>
+                    </div>
+                    <div class="card customCard">
+                        <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
+                        <div class="card-body">
+                            <h3 class="card-title">Gibson Les Paul</h3>
+                            <p class="card-text">Some text quickly writing by me. Very important information.</p>
+                            <span class="productPrice">$100.0</span>
+                            <a href="#" class="btn btn-success float-right priceButton">Buy</a>
+                        </div>
+                    </div>
+                    <div class="card customCard">
+                        <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
+                        <div class="card-body">
+                            <h3 class="card-title">Gibson Les Paul</h3>
+                            <p class="card-text">Some text quickly writing by me. Very important information.</p>
+                            <span class="productPrice">$100.0</span>
+                            <a href="#" class="btn btn-success float-right priceButton">Buy</a>
+                        </div>
+                    </div>
+                    <div class="card customCard">
+                        <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
+                        <div class="card-body">
+                            <h3 class="card-title">Gibson Les Paul</h3>
+                            <p class="card-text">Some text quickly writing by me. Very important information.</p>
+                            <span class="productPrice">$100.0</span>
+                            <a href="#" class="btn btn-success float-right priceButton">Buy</a>
+                        </div>
+                    </div>
+                    <div class="card customCard">
+                        <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
+                        <div class="card-body">
+                            <h3 class="card-title">Gibson Les Paul</h3>
+                            <p class="card-text">Some text quickly writing by me. Very important information.</p>
+                            <span class="productPrice">$100.0</span>
+                            <a href="#" class="btn btn-success float-right priceButton">Buy</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
-<nav class="navbar navbar-dark bg-dark" id="footer">
-    <h4 class="text-white">Footer</h4>
-    <span class="text-muted">Some very useful information</span>
+<!--Footer-->
+<nav class="navbar navbar-dark bg-dark">
+    <div class="text-center" style="color: #ffffff;">&reg; 2017 Internet-shop "GuitarShop&trade;" - wonderful music for all!</div>
 </nav>
 
 <script src="../lib/jquery-3.2.1.min.js"></script>
