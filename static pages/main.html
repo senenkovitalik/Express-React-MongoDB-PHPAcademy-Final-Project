@@ -7,10 +7,6 @@
     <link rel="stylesheet" href="../lib/bootstrap-4.0.0-beta-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../lib/open-iconic-master/font/css/open-iconic-bootstrap.min.css">
     <style>
-        .customCard {
-            margin-bottom: 10px;
-            width: 250px;
-            margin-right: 10px;        }
         .customLink {
             display: inline-block;
         }
@@ -22,21 +18,83 @@
             padding-right: 20px;
         }
 
-        @media only screen and (max-width: 500px) {
+        #signupModal .form-control {
+            width: 100%;
+        }
+
+        @media only screen and (min-width: 1200px) {
+            #products-list {
+                margin-bottom: 10px;
+            }
+            .card {
+                width: 33%;
+                margin-bottom: 1px;
+            }
+            #products-list {
+                justify-content: space-between;
+            }
+        }
+
+        @media only screen and (max-width: 1199px) {
+            #products-list {
+                margin-bottom: 10px;
+            }
+            .card {
+                width: 49.5%;
+                margin-bottom: 2px;
+            }
+            #products-list {
+                justify-content: space-between;
+            }
+        }
+
+        @media only screen and (max-width: 991px) {
+            .card {
+                width: 100%;
+            }
+        }
+
+        @media only screen and (max-width: 767px) {
+            .customCard {
+                width: 49.5%;
+            }
+            #basketButton {
+                margin-bottom: 5px;
+            }
+            #categories {
+                margin-bottom: 5px;
+            }
+            .card {
+                margin-bottom: 2px;
+            }
+            #products-list {
+                justify-content: space-between;
+            }
+        }
+
+        @media only screen and (max-width: 575px) {
             .customCard {
                 width: 100%;
+            }
+            #basketButton {
+                margin-bottom: 5px;
+            }
+            #categories {
+                margin-bottom: 5px;
+            }
+            .card {
+                margin-bottom: 2px;
             }
         }
     </style>
 </head>
 <body style="background-color: orange;">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-xl navbar-dark bg-dark">
     <a class="navbar-brand" href="#">GuitarShop</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
@@ -49,7 +107,7 @@
                 <a class="nav-link customLink active" href="#">EN</a><span style="color: #fff;">&#x2F;</span><a href="#" class="nav-link customLink">UA</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <form class="form-inline my-2 my-lg-0 flex-wrap">
             <label for="login" style="color: white; margin-right: 10px;">Login</label>
             <input id="login" class="form-control mr-sm-2" type="text" placeholder="Login, email or phone number" aria-label="Login">
             <label for="passwr" style="color: white; margin-right: 10px;">Password</label>
@@ -69,25 +127,13 @@
                         <div class="modal-body">
                             <form>
                                 <div class="form-group">
-                                    <label for="username">Name</label>
-                                    <input type="text" class="form-control form-control-sm" id="username" placeholder="Name" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="surname">Surname</label>
-                                    <input type="text" class="form-control form-control-sm" id="surname" placeholder="Surname" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="age">Age</label>
-                                    <input type="text" class="form-control form-control-sm" id="age" placeholder="Age" />
+                                    <label for="username">Login</label>
+                                    <input type="text" class="form-control form-control-sm" id="username" placeholder="Login" />
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input type="email" class="form-control form-control-sm" id="email" placeholder="name@example.com" />
                                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone">Phone number</label>
-                                    <input type="tel" class="form-control form-control-sm" id="phone" placeholder="Mobile phone number" />
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
@@ -114,8 +160,8 @@
     <!--Categories and products items-->
     <div class="row" style="margin-top: 15px;">
         <!--Basket-->
-        <div class="col-12 col-md-2 order-lg-3">
-            <button type="button" class="btn btn-lg btn-block" data-toggle="modal" data-target="#basketModal" style="background-color: #007bff; color: #fff;">
+        <div class="col-12 col-md-3 col-lg-2 order-md-3">
+            <button type="button" class="btn btn-lg btn-block" id="basketButton" data-toggle="modal" data-target="#basketModal" style="background-color: #007bff; color: #fff;">
                 Basket <img src="../lib/glyph-iconset-master/svg/si-glyph-trolley-2.svg" style="width: 25px; height: 25px; color: #fff;"/>
                 <span class="badge badge-success">3</span>
             </button>
@@ -131,17 +177,20 @@
                         </div>
                         <div class="modal-body">
 
-                            <div class="productItem" style="margin-bottom: 15px;">
+                            <div class="productItem mb-2">
                                 <div class="row">
-                                    <div class="col-5">
+                                    <div class="col-1 p-0 pl-1 d-flex flex-row align-items-center">
+                                        <button type="button" class="btn btn-outline-danger" style="border-radius: 50%; padding: .1rem .4rem">&times;</button>
+                                    </div>
+                                    <div class="col-5 pl-1">
                                         <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
                                     </div>
-                                    <div class="col-7" style="padding-left: 0;">
+                                    <div class="col-6" style="padding-left: 0;">
                                         <p>
                                             <strong>Gibson Les Paul</strong><br>
                                             <span style="background-color: #fff3b5; padding: 6px 5px 5px">$100.0</span>
                                         </p>
-                                        <button type="button" class="btn btn-outline-danger" style="position: absolute; top: 30%; right: 15px; border-radius: 50%; padding: .1rem .4rem">&times;</button>
+
                                         <div class="d-flex flex-row justify-content-between">
                                             <div>
                                                 <span style="margin-right: 5px;">&#x2B;</span>
@@ -156,17 +205,20 @@
 
                             <hr />
 
-                            <div class="productItem" style="margin-bottom: 15px;">
+                            <div class="productItem mb-2">
                                 <div class="row">
-                                    <div class="col-5">
+                                    <div class="col-1 p-sm-0 pl-sm-1 d-flex flex-row align-items-center">
+                                        <button type="button" class="btn btn-outline-danger" style="border-radius: 50%; padding: .1rem .4rem">&times;</button>
+                                    </div>
+                                    <div class="col-5 pl-sm-1">
                                         <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
                                     </div>
-                                    <div class="col-7" style="padding-left: 0;">
+                                    <div class="col-6" style="padding-left: 0;">
                                         <p>
                                             <strong>Gibson Les Paul</strong><br>
                                             <span style="background-color: #fff3b5; padding: 6px 5px 5px">$100.0</span>
                                         </p>
-                                        <button type="button" class="btn btn-outline-danger" style="position: absolute; top: 30%; right: 15px; border-radius: 50%; padding: .1rem .4rem">&times;</button>
+
                                         <div class="d-flex flex-row justify-content-between">
                                             <div>
                                                 <span style="margin-right: 5px;">&#x2B;</span>
@@ -189,7 +241,7 @@
             </div>
         </div>
         <!--Categories-->
-        <div class="col-12 col-md-2 order-lg-1" id="sidebar-left">
+        <div class="col-12 col-md-3 col-lg-2 order-md-1" id="categories">
             <div class="list-group" id="list-tab" role="tablist">
                 <a href="#listCollapseGuitar" class="list-group-item list-group-item-success list-group-item-action" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Guitars <span class="oi oi-chevron-bottom float-right"></span></a>
                 <div class="collapse" id="listCollapseGuitar">
@@ -231,9 +283,9 @@
             </div>
         </div>
         <!--Products items-->
-        <div class="col-12 col-md-8 order-lg-2" id="products">
+        <div class="col-12 col-md-6 col-lg-8 order-md-2">
             <div class="row">
-                <div class="col-sm-12 d-flex flex-wrap justify-content-center justify-content-lg-start">
+                <div class="col-sm-12 d-flex flex-wrap" id="products-list">
                     <div class="card customCard">
                         <img class="card-img-top" src="../static%20pages/img/lespaul.jpg" alt="Card image">
                         <div class="card-body">
