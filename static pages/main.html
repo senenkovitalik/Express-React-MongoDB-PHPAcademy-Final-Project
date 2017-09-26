@@ -37,8 +37,11 @@
         }
 
         @media only screen and (max-width: 1199px) {
-            #products-list {
-                margin-bottom: 10px;
+            #categories {
+                font-size: smaller;
+            }
+            #basketButton {
+                font-size: smaller;
             }
             .card {
                 width: 49.5%;
@@ -46,10 +49,17 @@
             }
             #products-list {
                 justify-content: space-between;
+                margin-bottom: 10px;
             }
         }
 
         @media only screen and (max-width: 991px) {
+            #basketButton {
+                font-size: smaller;
+            }
+            #categories {
+                font-size: smaller;
+            }
             .card {
                 width: 100%;
             }
@@ -177,7 +187,6 @@
                             </button>
                         </div>
                         <div class="modal-body">
-
                             <div class="productItem mb-2">
                                 <div class="row">
                                     <div class="col-6">
@@ -237,7 +246,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
