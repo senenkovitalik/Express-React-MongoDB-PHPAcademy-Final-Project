@@ -2394,23 +2394,23 @@ var _home = __webpack_require__(77);
 
 var _home2 = _interopRequireDefault(_home);
 
-var _product = __webpack_require__(85);
+var _product = __webpack_require__(79);
 
 var _product2 = _interopRequireDefault(_product);
 
-var _order_processing = __webpack_require__(86);
+var _order_processing = __webpack_require__(80);
 
 var _order_processing2 = _interopRequireDefault(_order_processing);
 
-var _header = __webpack_require__(87);
+var _header = __webpack_require__(81);
 
 var _header2 = _interopRequireDefault(_header);
 
-var _contact_us = __webpack_require__(88);
+var _contact_us = __webpack_require__(82);
 
 var _contact_us2 = _interopRequireDefault(_contact_us);
 
-var _footer = __webpack_require__(89);
+var _footer = __webpack_require__(83);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -25662,18 +25662,6 @@ var _product_item = __webpack_require__(78);
 
 var _product_item2 = _interopRequireDefault(_product_item);
 
-var _basket = __webpack_require__(79);
-
-var _basket2 = _interopRequireDefault(_basket);
-
-var _categories = __webpack_require__(83);
-
-var _categories2 = _interopRequireDefault(_categories);
-
-var _products_list = __webpack_require__(84);
-
-var _products_list2 = _interopRequireDefault(_products_list);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25743,9 +25731,319 @@ var Home = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'row', style: { marginTop: 15 + 'px' } },
-          _react2.default.createElement(_basket2.default, null),
-          _react2.default.createElement(_categories2.default, null),
-          _react2.default.createElement(_products_list2.default, { prodItems: productItems })
+          _react2.default.createElement(
+            'div',
+            { className: 'col-12 col-md-3 col-lg-2 order-md-3' },
+            _react2.default.createElement(
+              'button',
+              { type: 'button', className: 'btn btn-lg btn-block', id: 'basketButton', 'data-toggle': 'modal', 'data-target': '#basketModal', style: { backgroundColor: '#007bff', color: '#fff' } },
+              'Basket ',
+              _react2.default.createElement('img', { src: 'glyph-iconset-master/svg/si-glyph-trolley-2.svg', style: { width: 25 + 'px', height: 25 + 'px', color: '#fff' } }),
+              _react2.default.createElement(
+                'span',
+                { className: 'badge badge-success' },
+                '3'
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'modal fade', id: 'basketModal', tabIndex: '-1', role: 'dialog' },
+              _react2.default.createElement(
+                'div',
+                { className: 'modal-dialog', role: 'document' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'modal-content' },
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'modal-header' },
+                    _react2.default.createElement(
+                      'h5',
+                      { className: 'modal-title' },
+                      'Basket'
+                    ),
+                    _react2.default.createElement(
+                      'button',
+                      { type: 'button', className: 'close', 'data-dismiss': 'modal' },
+                      _react2.default.createElement(
+                        'span',
+                        null,
+                        '\xD7'
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'modal-body' },
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'productItem mb-2' },
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'row' },
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'col-6' },
+                          _react2.default.createElement('img', { className: 'card-img-top', src: 'img/lespaul.jpg', alt: 'Card image' })
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'col-6 pl-0 d-flex flex-column justify-content-between' },
+                          _react2.default.createElement(
+                            'div',
+                            null,
+                            _react2.default.createElement(
+                              'p',
+                              { className: 'mb-0' },
+                              _react2.default.createElement(
+                                'strong',
+                                null,
+                                'Gibson Les Paul'
+                              ),
+                              _react2.default.createElement('br', null),
+                              _react2.default.createElement(
+                                'span',
+                                { style: { backgroundColor: '#fff3b5', padding: '6px 5px 5px' } },
+                                '$100.0'
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            'div',
+                            { className: 'd-flex flex-row justify-content-between' },
+                            _react2.default.createElement(
+                              'div',
+                              null,
+                              _react2.default.createElement(
+                                'span',
+                                { style: { marginRight: 5 + 'px' } },
+                                '+'
+                              ),
+                              _react2.default.createElement('input', { type: 'number', className: 'form-control form-control-sm d-inline', style: { width: 50 + 'px', textAlign: 'center' }, defaultValue: 1 }),
+                              _react2.default.createElement(
+                                'span',
+                                { style: { marginLeft: 5 + 'px' } },
+                                '&#X2D;'
+                              )
+                            ),
+                            _react2.default.createElement(
+                              'div',
+                              null,
+                              _react2.default.createElement(
+                                'span',
+                                { className: 'align-middle' },
+                                '$100.0'
+                              )
+                            )
+                          ),
+                          _react2.default.createElement(
+                            'div',
+                            { className: 'd-flex flex-row justify-content-end' },
+                            _react2.default.createElement(
+                              'button',
+                              { className: 'btn btn-sm btn-danger' },
+                              _react2.default.createElement('i', { className: 'fa fa-trash-o', 'aria-hidden': 'true' })
+                            )
+                          )
+                        )
+                      )
+                    ),
+                    _react2.default.createElement('hr', null)
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'modal-footer' },
+                    _react2.default.createElement(
+                      'button',
+                      { type: 'button', className: 'btn btn-secondary', 'data-dismiss': 'modal' },
+                      'Cancel'
+                    ),
+                    _react2.default.createElement(
+                      'button',
+                      { type: 'button', className: 'btn btn-primary' },
+                      'To order'
+                    )
+                  )
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col-12 col-md-3 col-lg-2 order-md-1', id: 'categories' },
+            _react2.default.createElement(
+              'div',
+              { className: 'list-group', id: 'list-tab', role: 'tablist' },
+              _react2.default.createElement(
+                'a',
+                { href: '#listCollapseGuitar', className: 'list-group-item list-group-item-success list-group-item-action', 'data-toggle': 'collapse', 'aria-expanded': 'false', 'aria-controls': 'collapseExample' },
+                'Guitars ',
+                _react2.default.createElement('span', { className: 'oi oi-chevron-bottom float-right' })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'collapse', id: 'listCollapseGuitar' },
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Acoustic'
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Electric'
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Bass'
+                )
+              ),
+              _react2.default.createElement(
+                'a',
+                { href: '#listCollapseCombo', className: 'list-group-item list-group-item-success list-group-item-action', 'data-toggle': 'collapse', 'aria-expanded': 'false', 'aria-controls': 'collapseExample' },
+                'Combos ',
+                _react2.default.createElement('span', { className: 'oi oi-chevron-bottom float-right' })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'collapse', id: 'listCollapseCombo' },
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Transistor'
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Lamp'
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Hybrid'
+                )
+              ),
+              _react2.default.createElement(
+                'a',
+                { href: '#listCollapseAmp', className: 'list-group-item list-group-item-success list-group-item-action', 'data-toggle': 'collapse', 'aria-expanded': 'false', 'aria-controls': 'collapseExample' },
+                'Amps ',
+                _react2.default.createElement('span', { className: 'oi oi-chevron-bottom float-right' })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'collapse', id: 'listCollapseAmp' },
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Transistor'
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Lamp'
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Hybrid'
+                )
+              ),
+              _react2.default.createElement(
+                'a',
+                { href: '#', className: 'list-group-item list-group-item-success list-group-item-action' },
+                'Cabinets'
+              ),
+              _react2.default.createElement(
+                'a',
+                { href: '#listCollapseEffect', className: 'list-group-item list-group-item-success list-group-item-action', 'data-toggle': 'collapse', 'aria-expanded': 'false', 'aria-controls': 'collapseExample' },
+                'Effects ',
+                _react2.default.createElement('span', { className: 'oi oi-chevron-bottom float-right' })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'collapse', id: 'listCollapseEffect' },
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Distortion'
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Delay'
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Reverb'
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Wah-Wah'
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Horus'
+                )
+              ),
+              _react2.default.createElement(
+                'a',
+                { href: '#listCollapseString', className: 'list-group-item list-group-item-success list-group-item-action', 'data-toggle': 'collapse', 'aria-expanded': 'false', 'aria-controls': 'collapseExample' },
+                'Strings ',
+                _react2.default.createElement('span', { className: 'oi oi-chevron-bottom float-right' })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'collapse', id: 'listCollapseString' },
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Distortion'
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Delay'
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Reverb'
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Wah-Wah'
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { href: '#', className: 'list-group-item list-group-item-action' },
+                  'Horus'
+                )
+              ),
+              _react2.default.createElement(
+                'a',
+                { href: '#', className: 'list-group-item list-group-item-success list-group-item-action' },
+                'Picks'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col-12 col-md-6 col-lg-8 order-md-2' },
+            _react2.default.createElement(
+              'div',
+              { className: 'row' },
+              _react2.default.createElement(
+                'div',
+                { className: 'col-sm-12 d-flex flex-wrap', id: 'products-list' },
+                productItems
+              )
+            )
+          )
         )
       );
     }
@@ -25832,648 +26130,6 @@ exports.default = ProductItem;
 
 /***/ }),
 /* 79 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _basket_button = __webpack_require__(80);
-
-var _basket_button2 = _interopRequireDefault(_basket_button);
-
-var _basket_window = __webpack_require__(81);
-
-var _basket_window2 = _interopRequireDefault(_basket_window);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Basket = function (_React$Component) {
-  _inherits(Basket, _React$Component);
-
-  function Basket(props) {
-    _classCallCheck(this, Basket);
-
-    return _possibleConstructorReturn(this, (Basket.__proto__ || Object.getPrototypeOf(Basket)).call(this, props));
-  }
-
-  _createClass(Basket, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "div",
-        { className: "col-12 col-md-3 col-lg-2 order-md-3" },
-        _react2.default.createElement(_basket_button2.default, null),
-        _react2.default.createElement(_basket_window2.default, null)
-      );
-    }
-  }]);
-
-  return Basket;
-}(_react2.default.Component);
-
-exports.default = Basket;
-
-/***/ }),
-/* 80 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BasketButton = function (_React$Component) {
-  _inherits(BasketButton, _React$Component);
-
-  function BasketButton() {
-    _classCallCheck(this, BasketButton);
-
-    return _possibleConstructorReturn(this, (BasketButton.__proto__ || Object.getPrototypeOf(BasketButton)).apply(this, arguments));
-  }
-
-  _createClass(BasketButton, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "button",
-        { type: "button", className: "btn btn-lg btn-block", id: "basketButton", "data-toggle": "modal", "data-target": "#basketModal", style: { backgroundColor: '#007bff', color: '#fff' } },
-        "Basket ",
-        _react2.default.createElement("img", { src: "glyph-iconset-master/svg/si-glyph-trolley-2.svg", style: { width: 25 + 'px', height: 25 + 'px', color: '#fff' } }),
-        _react2.default.createElement(
-          "span",
-          { className: "badge badge-success" },
-          "3"
-        )
-      );
-    }
-  }]);
-
-  return BasketButton;
-}(_react2.default.Component);
-
-exports.default = BasketButton;
-
-/***/ }),
-/* 81 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _basket_product_item = __webpack_require__(82);
-
-var _basket_product_item2 = _interopRequireDefault(_basket_product_item);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BasketWindow = function (_React$Component) {
-  _inherits(BasketWindow, _React$Component);
-
-  function BasketWindow() {
-    _classCallCheck(this, BasketWindow);
-
-    return _possibleConstructorReturn(this, (BasketWindow.__proto__ || Object.getPrototypeOf(BasketWindow)).apply(this, arguments));
-  }
-
-  _createClass(BasketWindow, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "div",
-        { className: "modal fade", id: "basketModal", tabIndex: "-1", role: "dialog" },
-        _react2.default.createElement(
-          "div",
-          { className: "modal-dialog", role: "document" },
-          _react2.default.createElement(
-            "div",
-            { className: "modal-content" },
-            _react2.default.createElement(
-              "div",
-              { className: "modal-header" },
-              _react2.default.createElement(
-                "h5",
-                { className: "modal-title" },
-                "Basket"
-              ),
-              _react2.default.createElement(
-                "button",
-                { type: "button", className: "close", "data-dismiss": "modal" },
-                _react2.default.createElement(
-                  "span",
-                  null,
-                  "\xD7"
-                )
-              )
-            ),
-            _react2.default.createElement(
-              "div",
-              { className: "modal-body" },
-              _react2.default.createElement(_basket_product_item2.default, { img: "img/lespaul.jpg", name: "Gibson Les Paul", price: "100" }),
-              _react2.default.createElement("hr", null)
-            ),
-            _react2.default.createElement(
-              "div",
-              { className: "modal-footer" },
-              _react2.default.createElement(
-                "button",
-                { type: "button", className: "btn btn-secondary", "data-dismiss": "modal" },
-                "Cancel"
-              ),
-              _react2.default.createElement(
-                "button",
-                { type: "button", className: "btn btn-primary" },
-                "To order"
-              )
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return BasketWindow;
-}(_react2.default.Component);
-
-exports.default = BasketWindow;
-
-/***/ }),
-/* 82 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BasketProductItem = function (_React$Component) {
-  _inherits(BasketProductItem, _React$Component);
-
-  function BasketProductItem(props) {
-    _classCallCheck(this, BasketProductItem);
-
-    var _this = _possibleConstructorReturn(this, (BasketProductItem.__proto__ || Object.getPrototypeOf(BasketProductItem)).call(this, props));
-
-    _this.state = {
-      count: 1,
-      total: 0
-    };
-
-    _this.handleClick = _this.handleClick.bind(_this);
-    _this.handleChange = _this.handleChange.bind(_this);
-    return _this;
-  }
-
-  _createClass(BasketProductItem, [{
-    key: 'handleClick',
-    value: function handleClick(arg) {
-      switch (arg) {
-        case 'plus':
-          this.setState({
-            count: this.state.count + 1,
-            total: this.state.count * this.props.price
-          });
-          break;
-        case 'minus':
-          if (this.state.count > 1) this.setState({
-            count: this.state.count - 1,
-            total: this.state.count * this.props.price
-          });
-          break;
-      }
-    }
-  }, {
-    key: 'handleChange',
-    value: function handleChange(e) {
-      this.setState({ count: e.target.value });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'productItem mb-2' },
-        _react2.default.createElement(
-          'div',
-          { className: 'row' },
-          _react2.default.createElement(
-            'div',
-            { className: 'col-6' },
-            _react2.default.createElement('img', { className: 'card-img-top', src: this.props.img, alt: this.props.name })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'col-6 pl-0 d-flex flex-column justify-content-between' },
-            _react2.default.createElement(
-              'div',
-              null,
-              _react2.default.createElement(
-                'p',
-                { className: 'mb-0' },
-                _react2.default.createElement(
-                  'strong',
-                  null,
-                  this.props.name
-                ),
-                _react2.default.createElement('br', null),
-                _react2.default.createElement(
-                  'span',
-                  { style: { backgroundColor: '#fff3b5', padding: '6px 5px 5px' } },
-                  this.props.price
-                )
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'd-flex flex-row justify-content-between' },
-              _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                  'a',
-                  { onClick: function onClick() {
-                      return _this2.handleClick('plus');
-                    }, href: '#', style: { marginRight: 5 + 'px' } },
-                  '+'
-                ),
-                _react2.default.createElement('input', {
-                  value: this.state.count,
-                  onChange: this.handleChange,
-                  type: 'text',
-                  className: 'form-control form-control-sm d-inline',
-                  style: { width: 50 + 'px', textAlign: 'center' }
-                }),
-                _react2.default.createElement(
-                  'a',
-                  { onClick: function onClick() {
-                      return _this2.handleClick('minus');
-                    }, href: '#', style: { marginLeft: 5 + 'px' } },
-                  '-'
-                )
-              ),
-              _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                  'span',
-                  { className: 'align-middle' },
-                  this.state.total
-                )
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'd-flex flex-row justify-content-end' },
-              _react2.default.createElement(
-                'button',
-                { className: 'btn btn-sm btn-danger' },
-                _react2.default.createElement('i', { className: 'fa fa-trash-o', 'aria-hidden': 'true' })
-              )
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return BasketProductItem;
-}(_react2.default.Component);
-
-exports.default = BasketProductItem;
-
-/***/ }),
-/* 83 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Categories = function (_React$Component) {
-  _inherits(Categories, _React$Component);
-
-  function Categories(props) {
-    _classCallCheck(this, Categories);
-
-    return _possibleConstructorReturn(this, (Categories.__proto__ || Object.getPrototypeOf(Categories)).call(this, props));
-  }
-
-  _createClass(Categories, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "div",
-        { className: "col-12 col-md-3 col-lg-2 order-md-1", id: "categories" },
-        _react2.default.createElement(
-          "div",
-          { className: "list-group", id: "list-tab", role: "tablist" },
-          _react2.default.createElement(
-            "a",
-            { href: "#listCollapseGuitar", className: "list-group-item list-group-item-success list-group-item-action", "data-toggle": "collapse", "aria-expanded": "false", "aria-controls": "collapseExample" },
-            "Guitars ",
-            _react2.default.createElement("span", { className: "oi oi-chevron-bottom float-right" })
-          ),
-          _react2.default.createElement(
-            "div",
-            { className: "collapse", id: "listCollapseGuitar" },
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Acoustic"
-            ),
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Electric"
-            ),
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Bass"
-            )
-          ),
-          _react2.default.createElement(
-            "a",
-            { href: "#listCollapseCombo", className: "list-group-item list-group-item-success list-group-item-action", "data-toggle": "collapse", "aria-expanded": "false", "aria-controls": "collapseExample" },
-            "Combos ",
-            _react2.default.createElement("span", { className: "oi oi-chevron-bottom float-right" })
-          ),
-          _react2.default.createElement(
-            "div",
-            { className: "collapse", id: "listCollapseCombo" },
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Transistor"
-            ),
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Lamp"
-            ),
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Hybrid"
-            )
-          ),
-          _react2.default.createElement(
-            "a",
-            { href: "#listCollapseAmp", className: "list-group-item list-group-item-success list-group-item-action", "data-toggle": "collapse", "aria-expanded": "false", "aria-controls": "collapseExample" },
-            "Amps ",
-            _react2.default.createElement("span", { className: "oi oi-chevron-bottom float-right" })
-          ),
-          _react2.default.createElement(
-            "div",
-            { className: "collapse", id: "listCollapseAmp" },
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Transistor"
-            ),
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Lamp"
-            ),
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Hybrid"
-            )
-          ),
-          _react2.default.createElement(
-            "a",
-            { href: "#", className: "list-group-item list-group-item-success list-group-item-action" },
-            "Cabinets"
-          ),
-          _react2.default.createElement(
-            "a",
-            { href: "#listCollapseEffect", className: "list-group-item list-group-item-success list-group-item-action", "data-toggle": "collapse", "aria-expanded": "false", "aria-controls": "collapseExample" },
-            "Effects ",
-            _react2.default.createElement("span", { className: "oi oi-chevron-bottom float-right" })
-          ),
-          _react2.default.createElement(
-            "div",
-            { className: "collapse", id: "listCollapseEffect" },
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Distortion"
-            ),
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Delay"
-            ),
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Reverb"
-            ),
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Wah-Wah"
-            ),
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Horus"
-            )
-          ),
-          _react2.default.createElement(
-            "a",
-            { href: "#listCollapseString", className: "list-group-item list-group-item-success list-group-item-action", "data-toggle": "collapse", "aria-expanded": "false", "aria-controls": "collapseExample" },
-            "Strings ",
-            _react2.default.createElement("span", { className: "oi oi-chevron-bottom float-right" })
-          ),
-          _react2.default.createElement(
-            "div",
-            { className: "collapse", id: "listCollapseString" },
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Distortion"
-            ),
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Delay"
-            ),
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Reverb"
-            ),
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Wah-Wah"
-            ),
-            _react2.default.createElement(
-              "a",
-              { href: "#", className: "list-group-item list-group-item-action" },
-              "Horus"
-            )
-          ),
-          _react2.default.createElement(
-            "a",
-            { href: "#", className: "list-group-item list-group-item-success list-group-item-action" },
-            "Picks"
-          )
-        )
-      );
-    }
-  }]);
-
-  return Categories;
-}(_react2.default.Component);
-
-exports.default = Categories;
-
-/***/ }),
-/* 84 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ProductsList = function (_React$Component) {
-  _inherits(ProductsList, _React$Component);
-
-  function ProductsList(props) {
-    _classCallCheck(this, ProductsList);
-
-    return _possibleConstructorReturn(this, (ProductsList.__proto__ || Object.getPrototypeOf(ProductsList)).call(this, props));
-  }
-
-  _createClass(ProductsList, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "div",
-        { className: "col-12 col-md-6 col-lg-8 order-md-2" },
-        _react2.default.createElement(
-          "div",
-          { className: "row" },
-          _react2.default.createElement(
-            "div",
-            { className: "col-sm-12 d-flex flex-wrap", id: "products-list" },
-            this.props.prodItems
-          )
-        )
-      );
-    }
-  }]);
-
-  return ProductsList;
-}(_react2.default.Component);
-
-exports.default = ProductsList;
-
-/***/ }),
-/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26930,7 +26586,7 @@ var Product = function (_React$Component) {
 exports.default = Product;
 
 /***/ }),
-/* 86 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27380,7 +27036,7 @@ var OrderProcessing = function (_React$Component) {
 exports.default = OrderProcessing;
 
 /***/ }),
-/* 87 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27590,7 +27246,7 @@ var Header = function (_React$Component) {
 exports.default = Header;
 
 /***/ }),
-/* 88 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27690,7 +27346,7 @@ var ContactUs = function (_React$Component) {
 exports.default = ContactUs;
 
 /***/ }),
-/* 89 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

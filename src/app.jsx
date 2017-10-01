@@ -6,7 +6,7 @@ import {
   Link
 } from 'react-router-dom';
 
-import Home from './components/home.jsx';
+import Home from './components/home/home.jsx';
 import Product from './components/product.jsx';
 import OrderProcessing from './components/order_processing.jsx';
 import Header from "./components/header.jsx";
