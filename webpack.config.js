@@ -13,7 +13,7 @@ module.exports = {
   module: {
     // apply loaders to files that meet given conditions
     loaders: [{
-      test: /\.jsx?$/,
+      test: [/\.jsx?$/, 'and', /\.js?$/],
       include: path.join(__dirname, '/src'),
       loader: 'babel-loader',
       query: {

@@ -1,8 +1,8 @@
 import React from 'react';
-import ProductItem from './product_item.jsx';
 import Basket from "./basket/basket.jsx";
 import Categories from "./categories.jsx";
 import ProductsList from "./products_list.jsx";
+import _ from 'lodash';
 
 class Home extends React.Component {
   constructor(props) {
@@ -39,28 +39,33 @@ class Home extends React.Component {
           imgList: ['img/jackhammer.jpg'],
           mainImg: "img/jackhammer.jpg"
         }
-      ]
-    }
+      ],
+      productsToBuy: []
+    };
+
+    this.addProduct = this.addProduct.bind(this);
+    this.removeProduct = this.removeProduct.bind(this);
+  }
+
+  addProduct(product) {
+    this.setState({
+      productsToBuy: _.union(this.state.productsToBuy, [product])
+    });
+  }
+
+  removeProduct(product) {
+    this.setState({
+      productsToBuy: _.without(this.state.productsToBuy, product)
+    });
   }
 
   render() {
-
-    const productItems = this.state.products.map((product, index) => {
-      return <ProductItem
-        key={index}
-        name={product.name}
-        shortDescription={product.shortDescription}
-        price={product.price}
-        img={product.mainImg}
-      />;
-    });
-
     return (
       <div className="container-fluid">
         <div className="row" style={{marginTop: 15+'px'}}>
-          <Basket/>
-          <Categories/>
-          <ProductsList prodItems={productItems} />
+          <Basket products={this.state.productsToBuy} remove={this.removeProduct} />
+          <Categories />
+          <ProductsList products={this.state.products} productsToBuy={this.state.productsToBuy} add={this.addProduct} />
         </div>
       </div>
     )

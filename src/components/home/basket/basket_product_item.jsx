@@ -6,7 +6,7 @@ class BasketProductItem extends React.Component {
 
     this.state = {
       count: 1,
-      total: 0
+      total: this.props.product.price
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -16,17 +16,18 @@ class BasketProductItem extends React.Component {
   handleClick(arg) {
     switch(arg) {
     case 'plus':
-      this.setState({
-        count: this.state.count + 1,
-        total: this.state.count * this.props.price
-      });
+      this.setState((prevState, props) => ({
+        count: prevState.count + 1,
+        total: (prevState.count + 1) * props.product.price
+      }));
       break;
     case 'minus':
-      if (this.state.count > 1)
-        this.setState({
-          count: this.state.count - 1,
-          total: this.state.count * this.props.price
-        });
+      if (this.state.count > 1) {
+        this.setState((prevState, props) => ({
+          count: prevState.count - 1,
+          total: (prevState.count - 1) * props.product.price
+        }));
+      }
       break;
     }
   }
@@ -40,13 +41,13 @@ class BasketProductItem extends React.Component {
       <div className="productItem mb-2">
         <div className="row">
           <div className="col-6">
-            <img className="card-img-top" src={this.props.img} alt={this.props.name} />
+            <img className="card-img-top" src={this.props.product.mainImg} alt={this.props.product.name} />
           </div>
           <div className="col-6 pl-0 d-flex flex-column justify-content-between">
             <div>
               <p className="mb-0">
-                <strong>{this.props.name}</strong><br />
-                <span style={{backgroundColor: '#fff3b5', padding: '6px 5px 5px'}}>{this.props.price}</span>
+                <strong>{this.props.product.name}</strong><br />
+                <span style={{backgroundColor: '#fff3b5', padding: '6px 5px 5px'}}>{this.props.product.price}</span>
               </p>
             </div>
 
@@ -68,7 +69,7 @@ class BasketProductItem extends React.Component {
             </div>
 
             <div className="d-flex flex-row justify-content-end">
-              <button className="btn btn-sm btn-danger"><i className="fa fa-trash-o" aria-hidden="true"></i></button>
+              <button onClick={() => this.props.remove(this.props.product)} className="btn btn-sm btn-danger"><i className="fa fa-trash-o" aria-hidden="true"></i></button>
             </div>
           </div>
         </div>
