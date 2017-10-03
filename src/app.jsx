@@ -25,6 +25,31 @@ class App extends React.Component {
           subcategory: "electric",
           price: "1500",
           currency: "USD",
+          characteristics: [
+            {
+              header: 'Construction',
+              props: [
+                { name: 'Body type', value: 'Solid, Single cut' },
+                { name: 'Neck joint', value: 'Sent-in' },
+                { name: 'Scale', value: '24.75"' },
+              ]
+            },
+            {
+              header: 'Woods',
+              props: [
+                { name: 'Body', value: 'Mahogany, Maple top' },
+                { name: 'Neck', value: 'Mahogany' },
+                { name: 'Fretboard', value: 'Ebony' },
+              ]
+            },
+            {
+              header: 'Hardware',
+              props: [
+                { name: 'Bridge', value: 'Tune-o-matic' },
+                { name: 'Pickup(s)', value: 'A Burstbucker 3 humbucker at the bridge, P-90H at the neck, and a piezoelectric built into the bridge' }
+              ]
+            },
+          ],
           description: [
             'The Gibson Les Paul is a solid body electric guitar that was first sold by the Gibson Guitar Corporation in 1952.[1] The Les Paul was designed by Gibson president Ted McCarty, factory manager John Huis and their team, along with guitarist/inventor Les Paul.',
             'The Les Paul was originally offered with a gold finish and two P-90 pickups. In 1957, humbucking pickups were added, along with sunburst finishes in 1958. The sunburst 1958–1960 Les Paul – today one of the best-known electric guitar types in the world – was considered a failure, with low production and sales. For 1961, the Les Paul was redesigned into what is now known as the Gibson SG. This design continued as a separate guitar when the traditional single cutaway, carved top bodystyle was re-introduced in 1968. The Les Paul has been continually produced in countless versions and editions since. Along with Fender\'s Telecaster and Stratocaster, it was one of the first mass-produced electric solid-body guitars. Les Pauls have been used in many genres, including rock, country, pop, soul, rhythm and blues, blues, jazz, reggae, punk, and heavy metal.',
@@ -40,6 +65,31 @@ class App extends React.Component {
           subcategory: "electric",
           price: "1400",
           currency: "USD",
+          characteristics: [
+            {
+              header: 'Construction',
+              props: [
+                { name: 'Body type', value: 'Solid, Single cut' },
+                { name: 'Neck joint', value: 'Sent-in' },
+                { name: 'Scale', value: '24.75"' },
+              ]
+            },
+            {
+              header: 'Woods',
+              props: [
+                { name: 'Body', value: 'Mahogany, Maple top' },
+                { name: 'Neck', value: 'Mahogany' },
+                { name: 'Fretboard', value: 'Ebony' },
+              ]
+            },
+            {
+              header: 'Hardware',
+              props: [
+                { name: 'Bridge', value: 'Tune-o-matic' },
+                { name: 'Pickup(s)', value: 'A Burstbucker 3 humbucker at the bridge, P-90H at the neck, and a piezoelectric built into the bridge' }
+              ]
+            },
+          ],
           description: [
             'The Fender Stratocaster is a model of electric guitar designed in 1954 by Leo Fender, Bill Carson, George Fullerton, and Freddie Tavares. The Fender Musical Instruments Corporation has continuously manufactured the Stratocaster from 1954 to the present. It is a double-cutaway guitar, with an extended top "horn" shape for balance. Along with the Gibson Les Paul, it is one of the most-often emulated electric guitar shapes.[1][2] "Stratocaster" and "Strat" are trademark terms belonging to Fender.',
             'The Stratocaster is a versatile guitar, usable for all styles of complete music and has been used in many genres, including country, rock, pop, folk, soul, rhythm and blues, blues, jazz, punk, and heavy metal.',
@@ -55,6 +105,33 @@ class App extends React.Component {
           subcategory: "distortion",
           price: "100",
           currency: "USD",
+          characteristics: [
+            {
+              header: 'Electric',
+              props: [
+                { name: 'Power', value: '9V DC Centre Negative Regulated' },
+                { name: 'Current Draw', value: '13mA' },
+                { name: 'Input Impedance', value: '1MΩ' },
+                { name: 'Output Load Impedance', value: '< 20kΩ' },
+              ]
+            },
+            {
+              header: 'Equipment',
+              props: [
+                { name: 'Controls', value: 'Overdrive & Distortion Mode, Gain, Volume, Bass, Treble, Contour & Contour Frequency controls' },
+                { name: 'Switches', value: 'On/Off Switch' },
+                { name: 'Indicators', value: 'On/Off LED' },
+                { name: 'Jacks', value: 'Input/Output ‘Jacksockets’' },
+              ]
+            },
+            {
+              header: 'Other',
+              props: [
+                { name: 'Dimensions', value: '120mm x 65mm x 55mm' },
+                { name: 'Weight', value: '510 grammes' }
+              ]
+            },
+          ],
           shortDescription: "The JH-1 contains our most outrageous distortion levels to date. The Contour control allows you to not only scoop out the mids, but also choose the frequencies at which the scoop occurs, allowing you to tailor your sound to your individual requirements.",
           description: [
             'For more than 50 years, the Marshall name has been synonymous with genre defining distortion tones. Initially, the way to get classic Marshall distortion was to naturally overdrive one of our valve amps by cranking it up to full volume. As time went by, Marshall Master Volume heads allowed for even more extreme levels of distortion, as the preamp valves were driven harder.',
