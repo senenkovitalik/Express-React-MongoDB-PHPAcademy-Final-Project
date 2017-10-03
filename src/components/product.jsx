@@ -1,7 +1,34 @@
 import React from 'react';
+import $ from 'jquery';
 
 class Product extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    $('#myTabs a').on('click', function (e) {
+      e.preventDefault();
+      // $(this).tab('show');
+    });
+  }
+
+  handleClick() {
+    this.props.add(this.props.product);
+  }
+
   render() {
+    const imgGalleryItems = this.props.product.imgList.map((img, index) => {
+      return <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
+        <img className="d-block w-100" src={img} alt="Carousel image" />
+      </div>;
+    });
+    const description = this.props.product.description.map((paragraph, index) => {
+      return <p key={index}>{paragraph}</p>;
+    });
+
     return (
       <div className="container-fluid">
         <div className="row">
@@ -15,7 +42,7 @@ class Product extends React.Component {
 
         <div className="row">
           <div className="col-12">
-            <h1>Gibson Les Paul</h1>
+            <h1>{this.props.product.name}</h1>
           </div>
         </div>
 
@@ -24,10 +51,10 @@ class Product extends React.Component {
             <div className="row justify-content-center">
               <div className="col-12 col-lg-7 text-center">
                 <div className="px-1" style={{fontSize: 1.3+'rem', backgroundColor: '#fff3b5'}}>
-                  <strong>1500.00 USD</strong>
+                  <strong>{this.props.product.price} {this.props.product.currency}</strong>
                   <div className="row justify-content-center">
                     <div className="col-12 col-lg-6 mb-2">
-                      <button type="button" className="btn btn-success btn-block">
+                      <button onClick={this.handleClick} type="button" className={`btn btn-success ${this.props.inBasket ? "disabled" : ""} btn-block`}>
                         <i className="fa fa-shopping-cart" aria-hidden="true"></i> Buy
                       </button>
                     </div>
@@ -37,7 +64,7 @@ class Product extends React.Component {
             </div>
           </div>
           <div className="col-12 col-lg-7 col-xl-6 order-lg-1">
-            <nav className="nav nav-pills flex-column flex-sm-row" role="tablist" id="myTabs">
+            <nav className="nav nav-pills flex-column flex-sm-row" id="myTabs" role="tablist">
               <a className="flex-sm-fill text-sm-center nav-link active" href="#overview" role="tab">Overview</a>
               <a className="flex-sm-fill text-sm-center nav-link" href="#characteristic" role="tab">Characteristic</a>
               <a className="flex-sm-fill text-sm-center nav-link" href="#photos" role="tab">Photos</a>
@@ -47,18 +74,7 @@ class Product extends React.Component {
               <div className="tab-pane active" id="overview" role="tabpanel">
                 <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                   <div className="carousel-inner">
-                    <div className="carousel-item active">
-                      <img className="d-block w-100" src="img/lespaul.jpg" alt="First slide"/>
-                    </div>
-                    <div className="carousel-item">
-                      <img className="d-block w-100" src="img/lp1.jpg" alt="Second slide"/>
-                    </div>
-                    <div className="carousel-item">
-                      <img className="d-block w-100" src="img/lp2.jpg" alt="Third slide"/>
-                    </div>
-                    <div className="carousel-item">
-                      <img className="d-block w-100" src="img/lp3.jpg" alt="Third slide"/>
-                    </div>
+                    {imgGalleryItems}
                   </div>
                   <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -70,18 +86,8 @@ class Product extends React.Component {
                   </a>
                 </div>
 
-                <p>The <strong>Gibson Les Paul</strong> is a solid body electric guitar that was first sold by the Gibson
-                  Guitar Corporation in 1952.[1] The Les Paul was designed by Gibson president Ted McCarty, factory manager
-                  John Huis and their team, along with guitarist/inventor Les Paul.</p>
-                <p>The Les Paul was originally offered with a gold finish and two P-90 pickups. In 1957, humbucking pickups
-                  were added, along with sunburst finishes in 1958. The sunburst 1958–1960 Les Paul – today one of the
-                  best-known electric guitar types in the world – was considered a failure, with low production and sales.
-                  For 1961, the Les Paul was redesigned into what is now known as the Gibson SG. This design continued as a
-                  separate guitar when the traditional single cutaway, carved top bodystyle was re-introduced in 1968. The
-                  Les Paul has been continually produced in countless versions and editions since. Along with Fender's
-                  Telecaster and Stratocaster, it was one of the first mass-produced electric solid-body guitars. Les Pauls
-                  have been used in many genres, including rock, country, pop, soul, rhythm and blues, blues, jazz, reggae,
-                  punk, and heavy metal.</p>
+                {description}
+
               </div>
               <div className="tab-pane" id="characteristic" role="tabpanel">
                 <table className="table table-sm">
