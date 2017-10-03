@@ -16,11 +16,9 @@ class BasketWindow extends React.Component {
   render() {
     const lastIndex = this.props.products.length - 1;
     const productList = this.props.products.map((product, index) => {
-      if (index !== lastIndex) {
-        return <div key={index}><BasketProductItem product={product} remove={this.props.remove} /><hr /></div>;
-      } else {
-        return <div key={index}><BasketProductItem product={product} remove={this.props.remove} /></div>;
-      }
+        return <div key={index}><BasketProductItem product={product} remove={this.props.remove} />
+          {index !== lastIndex &&  <hr />}
+          </div>;
     });
 
     return (
@@ -46,7 +44,7 @@ class BasketWindow extends React.Component {
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" onClick={this.hideModal}>Cancel</button>
-              <Link to="/order_processing" onClick={this.hideModal} type="button" className="btn btn-primary">To order</Link>
+              <Link to="/order_processing" onClick={this.hideModal} type="button" className={`btn btn-primary ${productList.length === 0 ? "disabled" : ""}`}>To order</Link>
             </div>
           </div>
         </div>

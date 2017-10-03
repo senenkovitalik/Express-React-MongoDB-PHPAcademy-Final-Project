@@ -43020,20 +43020,12 @@ var BasketWindow = function (_React$Component) {
 
       var lastIndex = this.props.products.length - 1;
       var productList = this.props.products.map(function (product, index) {
-        if (index !== lastIndex) {
-          return _react2.default.createElement(
-            'div',
-            { key: index },
-            _react2.default.createElement(_basket_product_item2.default, { product: product, remove: _this2.props.remove }),
-            _react2.default.createElement('hr', null)
-          );
-        } else {
-          return _react2.default.createElement(
-            'div',
-            { key: index },
-            _react2.default.createElement(_basket_product_item2.default, { product: product, remove: _this2.props.remove })
-          );
-        }
+        return _react2.default.createElement(
+          'div',
+          { key: index },
+          _react2.default.createElement(_basket_product_item2.default, { product: product, remove: _this2.props.remove }),
+          index !== lastIndex && _react2.default.createElement('hr', null)
+        );
       });
 
       return _react2.default.createElement(
@@ -43084,7 +43076,7 @@ var BasketWindow = function (_React$Component) {
               ),
               _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: '/order_processing', onClick: this.hideModal, type: 'button', className: 'btn btn-primary' },
+                { to: '/order_processing', onClick: this.hideModal, type: 'button', className: 'btn btn-primary ' + (productList.length === 0 ? "disabled" : "") },
                 'To order'
               )
             )
