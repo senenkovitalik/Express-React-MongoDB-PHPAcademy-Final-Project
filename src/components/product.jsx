@@ -4,6 +4,9 @@ import $ from 'jquery';
 class Product extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      inBasket: this.props.inBasket
+    };
 
     this.handleClick = this.handleClick.bind(this);
   }
@@ -17,6 +20,9 @@ class Product extends React.Component {
 
   handleClick() {
     this.props.add(this.props.product);
+    this.setState({
+      inBasket: true
+    });
   }
 
   render() {
@@ -54,7 +60,7 @@ class Product extends React.Component {
                   <strong>{this.props.product.price} {this.props.product.currency}</strong>
                   <div className="row justify-content-center">
                     <div className="col-12 col-lg-6 mb-2">
-                      <button onClick={this.handleClick} type="button" className={`btn btn-success ${this.props.inBasket ? "disabled" : ""} btn-block`}>
+                      <button onClick={this.handleClick} type="button" className={`btn btn-success ${this.state.inBasket ? "disabled" : ""} btn-block`}>
                         <i className="fa fa-shopping-cart" aria-hidden="true"></i> Buy
                       </button>
                     </div>

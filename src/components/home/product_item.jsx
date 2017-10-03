@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import { Link } from 'react-router-dom';
 
 class ProductItem extends React.Component {
   constructor(props) {
@@ -18,7 +18,10 @@ class ProductItem extends React.Component {
         <img className="card-img-top" src={this.props.product.mainImg} alt={this.props.product.name}/>
         <div className="card-body">
           <h3 className="card-title">{this.props.product.name}</h3>
-          <p className="card-text">{this.props.product.shortDescription}</p>
+          <p className="card-text">
+            {this.props.product.shortDescription}
+            <Link to={`/product/${this.props.product.name}`}>Detail</Link>
+          </p>
           <span className="productPrice">{this.props.product.price}</span>
           <a
             onClick={(e) => this.handleClick(e)}
