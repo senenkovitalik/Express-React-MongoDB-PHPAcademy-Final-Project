@@ -14,7 +14,7 @@ class ProductsList extends React.Component {
         key={index}
         product={product}
         add={this.props.add}
-        inBasket={_.indexOf(this.props.productsToBuy, product) ? false : true}
+        inBasket={_.indexOf(this.props.productsToBuy, product) === -1 ? false : true}
       />;
     });
 

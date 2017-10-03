@@ -1,15 +1,15 @@
 import React from 'react';
+import _ from 'lodash';
 
 class ProductItem extends React.Component {
   constructor(props) {
     super(props);
-
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e) {
     e.preventDefault();
-    this.props.add(this.props.product)
+    this.props.add(this.props.product);
   }
 
   render() {
