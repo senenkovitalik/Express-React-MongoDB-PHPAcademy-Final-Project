@@ -54371,6 +54371,8 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(12);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -54389,347 +54391,297 @@ var OrderProcessing = function (_React$Component) {
   }
 
   _createClass(OrderProcessing, [{
-    key: "render",
+    key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        "div",
-        { className: "container" },
-        _react2.default.createElement(
-          "div",
-          { className: "row" },
+      var total = 0;
+      var products = this.props.productsToBuy.map(function (product, index) {
+        total += parseInt(product.price);
+        return _react2.default.createElement(
+          'div',
+          { key: index, className: 'row p-1' },
           _react2.default.createElement(
-            "div",
-            { className: "col-12" },
+            'div',
+            { className: 'col-2' },
+            _react2.default.createElement('img', { src: product.mainImg, className: 'w-100' })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col-6' },
             _react2.default.createElement(
-              "h1",
+              _reactRouterDom.Link,
+              { to: '/product/' + product.name },
+              product.name
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col-1' },
+            '1'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col-3' },
+            product.price
+          )
+        );
+      });
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'container' },
+        _react2.default.createElement(
+          'div',
+          { className: 'row' },
+          _react2.default.createElement(
+            'div',
+            { className: 'col-12' },
+            _react2.default.createElement(
+              'h1',
               null,
-              "Order processing"
+              'Order processing'
             )
           )
         ),
         _react2.default.createElement(
-          "div",
-          { className: "row" },
+          'div',
+          { className: 'row' },
           _react2.default.createElement(
-            "div",
-            { className: "col-sm-12 order-lg-2 col-lg-6  mb-2", style: { fontSize: 0.8 + 'rem' } },
+            'div',
+            { className: 'col-sm-12 order-lg-2 col-lg-6  mb-2', style: { fontSize: 0.8 + 'rem' } },
             _react2.default.createElement(
-              "h4",
+              'h4',
               null,
-              "Your order"
+              'Your order'
             ),
+            products,
+            _react2.default.createElement('hr', { className: 'm-0' }),
             _react2.default.createElement(
-              "div",
-              { className: "row p-1" },
+              'div',
+              { className: 'row justify-content-between mb-2' },
               _react2.default.createElement(
-                "div",
-                { className: "col-2" },
-                _react2.default.createElement("img", { src: "img/fender.png", className: "w-100" })
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-6" },
+                'div',
+                { className: 'col-auto' },
                 _react2.default.createElement(
-                  "a",
-                  { href: "#" },
-                  "Fender Stratocaster"
-                )
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-1" },
-                "1"
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-3" },
-                "$1500"
-              )
-            ),
-            _react2.default.createElement(
-              "div",
-              { className: "row p-1" },
-              _react2.default.createElement(
-                "div",
-                { className: "col-2" },
-                _react2.default.createElement("img", { src: "img/lespaul.jpg", className: "w-100" })
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-6" },
-                _react2.default.createElement(
-                  "a",
-                  { href: "#" },
-                  "Gibson Les Paul"
-                )
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-1" },
-                "1"
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-3" },
-                "$1000"
-              )
-            ),
-            _react2.default.createElement(
-              "div",
-              { className: "row p-1" },
-              _react2.default.createElement(
-                "div",
-                { className: "col-2" },
-                _react2.default.createElement("img", { src: "img/jackhammer.jpg", className: "w-100" })
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-6" },
-                _react2.default.createElement(
-                  "a",
-                  { href: "#" },
-                  "Marshal Jackhummer JH-1"
-                )
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-1" },
-                "2"
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "col-3" },
-                "$100"
-              )
-            ),
-            _react2.default.createElement("hr", { className: "m-0" }),
-            _react2.default.createElement(
-              "div",
-              { className: "row justify-content-between mb-2" },
-              _react2.default.createElement(
-                "div",
-                { className: "col-auto" },
-                _react2.default.createElement(
-                  "strong",
+                  'strong',
                   null,
-                  "Total"
+                  'Total'
                 )
               ),
               _react2.default.createElement(
-                "div",
-                { className: "col-3" },
+                'div',
+                { className: 'col-3' },
                 _react2.default.createElement(
-                  "strong",
+                  'strong',
                   null,
-                  "$2700"
+                  total
                 )
               )
             ),
             _react2.default.createElement(
-              "div",
-              { className: "row justify-content-center" },
+              'div',
+              { className: 'row justify-content-center' },
               _react2.default.createElement(
-                "div",
-                { className: "col-auto" },
+                'div',
+                { className: 'col-auto' },
                 _react2.default.createElement(
-                  "a",
-                  { href: "#" },
-                  "Edit order"
+                  'a',
+                  { href: '#' },
+                  'Edit order'
                 )
               )
             )
           ),
           _react2.default.createElement(
-            "div",
-            { className: "col-sm-12 order-lg-1 col-lg-6" },
+            'div',
+            { className: 'col-sm-12 order-lg-1 col-lg-6' },
             _react2.default.createElement(
-              "h4",
+              'h4',
               null,
               _react2.default.createElement(
-                "span",
-                { className: "badge badge-pill badge-success" },
-                "1"
+                'span',
+                { className: 'badge badge-pill badge-success' },
+                '1'
               ),
-              " Contacts"
+              ' Contacts'
             ),
             _react2.default.createElement(
-              "form",
+              'form',
               null,
               _react2.default.createElement(
-                "div",
-                { className: "form-group" },
+                'div',
+                { className: 'form-group' },
                 _react2.default.createElement(
-                  "label",
-                  { htmlFor: "orderUserName" },
-                  "Name and surname"
+                  'label',
+                  { htmlFor: 'orderUserName' },
+                  'Name and surname'
                 ),
-                _react2.default.createElement("input", { type: "text", className: "form-control", id: "orderUserName", defaultValue: "Senenko Vitaliy" })
+                _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'orderUserName', defaultValue: 'Senenko Vitaliy' })
               ),
               _react2.default.createElement(
-                "div",
-                { className: "form-group" },
+                'div',
+                { className: 'form-group' },
                 _react2.default.createElement(
-                  "label",
-                  { htmlFor: "orderUserPhone" },
-                  "Phone"
+                  'label',
+                  { htmlFor: 'orderUserPhone' },
+                  'Phone'
                 ),
-                _react2.default.createElement("input", { type: "tel", className: "form-control", id: "orderUserPhone", defaultValue: "+38(093)-059-23-40" })
+                _react2.default.createElement('input', { type: 'tel', className: 'form-control', id: 'orderUserPhone', defaultValue: '+38(093)-059-23-40' })
               ),
               _react2.default.createElement(
-                "div",
-                { className: "form-group" },
+                'div',
+                { className: 'form-group' },
                 _react2.default.createElement(
-                  "button",
-                  { type: "button", className: "btn btn-success form-control" },
-                  "Next"
+                  'button',
+                  { type: 'button', className: 'btn btn-success form-control' },
+                  'Next'
                 )
               )
             ),
             _react2.default.createElement(
-              "h4",
+              'h4',
               null,
               _react2.default.createElement(
-                "span",
-                { className: "badge badge-pill badge-dark" },
-                "2"
+                'span',
+                { className: 'badge badge-pill badge-dark' },
+                '2'
               ),
-              " Type of delivery and payment"
+              ' Type of delivery and payment'
             ),
             _react2.default.createElement(
-              "form",
+              'form',
               null,
               _react2.default.createElement(
-                "div",
-                { className: "form-row" },
+                'div',
+                { className: 'form-row' },
                 _react2.default.createElement(
-                  "div",
-                  { className: "col-4" },
+                  'div',
+                  { className: 'col-4' },
                   _react2.default.createElement(
-                    "label",
+                    'label',
                     null,
-                    "Delivery"
+                    'Delivery'
                   )
                 ),
                 _react2.default.createElement(
-                  "div",
-                  { className: "col-8" },
+                  'div',
+                  { className: 'col-8' },
                   _react2.default.createElement(
-                    "div",
-                    { className: "form-check" },
+                    'div',
+                    { className: 'form-check' },
                     _react2.default.createElement(
-                      "label",
-                      { className: "form-check-label" },
-                      _react2.default.createElement("input", { className: "form-check-input", type: "radio", name: "deliveryRadio", id: "deliveryRadio1", defaultValue: "self-checkout", defaultChecked: true }),
-                      "self-checkout from our store"
+                      'label',
+                      { className: 'form-check-label' },
+                      _react2.default.createElement('input', { className: 'form-check-input', type: 'radio', name: 'deliveryRadio', id: 'deliveryRadio1', defaultValue: 'self-checkout', defaultChecked: true }),
+                      'self-checkout from our store'
                     )
                   ),
                   _react2.default.createElement(
-                    "div",
-                    { className: "form-check" },
+                    'div',
+                    { className: 'form-check' },
                     _react2.default.createElement(
-                      "label",
-                      { className: "form-check-label" },
-                      _react2.default.createElement("input", { className: "form-check-input", type: "radio", name: "deliveryRadio", id: "deliveryRadio2", defaultValue: "courier" }),
-                      "by courier"
+                      'label',
+                      { className: 'form-check-label' },
+                      _react2.default.createElement('input', { className: 'form-check-input', type: 'radio', name: 'deliveryRadio', id: 'deliveryRadio2', defaultValue: 'courier' }),
+                      'by courier'
                     )
                   )
                 )
               ),
-              _react2.default.createElement("hr", { className: "mt-1 mb-1" }),
+              _react2.default.createElement('hr', { className: 'mt-1 mb-1' }),
               _react2.default.createElement(
-                "div",
-                { className: "form-row" },
+                'div',
+                { className: 'form-row' },
                 _react2.default.createElement(
-                  "div",
-                  { className: "col-4" },
+                  'div',
+                  { className: 'col-4' },
                   _react2.default.createElement(
-                    "label",
+                    'label',
                     null,
-                    "Payment"
+                    'Payment'
                   )
                 ),
                 _react2.default.createElement(
-                  "div",
-                  { className: "col-8" },
+                  'div',
+                  { className: 'col-8' },
                   _react2.default.createElement(
-                    "div",
-                    { className: "form-check" },
+                    'div',
+                    { className: 'form-check' },
                     _react2.default.createElement(
-                      "label",
-                      { className: "form-check-label" },
-                      _react2.default.createElement("input", { className: "form-check-input", type: "radio", name: "paymentRadio", id: "paymentRadio1", defaultValue: "cash", defaultChecked: true }),
-                      "cash"
+                      'label',
+                      { className: 'form-check-label' },
+                      _react2.default.createElement('input', { className: 'form-check-input', type: 'radio', name: 'paymentRadio', id: 'paymentRadio1', defaultValue: 'cash', defaultChecked: true }),
+                      'cash'
                     )
                   ),
                   _react2.default.createElement(
-                    "div",
-                    { className: "form-check" },
+                    'div',
+                    { className: 'form-check' },
                     _react2.default.createElement(
-                      "label",
-                      { className: "form-check-label" },
-                      _react2.default.createElement("input", { className: "form-check-input", type: "radio", name: "paymentRadio", id: "paymentRadio2", defaultValue: "card" }),
-                      "Visa/MasterCard"
+                      'label',
+                      { className: 'form-check-label' },
+                      _react2.default.createElement('input', { className: 'form-check-input', type: 'radio', name: 'paymentRadio', id: 'paymentRadio2', defaultValue: 'card' }),
+                      'Visa/MasterCard'
                     )
                   )
                 )
               ),
-              _react2.default.createElement("hr", { className: "mb-1 mt-1" }),
+              _react2.default.createElement('hr', { className: 'mb-1 mt-1' }),
               _react2.default.createElement(
-                "div",
-                { className: "form-row" },
+                'div',
+                { className: 'form-row' },
                 _react2.default.createElement(
-                  "div",
-                  { className: "col-4" },
+                  'div',
+                  { className: 'col-4' },
                   _react2.default.createElement(
-                    "label",
-                    { htmlFor: "deliveryAddress" },
-                    "Address"
+                    'label',
+                    { htmlFor: 'deliveryAddress' },
+                    'Address'
                   )
                 ),
                 _react2.default.createElement(
-                  "div",
-                  { className: "col-8" },
+                  'div',
+                  { className: 'col-8' },
                   _react2.default.createElement(
-                    "select",
-                    { className: "form-control", id: "deliveryAddress" },
+                    'select',
+                    { className: 'form-control', id: 'deliveryAddress' },
                     _react2.default.createElement(
-                      "option",
+                      'option',
                       null,
-                      "Kyiv, Brovary region, Red str., 15"
+                      'Kyiv, Brovary region, Red str., 15'
                     ),
                     _react2.default.createElement(
-                      "option",
+                      'option',
                       null,
-                      "add another one..."
+                      'add another one...'
                     )
                   ),
-                  _react2.default.createElement("input", { type: "text", className: "form-control form-control-sm mt-1" }),
+                  _react2.default.createElement('input', { type: 'text', className: 'form-control form-control-sm mt-1' }),
                   _react2.default.createElement(
-                    "small",
-                    { className: "form-text text-muted" },
-                    "Street"
+                    'small',
+                    { className: 'form-text text-muted' },
+                    'Street'
                   ),
                   _react2.default.createElement(
-                    "div",
-                    { className: "form-row" },
+                    'div',
+                    { className: 'form-row' },
                     _react2.default.createElement(
-                      "div",
-                      { className: "col" },
-                      _react2.default.createElement("input", { type: "text", className: "form-control form-control-sm" }),
+                      'div',
+                      { className: 'col' },
+                      _react2.default.createElement('input', { type: 'text', className: 'form-control form-control-sm' }),
                       _react2.default.createElement(
-                        "small",
-                        { className: "form-text text-muted" },
-                        "House"
+                        'small',
+                        { className: 'form-text text-muted' },
+                        'House'
                       )
                     ),
                     _react2.default.createElement(
-                      "div",
-                      { className: "col" },
-                      _react2.default.createElement("input", { type: "text", className: "form-control form-control-sm" }),
+                      'div',
+                      { className: 'col' },
+                      _react2.default.createElement('input', { type: 'text', className: 'form-control form-control-sm' }),
                       _react2.default.createElement(
-                        "small",
-                        { className: "form-text text-muted" },
-                        "Flat"
+                        'small',
+                        { className: 'form-text text-muted' },
+                        'Flat'
                       )
                     )
                   )
@@ -54737,61 +54689,61 @@ var OrderProcessing = function (_React$Component) {
               )
             ),
             _react2.default.createElement(
-              "h2",
+              'h2',
               null,
-              "Summary"
+              'Summary'
             ),
             _react2.default.createElement(
-              "div",
-              { className: "row justify-content-between" },
+              'div',
+              { className: 'row justify-content-between' },
               _react2.default.createElement(
-                "div",
-                { className: "col-auto" },
-                "3 products in total"
+                'div',
+                { className: 'col-auto' },
+                '3 products in total'
               ),
               _react2.default.createElement(
-                "div",
-                { className: "col-auto" },
-                "$2700.00"
+                'div',
+                { className: 'col-auto' },
+                '$2700.00'
               )
             ),
             _react2.default.createElement(
-              "div",
-              { className: "row justify-content-between" },
+              'div',
+              { className: 'row justify-content-between' },
               _react2.default.createElement(
-                "div",
-                { className: "col-auto" },
-                "Delivery cost"
+                'div',
+                { className: 'col-auto' },
+                'Delivery cost'
               ),
               _react2.default.createElement(
-                "div",
-                { className: "col-auto" },
-                "free"
+                'div',
+                { className: 'col-auto' },
+                'free'
               )
             ),
-            _react2.default.createElement("hr", null),
+            _react2.default.createElement('hr', null),
             _react2.default.createElement(
-              "div",
-              { className: "row justify-content-between" },
+              'div',
+              { className: 'row justify-content-between' },
               _react2.default.createElement(
-                "div",
-                { className: "col-auto" },
-                "To be paid"
+                'div',
+                { className: 'col-auto' },
+                'To be paid'
               ),
               _react2.default.createElement(
-                "div",
-                { className: "col-auto" },
+                'div',
+                { className: 'col-auto' },
                 _react2.default.createElement(
-                  "strong",
+                  'strong',
                   { style: { fontSize: 1.2 + 'rem' } },
-                  "$2700.00"
+                  '$2700.00'
                 )
               )
             ),
             _react2.default.createElement(
-              "button",
-              { type: "button", className: "btn btn-success btn-block mb-2" },
-              "Confirm the order"
+              'button',
+              { type: 'button', className: 'btn btn-success btn-block mb-2' },
+              'Confirm the order'
             )
           )
         )

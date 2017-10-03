@@ -1,7 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class OrderProcessing extends React.Component {
   render() {
+    let total = 0;
+    const products = this.props.productsToBuy.map((product, index) => {
+      total += parseInt(product.price);
+      return <div key={index} className="row p-1">
+        <div className="col-2">
+          <img src={product.mainImg} className="w-100" />
+        </div>
+        <div className="col-6">
+          <Link to={`/product/${product.name}`}>{product.name}</Link>
+        </div>
+        <div className="col-1">1</div>
+        <div className="col-3">{product.price}</div>
+      </div>
+    });
+
     return (
       <div className="container">
         <div className="row">
@@ -14,44 +30,13 @@ class OrderProcessing extends React.Component {
           <div className="col-sm-12 order-lg-2 col-lg-6  mb-2" style={{fontSize: 0.8+'rem'}}>
             <h4>Your order</h4>
 
-            <div className="row p-1">
-              <div className="col-2">
-                <img src="img/fender.png" className="w-100" />
-              </div>
-              <div className="col-6">
-                <a href="#">Fender Stratocaster</a>
-              </div>
-              <div className="col-1">1</div>
-              <div className="col-3">$1500</div>
-            </div>
-
-            <div className="row p-1">
-              <div className="col-2">
-                <img src="img/lespaul.jpg" className="w-100" />
-              </div>
-              <div className="col-6">
-                <a href="#">Gibson Les Paul</a>
-              </div>
-              <div className="col-1">1</div>
-              <div className="col-3">$1000</div>
-            </div>
-
-            <div className="row p-1">
-              <div className="col-2">
-                <img src="img/jackhammer.jpg" className="w-100" />
-              </div>
-              <div className="col-6">
-                <a href="#">Marshal Jackhummer JH-1</a>
-              </div>
-              <div className="col-1">2</div>
-              <div className="col-3">$100</div>
-            </div>
+            {products}
 
             <hr className="m-0"/>
 
             <div className="row justify-content-between mb-2">
               <div className="col-auto"><strong>Total</strong></div>
-              <div className="col-3"><strong>$2700</strong></div>
+              <div className="col-3"><strong>{total}</strong></div>
             </div>
 
             <div className="row justify-content-center">
