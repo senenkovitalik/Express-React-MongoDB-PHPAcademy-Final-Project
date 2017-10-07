@@ -2,9 +2,6 @@ import React from 'react';
 import BasketProductItem from './basket_product_item';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Col, Button, Badge, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { Link } from 'react-router-dom';
-
-
 
 class Basket extends React.Component {
   constructor(props) {
