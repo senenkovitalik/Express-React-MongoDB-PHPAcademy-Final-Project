@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Row, Col, Input, Button } from 'reactstrap';
 
 class BasketProductItem extends React.Component {
   constructor(props) {
@@ -41,11 +42,11 @@ class BasketProductItem extends React.Component {
   render() {
     return (
       <div className="productItem mb-2">
-        <div className="row">
-          <div className="col-6">
+        <Row>
+          <Col xs="6">
             <img className="card-img-top" src={this.props.product.mainImg} alt={this.props.product.name} />
-          </div>
-          <div className="col-6 pl-0 d-flex flex-column justify-content-between">
+          </Col>
+          <Col sx="6" className="pl-0 d-flex flex-column justify-content-between">
             <div>
               <p className="mb-0">
                 <strong>{this.props.product.name}</strong><br />
@@ -56,11 +57,12 @@ class BasketProductItem extends React.Component {
             <div className="d-flex flex-row justify-content-between">
               <div>
                 <a onClick={() => this.handleClick('plus')} href="#" style={{marginRight: 5+'px'}}>&#x2B;</a>
-                <input
+                <Input
                   value={this.state.count}
                   onChange={this.handleChange}
                   type="text"
-                  className="form-control form-control-sm d-inline"
+                  size="sm"
+                  className="d-inline"
                   style={{width: 50+'px', textAlign: 'center'}}
                 />
                 <a onClick={() => this.handleClick('minus')} href="#" style={{marginLeft: 5+'px'}}>&#x2D;</a>
@@ -71,10 +73,10 @@ class BasketProductItem extends React.Component {
             </div>
 
             <div className="d-flex flex-row justify-content-end">
-              <button onClick={() => this.props.remove(this.props.product)} className="btn btn-sm btn-danger"><i className="fa fa-trash-o" aria-hidden="true"></i></button>
+              <Button color="danger" size="sm" onClick={() => this.props.remove(this.props.product)}><i className="fa fa-trash-o" aria-hidden="true"></i></Button>
             </div>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </div>
     );
   }
