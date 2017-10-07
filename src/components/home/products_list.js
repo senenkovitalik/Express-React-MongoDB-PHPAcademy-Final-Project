@@ -2,6 +2,7 @@ import React from 'react';
 import ProductItem from './product_item.jsx';
 import _ from 'lodash';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Row, Col } from 'reactstrap';
 
 class ProductsList extends React.Component {
 
@@ -17,15 +18,15 @@ class ProductsList extends React.Component {
     });
 
     return (
-      <div className="col-12 col-md-6 col-lg-8 order-md-2">
-        <div className="row">
-          <div className="col-sm-12 d-flex flex-wrap" id="products-list">
+      <Col xs="12" md="6" lg="6" className="order-md-2">
+        <Row>
+          <Col sm="12" className="d-flex flex-wrap" id="products-list">
 
             {prodItems}
 
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Col>
     );
   }
 }

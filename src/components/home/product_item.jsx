@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
 
 class ProductItem extends React.Component {
   constructor(props) {
@@ -15,22 +16,22 @@ class ProductItem extends React.Component {
 
   render() {
     return (
-      <div className="card customCard">
-        <img className="card-img-top" src={this.props.product.mainImg} alt={this.props.product.name}/>
-        <div className="card-body">
-          <h3 className="card-title">{this.props.product.name}</h3>
-          <p className="card-text">
+      <Card className="customCard">
+        <CardImg top src={this.props.product.mainImg} alt={this.props.product.name}/>
+        <CardBody>
+          <CardTitle>{this.props.product.name}</CardTitle>
+          <CardText>
             {this.props.product.shortDescription}
             <Link to={`/product/${this.props.product.name}`}>Detail</Link>
-          </p>
+          </CardText>
           <span className="productPrice">{this.props.product.price}</span>
           <a
             onClick={(e) => this.handleClick(e)}
             href="#"
             className={`btn btn-success ${this.props.inBasket ? "disabled" : ""} float-right priceButton`}
           >Buy</a>
-        </div>
-      </div>
+        </CardBody>
+      </Card>
     );
   }
 }
