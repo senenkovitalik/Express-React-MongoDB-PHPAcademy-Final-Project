@@ -6,7 +6,7 @@ class ContactUs extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-6">
-            <img src="img/guitar-shop.jpg" className="w-100 my-2" />
+            <img src="img/guitar-shop.jpg" className="w-100 my-2" alt="GuitarShop" />
           </div>
           <div className="col-lg-6">
             <h2 className="mt-2">GuitarShop</h2>

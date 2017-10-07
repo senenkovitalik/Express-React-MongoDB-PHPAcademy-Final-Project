@@ -1,0 +1,93 @@
+.customCard:hover {
+    border-color: #868e96!important;
+    box-shadow: 0 0 1em #868e96;
+}
+.customLink {
+    display: inline-block;
+}
+.productPrice {
+    font-size: 1.5em;
+}
+.priceButton {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#signupModal .form-control {
+    width: 100%;
+}
+
+@media only screen and (min-width: 1200px) {
+    #products-list {
+        margin-bottom: 10px;
+    }
+    .card {
+        width: 33%;
+        margin-bottom: 1px;
+    }
+    #products-list {
+        justify-content: space-between;
+    }
+}
+
+@media only screen and (max-width: 1199px) {
+    #categories {
+        font-size: smaller;
+    }
+    #basketButton {
+        font-size: smaller;
+    }
+    .card {
+        width: 49.5%;
+        margin-bottom: 2px;
+    }
+    #products-list {
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    #basketButton {
+        font-size: smaller;
+    }
+    #categories {
+        font-size: smaller;
+    }
+    .card {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .customCard {
+        width: 49.5%;
+    }
+    #basketButton {
+        margin-bottom: 5px;
+    }
+    #categories {
+        margin-bottom: 5px;
+    }
+    .card {
+        margin-bottom: 2px;
+    }
+    #products-list {
+        justify-content: space-between;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .customCard {
+        width: 100%;
+    }
+    #basketButton {
+        margin-bottom: 5px;
+    }
+    #categories {
+        margin-bottom: 5px;
+    }
+    .card {
+        margin-bottom: 2px;
+    }
+}

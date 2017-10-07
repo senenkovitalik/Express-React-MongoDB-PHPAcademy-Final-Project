@@ -36,7 +36,7 @@ class Product extends React.Component {
   render() {
     const imgGalleryItems = this.props.product.imgList.map((img, index) => {
       return <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
-        <img className="d-block w-100" src={img} alt="Carousel image" />
+        <img className="d-block w-100" src={img} alt="Carousel" />
       </div>;
     });
     const description = this.props.product.description.map((paragraph, index) => {
@@ -59,7 +59,7 @@ class Product extends React.Component {
     });
 
     const images = this.props.product.imgList.map((img, index) => {
-      return <img key={index} src={img} className="w-100 mb-1" />;
+      return <img key={index} src={img} className="w-100 mb-1" alt="Product" />;
     });
 
     return (
@@ -125,14 +125,14 @@ class Product extends React.Component {
               <div className="tab-pane" id="comments" role="tabpanel">
                 <ul className="list-unstyled mt-3">
                   <li className="media">
-                    <img className="d-flex" src="img/comment-icon.png"/>
+                    <img className="d-flex" src="img/comment-icon.png" alt="Avatar" />
                     <div className="media-body">
                       <h5 className="mt-0 mb-1">Senenko Vitaliy</h5>
                       I wanna to buy this guitar. It's awesome!
 
                       <div className="media mt-3">
                         <a className="d-flex pr-3" href="#">
-                          <img src="img/comment-icon.png" alt="Generic placeholder image"/>
+                          <img src="img/comment-icon.png" alt="Generic placeholder"/>
                         </a>
                         <div className="media-body">
                           <h5 className="mt-0">Media heading</h5>
@@ -144,7 +144,7 @@ class Product extends React.Component {
                     </div>
                   </li>
                   <li className="media">
-                    <img className="d-flex" src="img/comment-icon.png"/>
+                    <img className="d-flex" src="img/comment-icon.png" alt="User avatar" />
                     <div className="media-body">
                       <h5 className="mt-0 mb-1">Senenko Vitaliy</h5>
                       But I don't have money(

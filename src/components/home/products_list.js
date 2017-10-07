@@ -1,11 +1,9 @@
 import React from 'react';
 import ProductItem from './product_item.jsx';
 import _ from 'lodash';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class ProductsList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
 

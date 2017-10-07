@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Collapse } from 'reactstrap';
 
 class OrderProcessing extends React.Component {
@@ -22,10 +23,10 @@ class OrderProcessing extends React.Component {
   render() {
     let total = 0;
     const products = this.props.productsToBuy.map((product, index) => {
-      total += parseInt(product.price);
+      total += parseInt(product.price, 10);
       return <div key={index} className="row p-1">
         <div className="col-2">
-          <img src={product.mainImg} className="w-100" />
+          <img src={product.mainImg} className="w-100" alt={product.name} />
         </div>
         <div className="col-6">
           <Link to={`/product/${product.name}`}>{product.name}</Link>

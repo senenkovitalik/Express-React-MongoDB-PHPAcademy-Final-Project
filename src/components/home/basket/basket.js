@@ -1,11 +1,9 @@
 import React from 'react';
-import BasketButton from "./basket_button.jsx";
-import BasketWindow from "./basket_window.jsx";
+import BasketButton from "./basket_button.js";
+import BasketWindow from "./basket_window.js";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Basket extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (

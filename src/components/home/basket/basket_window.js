@@ -1,6 +1,8 @@
 import React from 'react';
-import BasketProductItem from "./basket_product_item.jsx";
+import BasketProductItem from "./basket_product_item.js";
 import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import $ from 'jquery';
 
 class BasketWindow extends React.Component {
   constructor(props) {
@@ -35,7 +37,7 @@ class BasketWindow extends React.Component {
 
               {productList.length === 0 &&
                 <div className="text-center">
-                  <img src="glyph-iconset-master/svg/si-glyph-trolley-2.svg" style={{width: 25 + 'px', height: 25+'px', color: '#fff'}}/>
+                  <img src="glyph-iconset-master/svg/si-glyph-trolley-2.svg" style={{width: 25 + 'px', height: 25+'px', color: '#fff'}} alt="Empty basket" />
                   Your basket is empty)
                 </div>
               }

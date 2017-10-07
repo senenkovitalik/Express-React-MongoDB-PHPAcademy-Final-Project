@@ -1,24 +1,22 @@
 import React from 'react';
-import Basket from "./basket/basket.jsx";
+import Basket from "./basket/basket.js";
 import Categories from "./categories.jsx";
-import ProductsList from "./products_list.jsx";
-import _ from 'lodash';
+import ProductsList from "./products_list.js";
+import { Container, Row, Col } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
-      <div className="container-fluid">
-        <div className="row" style={{marginTop: 15+'px'}}>
+      <Container fluid>
+        <Row style={{marginTop: 15+'px'}}>
           <Basket products={this.props.productsToBuy} remove={this.props.remove} />
           <Categories />
           <ProductsList products={this.props.products} productsToBuy={this.props.productsToBuy} add={this.props.add} />
-        </div>
-      </div>
-    )
+        </Row>
+      </Container>
+    );
   }
 }
 

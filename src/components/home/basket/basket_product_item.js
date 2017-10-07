@@ -1,4 +1,5 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class BasketProductItem extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class BasketProductItem extends React.Component {
       }));
       break;
     case 'minus':
+    default:
       if (this.state.count > 1) {
         this.setState((prevState, props) => ({
           count: prevState.count - 1,
