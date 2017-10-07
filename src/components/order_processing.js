@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Collapse } from 'reactstrap';
+import { Container, Row, Col, Collapse, Badge, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 class OrderProcessing extends React.Component {
 
@@ -24,70 +24,67 @@ class OrderProcessing extends React.Component {
     let total = 0;
     const products = this.props.productsToBuy.map((product, index) => {
       total += parseInt(product.price, 10);
-      return <div key={index} className="row p-1">
-        <div className="col-2">
-          <img src={product.mainImg} className="w-100" alt={product.name} />
-        </div>
-        <div className="col-6">
-          <Link to={`/product/${product.name}`}>{product.name}</Link>
-        </div>
-        <div className="col-1">1</div>
-        <div className="col-3">{product.price}</div>
-      </div>
+      return  <Row key={index} className="p-1">
+                <Col xs="2">
+                  <img src={product.mainImg} className="w-100" alt={product.name} />
+                </Col>
+                <Col xs="6">
+                  <Link to={`/product/${product.name}`}>{product.name}</Link>
+                </Col>
+                <Col xs="1">1</Col>
+                <Col xs="3">{product.price}</Col>
+              </Row>
     });
 
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
+      <Container>
+        <Row>
+          <Col xs="12">
             <h1>Order processing</h1>
-          </div>
-        </div>
+          </Col>
+        </Row>
 
-        <div className="row">
-          <div className="col-sm-12 order-lg-2 col-lg-6  mb-2" style={{fontSize: 0.8+'rem'}}>
+        <Row>
+          <Col sm="12" lg="6" className="order-lg-2 mb-2" style={{fontSize: 0.8+'rem'}}>
             <h4>Your order</h4>
-
             {products}
-
             <hr className="m-0"/>
 
-            <div className="row justify-content-between mb-2">
-              <div className="col-auto"><strong>Total</strong></div>
-              <div className="col-3"><strong>{total}</strong></div>
-            </div>
+            <Row className="justify-content-between mb-2">
+              <Col className="col-auto"><strong>Total</strong></Col>
+              <Col xs="3"><strong>{total}</strong></Col>
+            </Row>
 
-            <div className="row justify-content-center">
+            <Row className="justify-content-center">
               <div className="col-auto">
                 <a href="#">Edit order</a>
               </div>
-            </div>
+            </Row>
+          </Col>
 
-          </div>
-
-          <div className="col-sm-12 order-lg-1 col-lg-6">
-            <h4><span className="badge badge-pill badge-success">1</span> Contacts</h4>
+          <Col sm="12" lg="6" className="order-lg-1">
+            <h4><Badge pill color="success">1</Badge> Contacts</h4>
 
             <Collapse isOpen={true}>
-              <form id="user_form">
-                <div className="form-group">
-                  <label htmlFor="orderUserName">Name and surname</label>
-                  <input type="text" className="form-control" id="orderUserName" defaultValue="Senenko Vitaliy"/>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="orderUserPhone">Phone</label>
-                  <input type="tel" className="form-control" id="orderUserPhone" defaultValue="+38(093)-059-23-40"/>
-                </div>
-                <div className="form-group">
-                  <button type="button" className="btn btn-success form-control" id="user_btn" onClick={this.handleClick}>Next</button>
-                </div>
-              </form>
+              <Form id="user_form">
+                <FormGroup>
+                  <Label for="orderUserName">Name and surname</Label>
+                  <Input type="text" id="orderUserName" defaultValue="Senenko Vitaliy"/>
+                </FormGroup>
+                <FormGroup>
+                  <Label for="orderUserPhone">Phone</Label>
+                  <Input type="tel" id="orderUserPhone" defaultValue="+38(093)-059-23-40"/>
+                </FormGroup>
+                <FormGroup>
+                  <Button color="success" id="user_btn" onClick={this.handleClick}>Next</Button>
+                </FormGroup>
+              </Form>
             </Collapse>
 
-            <h4><span className="badge badge-pill badge-dark">2</span> Type of delivery and payment</h4>
+            <h4><Badge pill color="dark">2</Badge> Type of delivery and payment</h4>
 
             <Collapse isOpen={this.state.isOpen}>
-              <form className="collapse" id="delivery_form">
+              <Form>
                 <div className="form-row">
                   <div className="col-4">
                     <label>Delivery</label>
@@ -149,7 +146,7 @@ class OrderProcessing extends React.Component {
                     </div>
                   </div>
                 </div>
-              </form>
+              </Form>
             </Collapse>
 
             <h2>Summary</h2>
@@ -167,9 +164,9 @@ class OrderProcessing extends React.Component {
               <div className="col-auto"><strong style={{fontSize: 1.2+'rem'}}>$2700.00</strong></div>
             </div>
             <button type="button" className="btn btn-success btn-block mb-2">Confirm the order</button>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
