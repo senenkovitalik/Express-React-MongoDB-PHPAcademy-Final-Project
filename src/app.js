@@ -14,6 +14,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      products: [],
       productsToBuy: []
     };
 
@@ -35,13 +36,14 @@ class App extends React.Component {
 
   render() {
     return (
+      <Router>
         <div>
           <Header/>
 
           <Route exact path="/" render={() => <Home products={this.props.products} productsToBuy={this.state.productsToBuy} add={this.addProduct} remove={this.removeProduct} />}/>
           <Route path="/product/:name" render={(props) => {
             const productToShow = _.find(this.props.products, p => p.name ===  props.match.params.name);
-            const inBasket = _.indexOf(this.props.productsToBuy, productToShow) === -1 ? false : true;
+            const inBasket = _.indexOf(this.state.productsToBuy, productToShow) === -1 ? false : true;
             return <Product product={productToShow} add={this.addProduct} inBasket={inBasket} />}
           }/>
           <Route path="/order_processing" render={() => <OrderProcessing productsToBuy={this.state.productsToBuy} />} />
@@ -49,6 +51,7 @@ class App extends React.Component {
 
           <Footer/>
         </div>
+      </Router>
     )
   };
 }

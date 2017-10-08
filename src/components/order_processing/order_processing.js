@@ -35,7 +35,7 @@ class OrderProcessing extends React.Component {
       total += parseInt(product.price, 10);
       return  <Row key={index} className="p-1">
                 <Col xs="2">
-                  <img src={product.mainImg} className="w-100" alt={product.name} />
+                  <img src={`http://localhost:3030/${product.mainImg}`} className="w-100" alt={product.name} />
                 </Col>
                 <Col xs="6">
                   <Link to={`/product/${product.name}`}>{product.name}</Link>

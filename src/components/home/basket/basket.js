@@ -1,6 +1,7 @@
 import React from 'react';
 import BasketProductItem from './basket_product_item';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
 import { Col, Button, Badge, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class Basket extends React.Component {
@@ -48,7 +49,7 @@ class Basket extends React.Component {
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-            <Button tag="a" href="/order_processing" color="primary" className={`${productList.length === 0 ? "disabled" : ""}`}>To order</Button>
+            <Button tag={Link} to="/order_processing" color="primary" className={`${productList.length === 0 ? "disabled" : ""}`}>To order</Button>
           </ModalFooter>
         </Modal>
       </Col>

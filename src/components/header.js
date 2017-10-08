@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink, Form, FormGroup, Label, Input, Button, Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
@@ -11,7 +12,6 @@ class Header extends React.Component {
       isOpen: false,
       modal: false
     };
-
     this.toggle = this.toggle.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
   }
@@ -36,10 +36,10 @@ class Header extends React.Component {
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/" active>Home</NavLink>
+              <NavLink tag={Link} to="/" active>Home</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/contact_us">Contact us</NavLink>
+              <NavLink tag={Link} to="/contact_us">Contact us</NavLink>
             </NavItem>
           </Nav>
           <Form inline className="my-2 my-lg-0 flex-wrap">

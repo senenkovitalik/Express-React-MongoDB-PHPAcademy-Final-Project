@@ -10,17 +10,17 @@ class AppContainer extends React.Component {
     }
   }
 
-  // componentDidMount() {
-  //   fetch('http://localhost:3030/products')
-  //   .then(res => {
-  //     return res.json();
-  //   })
-  //   .then(arr => {
-  //     this.setState({
-  //       products: arr.products
-  //     });
-  //   });
-  // }
+  componentDidMount() {
+    fetch('http://localhost:3030/products')
+    .then(res => {
+      return res.json();
+    })
+    .then(arr => {
+      this.setState({
+        products: arr.products
+      });
+    });
+  }
 
   render() {
     return <App products={this.state.products} />;
