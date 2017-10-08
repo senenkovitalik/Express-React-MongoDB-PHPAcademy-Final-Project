@@ -51,14 +51,14 @@ class OrderProcessing extends React.Component {
             <hr className="m-0"/>
 
             <Row className="justify-content-between mb-2">
-              <Col className="col-auto"><strong>Total</strong></Col>
+              <Col xs="auto"><strong>Total</strong></Col>
               <Col xs="3"><strong>{total}</strong></Col>
             </Row>
 
             <Row className="justify-content-center">
-              <div className="col-auto">
+              <Col xs="auto">
                 <a href="#">Edit order</a>
-              </div>
+              </Col>
             </Row>
           </Col>
 
@@ -83,33 +83,33 @@ class OrderProcessing extends React.Component {
 
             <h4><Badge pill color="dark">2</Badge> Type of delivery and payment</h4>
 
-            <Collapse isOpen={this.state.isOpen}>
+            <Collapse isOpen={true}>
               <Form>
-                <div className="form-row">
-                  <div className="col-4">
-                    <label>Delivery</label>
-                  </div>
-                  <div className="col-8">
-                    <div className="form-check">
-                      <label className="form-check-label">
-                        <input className="form-check-input" type="radio" name="deliveryRadio" id="deliveryRadio1" defaultValue="self-checkout" defaultChecked={true}/>
+                <FormGroup row>
+                  <Col sm="4">
+                    <Label>Delivery</Label>
+                  </Col>
+                  <Col xs="8">
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="radio" name="deliveryRadio" id="deliveryRadio1" defaultValue="self-checkout" defaultChecked={true}/>
                         self-checkout from our store
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <label className="form-check-label">
-                        <input className="form-check-input" type="radio" name="deliveryRadio" id="deliveryRadio2" defaultValue="courier"/>
+                      </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="radio" name="deliveryRadio" id="deliveryRadio2" defaultValue="courier"/>
                         by courier
-                      </label>
-                    </div>
-                  </div>
-                </div>
+                      </Label>
+                    </FormGroup>
+                  </Col>
+                </FormGroup>
                 <hr className="mt-1 mb-1"/>
-                <div className="form-row">
-                  <div className="col-4">
-                    <label>Payment</label>
-                  </div>
-                  <div className="col-8">
+                <FormGroup row>
+                  <Col xs="4">
+                    <Label>Payment</Label>
+                  </Col>
+                  <Col xs="8">
                     <div className="form-check">
                       <label className="form-check-label">
                         <input className="form-check-input" type="radio" name="paymentRadio" id="paymentRadio1" defaultValue="cash" defaultChecked={true} />
@@ -122,48 +122,50 @@ class OrderProcessing extends React.Component {
                         Visa/MasterCard
                       </label>
                     </div>
-                  </div>
-                </div>
+                  </Col>
+                </FormGroup>
                 <hr className="mb-1 mt-1"/>
-                <div className="form-row">
-                  <div className="col-4"><label htmlFor="deliveryAddress">Address</label></div>
-                  <div className="col-8">
-                    <select className="form-control" id="deliveryAddress">
+                <FormGroup row>
+                  <Col xs="4">
+                    <Label htmlFor="deliveryAddress">Address</Label>
+                  </Col>
+                  <Col xs="8">
+                    <Input type="select" id="deliveryAddress">
                       <option>Kyiv, Brovary region, Red str., 15</option>
                       <option>add another one...</option>
-                    </select>
-                    <input type="text" className="form-control form-control-sm mt-1"/>
+                    </Input>
+                    <Input type="text" size="sm" className="mt-1"/>
                     <small className="form-text text-muted">Street</small>
-                    <div className="form-row">
-                      <div className="col">
-                        <input type="text" className="form-control form-control-sm"/>
+                    <FormGroup row>
+                      <Col>
+                        <Input type="text" size="sm" />
                         <small className="form-text text-muted">House</small>
-                      </div>
-                      <div className="col">
-                        <input type="text" className="form-control form-control-sm"/>
+                      </Col>
+                      <Col>
+                        <Input type="text" size="sm" />
                         <small className="form-text text-muted">Flat</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                      </Col>
+                    </FormGroup>
+                  </Col>
+                </FormGroup>
               </Form>
             </Collapse>
 
             <h2>Summary</h2>
-            <div className="row justify-content-between">
-              <div className="col-auto">3 products in total</div>
-              <div className="col-auto">$2700.00</div>
-            </div>
-            <div className="row justify-content-between">
-              <div className="col-auto">Delivery cost</div>
-              <div className="col-auto">free</div>
-            </div>
+            <Row className="justify-content-between">
+              <Col xs="auto">3 products in total</Col>
+              <Col xs="auto">$2700.00</Col>
+            </Row>
+            <Row className="justify-content-between">
+              <Col xs="auto">Delivery cost</Col>
+              <Col xs="auto">free</Col>
+            </Row>
             <hr />
-            <div className="row justify-content-between">
-              <div className="col-auto">To be paid</div>
-              <div className="col-auto"><strong style={{fontSize: 1.2+'rem'}}>$2700.00</strong></div>
-            </div>
-            <button type="button" className="btn btn-success btn-block mb-2">Confirm the order</button>
+            <Row className="justify-content-between">
+              <Col xs="auto">To be paid</Col>
+              <Col xs="auto"><strong style={{fontSize: 1.2+'rem'}}>$2700.00</strong></Col>
+            </Row>
+            <Button color="success" block className="mb-2">Confirm the order</Button>
           </Col>
         </Row>
       </Container>
