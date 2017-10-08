@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import CustomLink from './custom_link';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Collapse, Badge, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
@@ -8,15 +9,23 @@ class OrderProcessing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpenFirst: true,
+      isOpenSecond: false,
+      badgeColorFirst: 'success',
+      badgeColorSecond: 'dark',
+      isLink: false
     };
 
-    this.handleClick = this.handleClick.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
 
-  handleClick() {
+  toggle() {
     this.setState({
-      isOpen: true
+      isOpenFirst: !this.state.isOpenFirst,
+      isOpenSecond: !this.state.isOpenSecond,
+      badgeColorFirst: this.state.badgeColorSecond,
+      badgeColorSecond: this.state.badgeColorFirst,
+      isLink: !this.state.isLink
     });
   }
 
@@ -45,7 +54,7 @@ class OrderProcessing extends React.Component {
         </Row>
 
         <Row>
-          <Col sm="12" lg="6" className="order-lg-2 mb-2" style={{fontSize: 0.8+'rem'}}>
+          <Col xs="12" lg="6" className="order-lg-2 mb-2" style={{fontSize: 0.8+'rem'}}>
             <h4>Your order</h4>
             {products}
             <hr className="m-0"/>
@@ -62,11 +71,11 @@ class OrderProcessing extends React.Component {
             </Row>
           </Col>
 
-          <Col sm="12" lg="6" className="order-lg-1">
-            <h4><Badge pill color="success">1</Badge> Contacts</h4>
+          <Col xs="12" lg="6" className="order-lg-1">
+            <CustomLink isLink={this.state.isLink} color={this.state.badgeColorFirst} toggle={this.toggle} />
 
-            <Collapse isOpen={true}>
-              <Form id="user_form">
+            <Collapse isOpen={this.state.isOpenFirst}>
+              <Form>
                 <FormGroup>
                   <Label for="orderUserName">Name and surname</Label>
                   <Input type="text" id="orderUserName" defaultValue="Senenko Vitaliy"/>
@@ -76,14 +85,14 @@ class OrderProcessing extends React.Component {
                   <Input type="tel" id="orderUserPhone" defaultValue="+38(093)-059-23-40"/>
                 </FormGroup>
                 <FormGroup>
-                  <Button color="success" id="user_btn" onClick={this.handleClick}>Next</Button>
+                  <Button color="success" block onClick={this.toggle}>Next</Button>
                 </FormGroup>
               </Form>
             </Collapse>
 
-            <h4><Badge pill color="dark">2</Badge> Type of delivery and payment</h4>
+            <h4><Badge pill color={this.state.badgeColorSecond}>2</Badge> Type of delivery and payment</h4>
 
-            <Collapse isOpen={true}>
+            <Collapse isOpen={this.state.isOpenSecond}>
               <Form>
                 <FormGroup row>
                   <Col sm="4">

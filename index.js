@@ -13,6 +13,6 @@ app.use('/', function(req, res) {
   res.sendFile(__dirname + "/static/index.html");
 });
 
-app.listen(3000, function() {
+app.listen(3030, function() {
   console.log("Server is running on http://127.0.0.1:3000");
 });

@@ -1,18 +1,13 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import {
-  BrowserRouter as Router,
-  Route
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import _ from 'lodash';
-
 import Home from './components/home/home.js';
 import Product from './components/product.js';
-import OrderProcessing from './components/order_processing.js';
+import OrderProcessing from './components/order_processing/order_processing.js';
 import Header from "./components/header.js";
 import ContactUs from './components/contact_us.js';
 import Footer from './components/footer.jsx';
-
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
