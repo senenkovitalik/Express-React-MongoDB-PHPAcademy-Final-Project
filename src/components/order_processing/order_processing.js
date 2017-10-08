@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import CustomLink from './custom_link';
 import 'bootstrap/dist/css/bootstrap.min.css';

@@ -17,7 +17,7 @@ class ProductItem extends React.Component {
   render() {
     return (
       <Card className="customCard">
-        <CardImg top src={this.props.product.mainImg} alt={this.props.product.name}/>
+        <CardImg top src={`http://127.0.0.1:3030/${this.props.product.mainImg}`} alt={this.props.product.name}/>
         <CardBody>
           <CardTitle>{this.props.product.name}</CardTitle>
           <CardText>
