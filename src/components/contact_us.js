@@ -8,7 +8,7 @@ class ContactUs extends React.Component {
       <Container fluid>
         <Row>
           <Col lg="6">
-            <img src="img/guitar-shop.jpg" className="w-100 my-2" alt="GuitarShop" />
+            <img src="http://localhost:3030/guitar-shop.jpg" className="w-100 my-2" alt="GuitarShop" />
           </Col>
           <Col lg="6">
             <h2 className="mt-2">GuitarShop</h2>

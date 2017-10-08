@@ -36,7 +36,7 @@ class Product extends React.Component {
   render() {
     const imgGalleryItems = this.props.product.imgList.map((img, index) => {
       return <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
-        <img className="d-block w-100" src={img} alt="Carousel" />
+        <img className="d-block w-100" src={`http://localhost:3030/${img}`} alt="Carousel" />
       </div>;
     });
     const description = this.props.product.description.map((paragraph, index) => {
@@ -59,7 +59,7 @@ class Product extends React.Component {
     });
 
     const images = this.props.product.imgList.map((img, index) => {
-      return <img key={index} src={img} className="w-100 mb-1" alt="Product" />;
+      return <img key={index} src={`http://localhost:3030/${img}`} className="w-100 mb-1" alt="Product" />;
     });
 
     return (

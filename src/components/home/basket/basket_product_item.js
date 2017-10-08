@@ -44,7 +44,7 @@ class BasketProductItem extends React.Component {
       <div className="productItem mb-2">
         <Row>
           <Col xs="6">
-            <img className="card-img-top" src={this.props.product.mainImg} alt={this.props.product.name} />
+            <img className="card-img-top" src={`http://localhost:3030/${this.props.product.mainImg}`} alt={this.props.product.name} />
           </Col>
           <Col sx="6" className="pl-0 d-flex flex-column justify-content-between">
             <div>

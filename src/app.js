@@ -35,7 +35,6 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router>
         <div>
           <Header/>
 
@@ -50,7 +49,6 @@ class App extends React.Component {
 
           <Footer/>
         </div>
-      </Router>
     )
   };
 }
