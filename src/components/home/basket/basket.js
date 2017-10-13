@@ -24,10 +24,11 @@ class Basket extends React.Component {
   render() {
 
     const lastIndex = this.props.products.length - 1;
-    const productList = this.props.products.map((product, index) => {
-      return <div key={index}><BasketProductItem product={product} remove={this.props.remove} />
-        {index !== lastIndex &&  <hr />}
-      </div>;
+    const productList = this.props.products.map((prodObj, index) => {
+      return  <div key={index}>
+                <BasketProductItem prodObj={prodObj} remove={this.props.remove} changeCount={this.props.changeCount} />
+                {index !== lastIndex &&  <hr />}
+              </div>;
     });
 
     return (

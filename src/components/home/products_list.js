@@ -9,11 +9,12 @@ class ProductsList extends React.Component {
   render() {
 
     const prodItems = this.props.products.map((product, index) => {
+      const inBasket = (_.find(this.props.productsToBuy, val => val.product.name === product.name ) !== undefined) ? true : false;
       return <ProductItem
         key={index}
         product={product}
         add={this.props.add}
-        inBasket={_.indexOf(this.props.productsToBuy, product) === -1 ? false : true}
+        inBasket={inBasket}
       />;
     });
 

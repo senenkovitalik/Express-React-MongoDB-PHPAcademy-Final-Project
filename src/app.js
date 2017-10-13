@@ -20,11 +20,12 @@ class App extends React.Component {
 
     this.addProduct = this.addProduct.bind(this);
     this.removeProduct = this.removeProduct.bind(this);
+    this.changeProdCount = this.changeProdCount.bind(this);
   }
 
-  addProduct(product) {
+  addProduct(prodObj) {
     this.setState({
-      productsToBuy: _.union(this.state.productsToBuy, [product])
+      productsToBuy: _.union(this.state.productsToBuy, [prodObj])
     });
   }
 
@@ -34,13 +35,22 @@ class App extends React.Component {
     });
   }
 
+  changeProdCount(obj) {
+    console.log(obj);
+  }
+
   render() {
     return (
       <Router>
         <div>
           <Header/>
 
-          <Route exact path="/" render={() => <Home products={this.props.products} productsToBuy={this.state.productsToBuy} add={this.addProduct} remove={this.removeProduct} />}/>
+          <Route exact path="/" render={() => <Home
+                                                products={this.props.products}
+                                                productsToBuy={this.state.productsToBuy}
+                                                add={this.addProduct}
+                                                remove={this.removeProduct}
+                                                changeCount={this.changeProdCount} />}/>
           <Route path="/product/:name" render={(props) => {
             const productToShow = _.find(this.props.products, p => p.name ===  props.match.params.name);
             const inBasket = _.indexOf(this.state.productsToBuy, productToShow) === -1 ? false : true;

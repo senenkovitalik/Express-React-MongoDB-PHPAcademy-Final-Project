@@ -11,7 +11,7 @@ class ProductItem extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.props.add(this.props.product);
+    this.props.add({ product: this.props.product, count: 1 });
   }
 
   render() {

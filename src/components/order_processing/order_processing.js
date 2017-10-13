@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import CustomLink from './custom_link';
+import ProdItem from './ProdItem';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Collapse, Badge, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
@@ -33,16 +34,7 @@ class OrderProcessing extends React.Component {
     let total = 0;
     const products = this.props.productsToBuy.map((product, index) => {
       total += parseInt(product.price, 10);
-      return  <Row key={index} className="p-1">
-                <Col xs="2">
-                  <img src={`http://localhost:3030/${product.mainImg}`} className="w-100" alt={product.name} />
-                </Col>
-                <Col xs="6">
-                  <Link to={`/product/${product.name}`}>{product.name}</Link>
-                </Col>
-                <Col xs="1">1</Col>
-                <Col xs="3">{product.price}</Col>
-              </Row>
+      return  <ProdItem key={index} product={product} />
     });
 
     return (
@@ -162,7 +154,7 @@ class OrderProcessing extends React.Component {
 
             <h2>Summary</h2>
             <Row className="justify-content-between">
-              <Col xs="auto">3 products in total</Col>
+              <Col xs="auto">{this.props.productsToBuy.length} products in total</Col>
               <Col xs="auto">$2700.00</Col>
             </Row>
             <Row className="justify-content-between">
