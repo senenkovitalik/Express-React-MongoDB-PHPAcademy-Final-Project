@@ -1,6 +1,7 @@
 import React from 'react';
 import BasketProductItem from './basket_product_item';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 import { Link } from 'react-router-dom';
 import { Col, Button, Badge, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
@@ -32,7 +33,7 @@ class Basket extends React.Component {
     return (
       <Col xs="12" md="3" lg="2" className="order-md-3">
         <Button size="lg" block onClick={this.toggle} id="basketButton" style={{backgroundColor: '#007bff', color: '#fff'}}>
-          Basket <img src="glyph-iconset-master/svg/si-glyph-trolley-2.svg" style={{width: 25 + 'px', height: 25+'px', color: '#fff'}} alt="Shop cart" />
+          Basket <i className="fa fa-shopping-cart" aria-hidden="true" style={{width: 25 + 'px', height: 25+'px', color: '#fff'}}></i>
           { this.props.products.length > 0 && <Badge color="success">{this.props.products.length}</Badge> }
         </Button>
 

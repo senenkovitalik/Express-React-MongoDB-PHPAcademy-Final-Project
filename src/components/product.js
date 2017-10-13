@@ -57,7 +57,6 @@ class Product extends React.Component {
         }
         </tbody>
     });
-
     const images = this.props.product.imgList.map((img, index) => {
       return <img key={index} src={`http://localhost:3030/${img}`} className="w-100 mb-1" alt="Product" />;
     });

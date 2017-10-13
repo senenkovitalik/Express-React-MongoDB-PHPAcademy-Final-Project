@@ -19,6 +19,9 @@ class AppContainer extends React.Component {
       this.setState({
         products: arr.products
       });
+    })
+    .catch(e => {
+      console.log("Can't fetch data from server");
     });
   }
 

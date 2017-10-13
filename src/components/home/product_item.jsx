@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Card, CardImg, CardBody, CardTitle, CardText } from 'reactstrap';
+import { Card, CardImg, CardBody, CardTitle, CardText, Button } from 'reactstrap';
 
 class ProductItem extends React.Component {
   constructor(props) {
@@ -25,11 +25,10 @@ class ProductItem extends React.Component {
             <Link to={`/product/${this.props.product.name}`}>Detail</Link>
           </CardText>
           <span className="productPrice">{this.props.product.price}</span>
-          <a
+          <Button color="success"
             onClick={(e) => this.handleClick(e)}
-            href="#"
-            className={`btn btn-success ${this.props.inBasket ? "disabled" : ""} float-right priceButton`}
-          >Buy</a>
+            className={`${this.props.inBasket ? "disabled" : ""} float-right priceButton`}
+          >Buy</Button>
         </CardBody>
       </Card>
     );
