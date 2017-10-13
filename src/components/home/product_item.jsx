@@ -27,7 +27,8 @@ class ProductItem extends React.Component {
           <span className="productPrice">{this.props.product.price}</span>
           <Button color="success"
             onClick={(e) => this.handleClick(e)}
-            className={`${this.props.inBasket ? "disabled" : ""} float-right priceButton`}
+            className='float-right priceButton'
+            disabled = {this.props.inBasket}
           >Buy</Button>
         </CardBody>
       </Card>
