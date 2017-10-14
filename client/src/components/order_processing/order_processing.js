@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import CustomLink from './custom_link';
 import ProdItem from './ProdItem';
 import 'bootstrap/dist/css/bootstrap.min.css';

@@ -138,6 +138,21 @@ app.use('/products', function(req, res) {
   res.json({ products: products });
 });
 
+app.post('/login/:login/:password', function(req, res) {
+  var users = [
+    { name: 'Vital', password: 'secret', role: 'user'},
+    { name: 'admin', password: 'admin', role: 'admin'}
+  ];
+  const login = req.params.login;
+  const password = req.params.password;
+  users.forEach(val => {
+    if (val.name === login && val.password === password) {
+      res.json(val);
+    }
+  });
+  res.json(false);
+});
+
 app.use('/admin', function(req, res) {
   res.sendFile(__dirname+"/static/admin_panel.html");
 });
