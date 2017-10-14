@@ -33,8 +33,8 @@ class OrderProcessing extends React.Component {
   render() {
     let total = 0;
     const products = this.props.productsToBuy.map((product, index) => {
-      total += parseInt(product.price, 10);
-      return  <ProdItem key={index} product={product} />
+      total += parseInt(product.product.price, 10);
+      return  <ProdItem key={index} product={product.product} />
     });
 
     return (
@@ -155,7 +155,7 @@ class OrderProcessing extends React.Component {
             <h2>Summary</h2>
             <Row className="justify-content-between">
               <Col xs="auto">{this.props.productsToBuy.length} products in total</Col>
-              <Col xs="auto">$2700.00</Col>
+              <Col xs="auto">${total}</Col>
             </Row>
             <Row className="justify-content-between">
               <Col xs="auto">Delivery cost</Col>
@@ -164,7 +164,7 @@ class OrderProcessing extends React.Component {
             <hr />
             <Row className="justify-content-between">
               <Col xs="auto">To be paid</Col>
-              <Col xs="auto"><strong style={{fontSize: 1.2+'rem'}}>$2700.00</strong></Col>
+              <Col xs="auto"><strong style={{fontSize: 1.2+'rem'}}>${total}</strong></Col>
             </Row>
             <Button color="success" block className="mb-2">Confirm the order</Button>
           </Col>

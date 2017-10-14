@@ -6,7 +6,7 @@ import { Row, Col } from 'reactstrap';
 const ProdItem = (props) => {
   return (<Row className="p-1">
     <Col xs="2">
-      <img src={`http://localhost:3030/${props.product.mainImg}`} className="w-100" alt={props.product.name} />
+      <img src={`/${props.product.mainImg}`} className="w-100" alt={props.product.name} />
     </Col>
     <Col xs="6">
       <Link to={`/product/${props.product.name}`}>{props.product.name}</Link>
