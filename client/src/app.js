@@ -72,7 +72,7 @@ class App extends React.Component {
             const inBasket = _.indexOf(this.state.productsToBuy, productToShow) === -1 ? false : true;
             return <Product product={productToShow} add={this.addProduct} inBasket={inBasket} />}
           }/>
-q
+
           <Route path="/order_processing" render={() => <OrderProcessing productsToBuy={this.state.productsToBuy} />} />
 
           <Route path="/contact_us" component={ContactUs} />
