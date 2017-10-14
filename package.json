@@ -1,56 +1,17 @@
 {
-  "name": "diplom",
-  "version": "1.0.0",
-  "description": "Online shop",
-  "main": "index.js",
-  "directories": {
-    "lib": "lib"
+  "name": "lookup-server",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "4.13.3"
   },
   "scripts": {
-    "server": "nodemon --use_strict index.js",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/senenkovitalik/diplom.git"
-  },
-  "keywords": [
-    "React",
-    "Express",
-    "Mongo"
-  ],
-  "author": "Senenko Vitaliy",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/senenkovitalik/diplom/issues"
-  },
-  "homepage": "https://github.com/senenkovitalik/diplom#readme",
-  "dependencies": {
-    "bootstrap": "^4.0.0-beta",
-    "classnames": "^2.2.5",
-    "express": "^4.16.1",
-    "font-awesome": "^4.7.0",
-    "isomorphic-fetch": "^2.2.1",
-    "jquery": "^3.2.1",
-    "lodash": "^4.17.4",
-    "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-router-dom": "^4.2.2",
-    "react-transition-group": "^1.2.1",
-    "react-validation": "^2.10.9",
-    "reactstrap": "^5.0.0-alpha.3"
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "node start-client.js",
+    "dev": "echo \"This command has been deprecated. Use 'npm start'\" && exit 1"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "nodemon": "^1.12.1",
-    "react-scripts": "^1.0.14",
-    "webpack": "^3.6.0"
+    "concurrently": "3.1.0"
   }
 }
