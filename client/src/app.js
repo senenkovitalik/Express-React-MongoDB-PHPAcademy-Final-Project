@@ -60,7 +60,7 @@ class App extends React.Component {
         <div>
           <Header logging={this.logging} />
 
-          <Route exact path="/" render={() => ( this.state.loggedIn && this.state.user.role === 'admin' ? ( <Redirect to="/admin" /> ) : ( <Home
+          <Route exact path="/" render={(props) => ( this.state.loggedIn && this.state.user.role === 'admin' ? ( <Redirect to="/admin" /> ) : ( <Home
                                                 products={this.props.products}
                                                 productsToBuy={this.state.productsToBuy}
                                                 add={this.addProduct}
@@ -77,7 +77,7 @@ class App extends React.Component {
 
           <Route path="/contact_us" component={ContactUs} />
 
-          <Route path="/admin" render={() => this.state.loggedIn ? <AdminPanel/> : <Redirect to="/"/> } />
+          <Route path="/admin" render={(props) => this.state.loggedIn ? <AdminPanel {...props} /> : <Redirect to="/"/> } />
 
           <Footer/>
         </div>

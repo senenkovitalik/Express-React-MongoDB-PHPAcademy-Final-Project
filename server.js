@@ -153,10 +153,6 @@ app.post('/login/:login/:password', function(req, res) {
   res.json(false);
 });
 
-app.use('/admin', function(req, res) {
-  res.sendFile(__dirname+"/static/admin_panel.html");
-});
-
 app.listen(app.get("port"), () => {
   console.log(`Find the server at: http://localhost:${app.get("port")}/`); // eslint-disable-line no-console
 });
