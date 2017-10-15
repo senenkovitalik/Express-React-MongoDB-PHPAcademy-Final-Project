@@ -19,14 +19,14 @@ class ChangeCategoryForm extends React.Component {
   render() {
     return (
       <Row style={{marginTop: 20+'px'}}>
-        <Col xs="5">
-          <h5>Change category: Guitars</h5>
+        <Col sm="6">
+          <h5>Change category: {this.props.category.name}</h5>
           <Form>
 
             <FormGroup row>
               <Label for="changeCategoryName" className="col-sm-2 col-form-label"><strong>Name</strong></Label>
               <Col xs="10">
-                <Input type="text" id="changeCategoryName" placeholder="Category name" value="Guitars" />
+                <Input type="text" id="changeCategoryName" placeholder="Category name" value={this.props.category.name} />
               </Col>
             </FormGroup>
 
@@ -40,42 +40,29 @@ class ChangeCategoryForm extends React.Component {
                   <th>-</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>
-                    <Input type="text" value="Brand" />
-                  </td>
-                  <td>
-                    <Input type="select">
-                      <option>Text</option>
-                      <option>Number</option>
-                    </Input>
-                  </td>
-                  <td>
-                    <Button className="btn-outline-danger" title="Remove category field">
-                      <i className="fa fa-trash-o" aria-hidden="true"></i>
-                    </Button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>
-                    <Input type="text" value="Weight" />
-                  </td>
-                  <td>
-                    <Input type="select">
-                      <option>Text</option>
-                      <option>Number</option>
-                    </Input>
-                  </td>
-                  <td>
-                    <Button className="btn-outline-danger" title="Remove category field">
-                      <i className="fa fa-trash-o" aria-hidden="true"></i>
-                    </Button>
-                  </td>
-                </tr>
-                </tbody>
+                { 
+                  this.props.category.fields.map((field, i) =>
+                    <tbody key={i}>
+                      <tr>
+                        <th scope="row">{ i + 1 }</th>
+                        <td>
+                          <Input type="text" value={field.name}/>
+                        </td>
+                        <td>
+                          <Input type="select" value={field.type}>
+                            { this.props.fieldTypes.map((type, i) => {
+                              return <option key={i} value={type}>{type}</option>
+                            })}
+                          </Input>
+                        </td>
+                        <td>
+                          <Button className="btn-outline-danger" title="Remove category field">
+                            <i className="fa fa-trash-o" aria-hidden="true"></i>
+                          </Button>
+                        </td>
+                      </tr>
+                    </tbody>
+                )}
               </Table>
             </FormGroup>
 
