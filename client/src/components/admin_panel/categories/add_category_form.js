@@ -7,7 +7,8 @@ import {
   Input,
   Button,
   Table,
-  Label
+  Label,
+  FormFeedback
 } from 'reactstrap';
 import _ from 'lodash';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,7 +28,9 @@ class AddCategoryForm extends React.Component {
         type: 'text'
       },
       nameValid: false,
-      fieldValid: false
+      isNameDirty: false,
+      fieldValid: false,
+      isFieldDirty: false
     };
 
     this.addField = this.addField.bind(this);
@@ -53,13 +56,15 @@ class AddCategoryForm extends React.Component {
     case "categoryName":
       stateObj.name = value;
       stateObj.nameValid = value.length >= 3;
+      stateObj.isNameDirty = value.length > 0;
       break;
     case "fieldName":
       stateObj.newField = {
         name: value,
         type: this.state.newField.type
       };
-      stateObj.fieldValid = value.length > 0;
+      stateObj.fieldValid = value.length >= 3;
+      stateObj.isFieldDirty = value.length > 0;
       break;
     case "fieldType":
       stateObj.newField = {
@@ -84,7 +89,6 @@ class AddCategoryForm extends React.Component {
       fields: this.state.fields
     };
     console.log("Push data to server: ", obj);
-
   }
 
   render() {
@@ -103,6 +107,7 @@ class AddCategoryForm extends React.Component {
                   name="categoryName"
                   placeholder="Category name"
                   onChange={this.handleInputChange}
+                  { ...this.state.isNameDirty ? {valid: this.state.nameValid} : {} }
                 />
               </Col>
             </FormGroup>
@@ -144,6 +149,7 @@ class AddCategoryForm extends React.Component {
                       name="fieldName"
                       onChange={this.handleInputChange}
                       placeholder="Field name"
+                      { ...this.state.isFieldDirty ? {valid: this.state.fieldValid} : {} }
                     />
                   </div>
                   <Col>
@@ -167,6 +173,7 @@ class AddCategoryForm extends React.Component {
                       color="success"
                       className="float-right"
                       style={{marginTop: 15+'px'}}
+                      disabled={!this.state.fieldValid}
                     >Add field</Button>
                   </Col>
                 </FormGroup>
@@ -175,7 +182,11 @@ class AddCategoryForm extends React.Component {
 
             <FormGroup row>
               <Col sm="10">
-                <Button color="primary" onClick={this.save}>Save</Button>
+                <Button
+                  color="primary"
+                  onClick={this.save}
+                  disabled={!(this.state.fieldValid && this.state.nameValid)}
+                >Save</Button>
               </Col>
             </FormGroup>
 
