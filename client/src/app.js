@@ -21,8 +21,10 @@ class App extends React.Component {
     this.state = {
       products: [],
       productsToBuy: [],
-      loggedIn: false,
-      user: null
+      loggedIn: true,
+      user: {
+        role: 'admin'
+      }
     };
 
     this.addProduct = this.addProduct.bind(this);
