@@ -18,11 +18,9 @@ class AddCategoryForm extends React.Component {
     super(props);
     this.state = {
       name: null,
-      fields: [
-        { name: 'Brand', type: 'text' },
-        { name: 'Weight', type: 'number' }
-      ],
-      fieldTypes: ['text', 'number'],
+      description: '',
+      fields: [],
+      fieldTypes: this.props.fieldTypes,
       newField: {
         name: null,
         type: 'text'
@@ -37,6 +35,12 @@ class AddCategoryForm extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.remove = this.remove.bind(this);
     this.save = this.save.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      fieldTypes: nextProps.fieldTypes
+    });
   }
 
   addField() {
@@ -57,6 +61,9 @@ class AddCategoryForm extends React.Component {
       stateObj.name = value;
       stateObj.nameValid = value.length >= 3;
       stateObj.isNameDirty = value.length > 0;
+      break;
+    case "categoryDescription":
+      stateObj.description = value;
       break;
     case "fieldName":
       stateObj.newField = {
@@ -86,7 +93,8 @@ class AddCategoryForm extends React.Component {
   save() {
     const obj = {
       name: this.state.name,
-      fields: this.state.fields
+      fields: this.state.fields,
+      description: this.state.description
     };
     console.log("Push data to server: ", obj);
   }
@@ -94,13 +102,13 @@ class AddCategoryForm extends React.Component {
   render() {
     return (
       <Row style={{marginTop: 20+'px'}}>
-        <Col xs="5">
+        <Col xs="6">
           <h5 color="light">Add new category</h5>
             <Form>
 
               <FormGroup row>
-                <Label for="categoryName" className="col-sm-2 col-form-label">Name</Label>
-                <Col xs="10">
+                <Label for="categoryName" className="col-sm-3 col-form-label">Name</Label>
+                <Col xs="9">
                   <Input
                     type="text"
                     id="categoryName"
@@ -108,6 +116,20 @@ class AddCategoryForm extends React.Component {
                     placeholder="Category name"
                     onChange={this.handleInputChange}
                     { ...this.state.isNameDirty ? {valid: this.state.nameValid} : {} }
+                  />
+                </Col>
+              </FormGroup>
+
+              <FormGroup row>
+                <Label for="categoryDescription" className="col-sm-3 col-form-label">Description</Label>
+                <Col xs="9">
+                  <Input
+                    type="textarea"
+                    name="categoryDescription"
+                    id="categoryDescription"
+                    rows="5"
+                    value={this.state.description}
+                    onChange={this.handleInputChange}
                   />
                 </Col>
               </FormGroup>
@@ -185,7 +207,7 @@ class AddCategoryForm extends React.Component {
                   <Button
                     color="primary"
                     onClick={this.save}
-                    disabled={!this.state.nameValid}
+                    disabled={ !(this.state.nameValid && this.state.fields.length > 0) }
                   >Save</Button>
                 </Col>
               </FormGroup>
