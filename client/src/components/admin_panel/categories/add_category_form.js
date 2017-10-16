@@ -7,8 +7,7 @@ import {
   Input,
   Button,
   Table,
-  Label,
-  Link
+  Label
 } from 'reactstrap';
 import _ from 'lodash';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -79,6 +78,8 @@ class AddCategoryForm extends React.Component {
         type: value
       };
       break;
+    default:
+      break;
     }
 
     this.setState(stateObj)
@@ -96,7 +97,7 @@ class AddCategoryForm extends React.Component {
       fields: this.state.fields,
       description: this.state.description
     };
-    console.log("Push data to server: ", obj);
+    this.props.add(obj);
   }
 
   render() {

@@ -15,6 +15,28 @@ import {
 import Categories from "./categories/categories";
 
 class AdminPanel extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      flash: {
+        color: '',
+        message: ''
+      },
+      showFlash: false
+    };
+
+    this.flash = this.flash.bind(this);
+  }
+
+  flash(flashObj) {
+    this.setState({
+      flash: {
+        ...flashObj
+      },
+      showFlash: true
+    });
+  }
+
   render() {
     return (
       <Container fluid>
@@ -30,10 +52,13 @@ class AdminPanel extends React.Component {
             </ListGroup>
           </Col>
           <Col lg="10">
-            <UncontrolledAlert color="primary">
-              Something happens! Maybe you add new category, change exist one or delete.
-            </UncontrolledAlert>
-            <Route path={`${this.props.match.url}/categories`} render={(props) => <Categories {...props} />} />
+            {
+              this.state.showFlash &&
+              <UncontrolledAlert color={this.state.flash.color}>
+                {this.state.flash.message}
+              </UncontrolledAlert>
+            }
+            <Route path={`${this.props.match.url}/categories`} render={(props) => <Categories {...props} flash={this.flash} />} />
             <Route path={`${this.props.match.url}/products`} render={() => <h1>Products</h1>} />
             <Route path={`${this.props.match.url}/users`} render={() => <h1>Users</h1>} />
             <Route path={`${this.props.match.url}/providers`} render={() => <h1>Providers</h1>} />

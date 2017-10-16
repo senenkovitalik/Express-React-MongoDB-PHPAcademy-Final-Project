@@ -89,11 +89,11 @@ class ChangeCategoryForm extends React.Component {
   }
 
   save() {
-    const obj = {
+    this.props.change({
       name: this.state.name,
+      description: this.state.description,
       fields: this.state.fields
-    };
-    console.log("Push data to server: ", obj);
+    });
   }
 
   componentWillReceiveProps(nextProps) {

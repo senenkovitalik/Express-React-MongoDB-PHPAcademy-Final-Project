@@ -2,7 +2,8 @@ import React from 'react';
 import {
   ListGroupItem,
   Collapse,
-  Button
+  Button,
+  Table
 } from 'reactstrap';
 import {
   Link
@@ -35,9 +36,27 @@ class AdminCategoryItem extends React.Component {
     return (
       <div>
         <ListGroupItem onClick={this.toggle}>
-          {this.props.category.name}
+          <strong>{this.props.category.name}</strong>
           <Collapse isOpen={this.state.isOpen}>
             <p className="mb-3">{this.props.category.description}</p>
+            <Table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Field name</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              { this.props.category.fields.map((field, i) => {
+                return  <tbody key={i}>
+                          <tr>
+                            <td>{i + 1}</td>
+                            <td>{field.name}</td>
+                            <td>{field.type}</td>
+                          </tr>
+                        </tbody>
+              }) }
+            </Table>
             <Button color="info" size="sm" tag={Link} to={`${this.props.match.url}/change-category`} onClick={this.change}>Change</Button>
             <Button color="danger" size="sm" onClick={() => this.props.remove(this.props.category)}>Delete</Button>
           </Collapse>
