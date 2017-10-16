@@ -39,7 +39,7 @@ class AdminCategoryItem extends React.Component {
           <Collapse isOpen={this.state.isOpen}>
             <p className="mb-3">{this.props.category.description}</p>
             <Button color="info" size="sm" tag={Link} to={`${this.props.match.url}/change-category`} onClick={this.change}>Change</Button>
-            <Button color="danger" size="sm">Delete</Button>
+            <Button color="danger" size="sm" onClick={() => this.props.remove(this.props.category)}>Delete</Button>
           </Collapse>
         </ListGroupItem>
       </div>

@@ -8,6 +8,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
+import _ from 'lodash';
 import AdminCategoryItem from './category_item';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -66,12 +67,21 @@ class Categories extends React.Component {
     };
 
     this.changeCategory = this.changeCategory.bind(this);
+    this.remove = this.remove.bind(this);
   }
 
   changeCategory(cat) {
     this.setState({
       catToChange: cat
     });
+  }
+
+  remove(cat) {
+    console.log("Push data to server: remove category - ", cat);
+    this.setState({
+      categories: _.without(this.state.categories, cat)
+    });
+    console.log("If callback is succesfull - remove item.");
   }
 
   render() {
@@ -85,7 +95,7 @@ class Categories extends React.Component {
           {/*<!-- Category list -->*/}
           <ListGroup style={{marginTop: 5+'px'}}>
             {this.state.categories.map((category, i) => {
-              return <AdminCategoryItem key={i} category={category} change={this.changeCategory} {...this.props} />;
+              return <AdminCategoryItem key={i} category={category} change={this.changeCategory} remove={this.remove} {...this.props} />;
             })}
           </ListGroup>
 
