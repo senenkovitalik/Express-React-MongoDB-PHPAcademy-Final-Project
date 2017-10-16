@@ -10,82 +10,199 @@ import {
   Label
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import _ from 'lodash';
 
 class ChangeCategoryForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      name: this.props.category.name,
+      description: this.props.category.description,
+      fields: this.props.category.fields,
+      fieldTypes: this.props.fieldTypes,
+      newField: {
+        name: null,
+        type: 'text'
+      },
+      nameValid: false,
+      isNameDirty: false,
+      fieldValid: false,
+      isFieldDirty: false,
+      isDataDirty: false
+    };
+
+    this.addField = this.addField.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.remove = this.remove.bind(this);
+    this.save = this.save.bind(this);
+  }
+
+  addField() {
+    if (this.state.newField.name !== null && _.find(this.state.fields, this.state.newField) === undefined) {
+      this.setState({
+        fields: _.concat(this.state.fields, this.state.newField)
+      });
+    }
+  }
+
+  handleInputChange(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+    let stateObj = {};
+
+    switch (name) {
+    case "categoryName":
+      stateObj.name = value;
+      stateObj.nameValid = value.length >= 3;
+      stateObj.isNameDirty = value.length > 0;
+      break;
+    case "categoryDescription":
+      stateObj.description = value;
+      stateObj.isDataDirty = true;
+      break;
+    case "fieldName":
+      stateObj.newField = {
+        name: value,
+        type: this.state.newField.type
+      };
+      stateObj.fieldValid = value.length >= 3;
+      stateObj.isFieldDirty = value.length > 0;
+      break;
+    case "fieldType":
+      stateObj.newField = {
+        name: this.state.newField.name,
+        type: value
+      };
+      break;
+    default:
+      break;
+    }
+
+    this.setState(stateObj)
+  }
+
+  remove(field) {
+    this.setState({
+      fields: _.without(this.state.fields, field),
+      isDataDirty: true
+    })
+  }
+
+  save() {
+    const obj = {
+      name: this.state.name,
+      fields: this.state.fields
+    };
+    console.log("Push data to server: ", obj);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      ...nextProps.category,
+      fieldTypes: nextProps.fieldTypes
+    });
   }
 
   render() {
     return (
       <Row style={{marginTop: 20+'px'}}>
-        <Col sm="6">
-          <h5>Change category: {this.props.category.name}</h5>
+        <Col xs="6">
+          <h5 color="light">Change category: {this.props.category.name}</h5>
           <Form>
 
             <FormGroup row>
-              <Label for="changeCategoryName" className="col-sm-2 col-form-label"><strong>Name</strong></Label>
-              <Col xs="10">
-                <Input type="text" id="changeCategoryName" placeholder="Category name" value={this.props.category.name} />
+              <Label for="categoryName" className="col-sm-3 col-form-label">Name</Label>
+              <Col xs="9">
+                <Input
+                  type="text"
+                  id="categoryName"
+                  name="categoryName"
+                  placeholder="Category name"
+                  value={this.state.name}
+                  onChange={this.handleInputChange}
+                  { ...this.state.isNameDirty ? {valid: this.state.nameValid} : {} }
+                />
               </Col>
             </FormGroup>
 
             <FormGroup row>
-              <Table>
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Field name</th>
-                  <th>Type</th>
-                  <th>-</th>
-                </tr>
-                </thead>
-                { 
-                  this.props.category.fields.map((field, i) =>
-                    <tbody key={i}>
-                      <tr>
-                        <th scope="row">{ i + 1 }</th>
-                        <td>
-                          <Input type="text" value={field.name}/>
-                        </td>
-                        <td>
-                          <Input type="select" value={field.type}>
-                            { this.props.fieldTypes.map((type, i) => {
-                              return <option key={i} value={type}>{type}</option>
-                            })}
-                          </Input>
-                        </td>
-                        <td>
-                          <Button className="btn-outline-danger" title="Remove category field">
-                            <i className="fa fa-trash-o" aria-hidden="true"></i>
-                          </Button>
-                        </td>
-                      </tr>
-                    </tbody>
-                )}
-              </Table>
+              <Label for="categoryDescription" className="col-sm-3 col-form-label">Description</Label>
+              <Col xs="9">
+                <Input
+                  type="textarea"
+                  name="categoryDescription"
+                  id="categoryDescription"
+                  rows="5"
+                  value={this.state.description}
+                  onChange={this.handleInputChange}
+                />
+              </Col>
             </FormGroup>
 
+            <Table>
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Field name</th>
+                <th>Type</th>
+                <th>-</th>
+              </tr>
+              </thead>
+              {
+                this.state.fields.map((field, i) => {
+                  return  <tbody key={i}>
+                            <tr>
+                              <th scope="row">{i+1}</th>
+                              <td>{field.name}</td>
+                              <td>{field.type}</td>
+                              <td>
+                                <Button onClick={() => this.remove(field)} className="btn-outline-danger" title="Remove category field">
+                                  <i className="fa fa-trash-o" aria-hidden="true"></i>
+                                </Button>
+                              </td>
+                            </tr>
+                          </tbody>;
+              })}
+            </Table>
+
             <FormGroup row>
-              <Col sm="2"><strong>Fields</strong></Col>
+              <Col sm="2">Fields</Col>
               <Col sm="10">
-                <FormGroup row>
-                  <Col sm="auto">
+                <div className="form-row">
+                  <div className="col">
                     <Label for="fieldName">Name</Label>
-                    <Input type="text" id="fieldName" placeholder="Filed name" />
-                  </Col>
+                    <Input
+                      type="text"
+                      id="fieldName"
+                      name="fieldName"
+                      onChange={this.handleInputChange}
+                      placeholder="Field name"
+                      { ...this.state.isFieldDirty ? {valid: this.state.fieldValid} : {} }
+                    />
+                  </div>
                   <Col>
                     <Label for="filedType">Type</Label>
-                    <Input type="select" id="filedType">
-                      <option>Text</option>
-                      <option>Number</option>
-                      <option>Date</option>
+                    <Input
+                      type="select"
+                      id="fieldType"
+                      name="fieldType"
+                      onChange={this.handleInputChange}
+                    >
+                      {this.state.fieldTypes.map((type, i) => {
+                        return <option key={i}>{type}</option>;
+                      })}
                     </Input>
                   </Col>
-                </FormGroup>
+                </div>
                 <FormGroup row>
                   <Col>
-                    <Button color="success" className="float-right" style={{marginTop: 15+'px'}}>Add field</Button>
+                    <Button
+                      onClick={this.addField}
+                      color="success"
+                      className="float-right"
+                      style={{marginTop: 15+'px'}}
+                      disabled={!this.state.fieldValid}
+                    >Add field</Button>
                   </Col>
                 </FormGroup>
               </Col>
@@ -93,9 +210,14 @@ class ChangeCategoryForm extends React.Component {
 
             <FormGroup row>
               <Col sm="10">
-                <Button color="primary">Save</Button>
+                <Button
+                  color="primary"
+                  onClick={this.save}
+                  disabled={!this.state.nameValid && !this.state.isDataDirty}
+                >Save</Button>
               </Col>
             </FormGroup>
+
           </Form>
         </Col>
       </Row>

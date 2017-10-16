@@ -30,8 +30,7 @@ class AddCategoryForm extends React.Component {
       nameValid: false,
       isNameDirty: false,
       fieldValid: false,
-      isFieldDirty: false,
-      isOpen: false
+      isFieldDirty: false
     };
 
     this.addField = this.addField.bind(this);
