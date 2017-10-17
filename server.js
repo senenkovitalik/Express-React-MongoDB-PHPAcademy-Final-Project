@@ -1,5 +1,14 @@
 var express = require('express');
 var app = express();
+var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+
+mongoose.connect('mongodb://senenkovitalik:3akp1RoxACDcaYo1@academy-shard-00-00-0myio.mongodb.net:27017,academy-shard-00-01-0myio.mongodb.net:27017,academy-shard-00-02-0myio.mongodb.net:27017/test?ssl=true&replicaSet=Academy-shard-0&authSource=admin');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("We successfully connect to MongoDB Atlas");
+});
 
 app.set("port", process.env.PORT || 3001);
 
@@ -7,6 +16,9 @@ app.set("port", process.env.PORT || 3001);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json()); // this is used for parsing the JSON object from POST
 
 app.use(express.static('static/img'));
 
@@ -136,6 +148,36 @@ app.use('/products', function(req, res) {
     }
   ];
   res.json({ products: products });
+});
+
+
+
+const categorySchema = require('./server/db/schemas/category');
+const Category = mongoose.model('Category', categorySchema);
+
+// get all categories from DB
+app.get('/categories', function(req, res) {
+  Category.find(function(err, cats) {
+    if (err) res.json(err);
+    res.json(cats);
+  });
+});
+
+// add new category to DB
+app.post('/category', function(req, res) {
+  const catToSave = new Category({
+    name: req.body.name,
+    description: req.body.description,
+    prodProps: req.body.prodProps
+  });
+  catToSave.save(err => {
+    if (err)  {
+      console.log(err);
+      res.json({result: false});
+    } else {
+      res.json({result: true});
+    }
+  });
 });
 
 app.post('/login/:login/:password', function(req, res) {

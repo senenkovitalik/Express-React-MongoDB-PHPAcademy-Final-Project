@@ -47,7 +47,7 @@ class AdminCategoryItem extends React.Component {
                   <th>Type</th>
                 </tr>
               </thead>
-              { this.props.category.fields.map((field, i) => {
+              { this.props.category.prodProps.map((field, i) => {
                 return  <tbody key={i}>
                           <tr>
                             <td>{i + 1}</td>

@@ -12,7 +12,8 @@ import {
   Route,
   NavLink
 } from 'react-router-dom';
-import Categories from "./categories/categories";
+import CategoryContainer from "./categories/category_container";
+import $ from 'jquery';
 
 class AdminPanel extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class AdminPanel extends React.Component {
     };
 
     this.flash = this.flash.bind(this);
+    this.makeAJAX = this.makeAJAX.bind(this);
   }
 
   flash(flashObj) {
@@ -34,6 +36,18 @@ class AdminPanel extends React.Component {
         ...flashObj
       },
       showFlash: true
+    });
+  }
+
+  makeAJAX(obj) {
+    const method = obj.method;
+    const url = obj.url;
+    const data = obj.data;
+    $.ajax({
+      ...obj
+    })
+    .done(res => {
+      console.log(res);
     });
   }
 
@@ -58,7 +72,7 @@ class AdminPanel extends React.Component {
                 {this.state.flash.message}
               </UncontrolledAlert>
             }
-            <Route path={`${this.props.match.url}/categories`} render={(props) => <Categories {...props} flash={this.flash} />} />
+            <Route path={`${this.props.match.url}/categories`} render={(props) => <CategoryContainer {...props} flash={this.flash} />} />
             <Route path={`${this.props.match.url}/products`} render={() => <h1>Products</h1>} />
             <Route path={`${this.props.match.url}/users`} render={() => <h1>Users</h1>} />
             <Route path={`${this.props.match.url}/providers`} render={() => <h1>Providers</h1>} />

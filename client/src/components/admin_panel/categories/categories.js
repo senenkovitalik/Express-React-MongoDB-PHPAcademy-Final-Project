@@ -19,49 +19,7 @@ class Categories extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: [
-        {
-          name: 'Guitars',
-          description: 'Some info about guitars category',
-          fields: [
-            { name: 'Brand', type: 'text' },
-            { name: 'Model', type: 'text' },
-          ]
-        },
-        {
-          name: 'Amps',
-          description: 'Some info about guitars category',
-          fields: [
-            { name: 'Brand', type: 'text' },
-            { name: 'Model', type: 'text' },
-            { name: 'Output Power', type: 'number' },
-          ]
-        },
-        {
-          name: 'Strings',
-          description: 'Some info about guitars category',
-          fields: [
-            { name: 'Brand', type: 'text' },
-            { name: 'Model', type: 'text' },
-          ]
-        },
-        {
-          name: 'Combos',
-          description: 'Some info about guitars category',
-          fields: [
-            { name: 'Brand', type: 'text' },
-            { name: 'Model', type: 'text' },
-          ]
-        },
-        {
-          name: 'Effects',
-          description: 'Some info about guitars category',
-          fields: [
-            { name: 'Brand', type: 'text' },
-            { name: 'Model', type: 'text' },
-          ]
-        }
-      ],
+      categories: this.props.categories,
       fieldTypes: ['text', 'number'],
       catToChange: null
     };
@@ -69,7 +27,13 @@ class Categories extends React.Component {
     this.chooseToChange = this.chooseToChange.bind(this);
     this.change = this.change.bind(this);
     this.remove = this.remove.bind(this);
-    this.add = this.add.bind(this);
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      categories: nextProps.categories
+    });
   }
 
   chooseToChange(cat) {
@@ -103,25 +67,6 @@ class Categories extends React.Component {
     console.log("If callback is succesfull - remove item.");
   }
 
-  add(cat) {
-    if (_.find(this.state.categories, { 'name': cat.name })) {
-      this.props.flash({
-        color: 'warning',
-        message: `Sorry, but category ${cat.name} already exist( Try to change name to another.`
-      });
-    } else {
-      console.log("Push data to server: add category - ", cat);
-      this.setState({
-        categories: _.concat(this.state.categories, cat)
-      });
-      this.props.flash({
-        color: 'success',
-        message: `Category ${cat.name} successfully added.`
-      });
-      console.log("If callback is successful - add");
-    }
-  }
-
   render() {
     return (
       <div>
@@ -140,7 +85,7 @@ class Categories extends React.Component {
           {/* Add new category */}
           <Route
             path={`${this.props.match.url}/add-new-category`}
-            render={() => <AddCategoryForm fieldTypes={this.state.fieldTypes} add={this.add} />}
+            render={() => <AddCategoryForm fieldTypes={this.state.fieldTypes} add={this.props.add} />}
           />
 
           {/*<!-- Change existing category -->*/}

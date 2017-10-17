@@ -18,7 +18,7 @@ class AddCategoryForm extends React.Component {
     this.state = {
       name: null,
       description: '',
-      fields: [],
+      prodProps: [],
       fieldTypes: this.props.fieldTypes,
       newField: {
         name: null,
@@ -43,9 +43,9 @@ class AddCategoryForm extends React.Component {
   }
 
   addField() {
-    if (this.state.newField.name !== null && _.find(this.state.fields, this.state.newField) === undefined) {
+    if (this.state.newField.name !== null && _.find(this.state.prodProps, this.state.newField) === undefined) {
       this.setState({
-        fields: _.concat(this.state.fields, this.state.newField)
+        prodProps: _.concat(this.state.prodProps, this.state.newField)
       });
     }
   }
@@ -87,14 +87,14 @@ class AddCategoryForm extends React.Component {
 
   remove(field) {
     this.setState({
-      fields: _.without(this.state.fields, field)
+      prodProps: _.without(this.state.prodProps, field)
     })
   }
 
   save() {
     const obj = {
       name: this.state.name,
-      fields: this.state.fields,
+      prodProps: this.state.prodProps,
       description: this.state.description
     };
     this.props.add(obj);
@@ -144,7 +144,7 @@ class AddCategoryForm extends React.Component {
                   <th>-</th>
                 </tr>
                 </thead>
-                {this.state.fields.map((field, i) => {
+                {this.state.prodProps.map((field, i) => {
                   return  <tbody key={i}>
                             <tr>
                               <th scope="row">{i+1}</th>
@@ -208,7 +208,7 @@ class AddCategoryForm extends React.Component {
                   <Button
                     color="primary"
                     onClick={this.save}
-                    disabled={ !(this.state.nameValid && this.state.fields.length > 0) }
+                    disabled={ !(this.state.nameValid && this.state.prodProps.length > 0) }
                   >Save</Button>
                 </Col>
               </FormGroup>
