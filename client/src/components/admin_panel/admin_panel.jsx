@@ -27,7 +27,6 @@ class AdminPanel extends React.Component {
     };
 
     this.flash = this.flash.bind(this);
-    this.makeAJAX = this.makeAJAX.bind(this);
   }
 
   flash(flashObj) {
@@ -36,18 +35,6 @@ class AdminPanel extends React.Component {
         ...flashObj
       },
       showFlash: true
-    });
-  }
-
-  makeAJAX(obj) {
-    const method = obj.method;
-    const url = obj.url;
-    const data = obj.data;
-    $.ajax({
-      ...obj
-    })
-    .done(res => {
-      console.log(res);
     });
   }
 

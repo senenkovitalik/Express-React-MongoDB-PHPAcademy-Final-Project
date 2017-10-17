@@ -12,6 +12,7 @@ class CategoryContainer extends React.Component {
 
     this.makeAJAX = this.makeAJAX.bind(this);
     this.add = this.add.bind(this);
+    this.remove = this.remove.bind(this);
   }
 
   componentDidMount() {
@@ -69,9 +70,33 @@ class CategoryContainer extends React.Component {
     }
   }
 
+  remove(cat) {
+    this.makeAJAX({
+      method: 'DELETE',
+      url: `/category/${cat.name}`
+    }, res => {
+      let color = 'success';
+      let message = `Category ${cat.name} successfully removed.`;
+
+      if (res.result) {
+        this.setState({
+          categories: _.without(this.state.categories, cat)
+        });
+      } else {
+        color = 'warning';
+        message = `Can't remove category ${cat.name} from DB. Server error.`;
+      }
+
+      this.props.flash({
+        color: color,
+        message: message
+      });
+    });
+  }
+
   render() {
     return (
-      <Categories {...this.props} categories={this.state.categories} add={this.add} />
+      <Categories {...this.props} categories={this.state.categories} add={this.add} remove={this.remove} />
     );
   }
 }

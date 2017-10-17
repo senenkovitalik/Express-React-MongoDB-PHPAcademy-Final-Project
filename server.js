@@ -180,6 +180,18 @@ app.post('/category', function(req, res) {
   });
 });
 
+// remove category from DB
+app.delete('/category/:name', function(req, res) {
+  Category.remove({ name: req.params.name }, function(err) {
+    if (err) {
+      console.log(err);
+      res.json({result: false});
+    } else {
+      res.json({result: true});
+    }
+  })
+});
+
 app.post('/login/:login/:password', function(req, res) {
   var users = [
     { name: 'Vital', password: 'secret', role: 'user'},

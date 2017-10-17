@@ -26,7 +26,7 @@ class Categories extends React.Component {
 
     this.chooseToChange = this.chooseToChange.bind(this);
     this.change = this.change.bind(this);
-    this.remove = this.remove.bind(this);
+
 
   }
 
@@ -55,18 +55,6 @@ class Categories extends React.Component {
     console.log("If callback is successful - change.");
   }
 
-  remove(cat) {
-    console.log("Push data to server: remove category - ", cat);
-    this.setState({
-      categories: _.without(this.state.categories, cat)
-    });
-    this.props.flash({
-      color: 'success',
-      message: `Category ${cat.name} successfully removed.`
-    });
-    console.log("If callback is succesfull - remove item.");
-  }
-
   render() {
     return (
       <div>
@@ -78,7 +66,7 @@ class Categories extends React.Component {
           {/*<!-- Category list -->*/}
           <ListGroup style={{marginTop: 5+'px'}}>
             {this.state.categories.map((category, i) => {
-              return <AdminCategoryItem key={i} category={category} change={this.chooseToChange} remove={this.remove} {...this.props} />;
+              return <AdminCategoryItem key={i} category={category} change={this.chooseToChange} {...this.props} />;
             })}
           </ListGroup>
 
