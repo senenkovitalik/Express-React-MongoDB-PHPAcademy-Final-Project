@@ -18,7 +18,7 @@ class ChangeCategoryForm extends React.Component {
     this.state = {
       name: this.props.category.name,
       description: this.props.category.description,
-      fields: this.props.category.fields,
+      fields: this.props.category.prodProps,
       fieldTypes: this.props.fieldTypes,
       newField: {
         name: null,
@@ -92,7 +92,7 @@ class ChangeCategoryForm extends React.Component {
     this.props.change({
       name: this.state.name,
       description: this.state.description,
-      fields: this.state.fields
+      prodProps: this.state.fields
     });
   }
 

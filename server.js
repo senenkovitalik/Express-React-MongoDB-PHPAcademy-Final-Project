@@ -192,6 +192,24 @@ app.delete('/category/:name', function(req, res) {
   })
 });
 
+// update category
+app.put('/category', function(req, res) {
+  const catToUpdate = {
+    name: req.body.name,
+    description: req.body.description,
+    prodProps: req.body.prodProps
+  };
+  console.log(req.body);
+  Category.update({ _id: req.body._id }, { $set: {prodProps: req.body.prodProps} }, function(err) {
+    if (err) {
+      console.log(err);
+      res.json({result: false});
+    } else {
+      res.json({result: true});
+    }
+  });
+});
+
 app.post('/login/:login/:password', function(req, res) {
   var users = [
     { name: 'Vital', password: 'secret', role: 'user'},

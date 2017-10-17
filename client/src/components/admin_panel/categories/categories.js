@@ -8,7 +8,6 @@ import {
   Route,
   Redirect
 } from 'react-router-dom';
-import _ from 'lodash';
 import AdminCategoryItem from './category_item';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -20,39 +19,14 @@ class Categories extends React.Component {
     super(props);
     this.state = {
       categories: this.props.categories,
-      fieldTypes: ['text', 'number'],
-      catToChange: null
+      fieldTypes: ['text', 'number']
     };
-
-    this.chooseToChange = this.chooseToChange.bind(this);
-    this.change = this.change.bind(this);
-
-
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       categories: nextProps.categories
     });
-  }
-
-  chooseToChange(cat) {
-    this.setState({
-      catToChange: cat
-    });
-  }
-
-  change(cat) {
-    console.log("Push data to server: change category - ", cat);
-    this.setState({
-      categories: _.concat(_.without(this.state.categories, this.state.catToChange), cat),
-      catToChange: cat
-    });
-    this.props.flash({
-      color: 'success',
-      message: `Category ${cat.name} successfully updated.`
-    });
-    console.log("If callback is successful - change.");
   }
 
   render() {
@@ -66,7 +40,7 @@ class Categories extends React.Component {
           {/*<!-- Category list -->*/}
           <ListGroup style={{marginTop: 5+'px'}}>
             {this.state.categories.map((category, i) => {
-              return <AdminCategoryItem key={i} category={category} change={this.chooseToChange} {...this.props} />;
+              return <AdminCategoryItem key={i} category={category} {...this.props} />;
             })}
           </ListGroup>
 
@@ -80,10 +54,11 @@ class Categories extends React.Component {
           <Route
             path={`${this.props.match.url}/change-category`}
             render={() => (
-              this.state.catToChange
-                ? (<ChangeCategoryForm category={this.state.catToChange} fieldTypes={this.state.fieldTypes} change={this.change} />)
+              this.props.catToChange
+                ? (<ChangeCategoryForm category={this.props.catToChange} fieldTypes={this.state.fieldTypes} change={this.props.change} />)
                 : (<Redirect to={this.props.match.url} />)
-            )} />
+            )}
+          />
       </div>
     );
   }

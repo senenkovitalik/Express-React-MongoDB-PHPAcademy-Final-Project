@@ -7,12 +7,15 @@ class CategoryContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: []
+      categories: [],
+      catToChange: null
     };
 
     this.makeAJAX = this.makeAJAX.bind(this);
     this.add = this.add.bind(this);
     this.remove = this.remove.bind(this);
+    this.choose = this.choose.bind(this);
+    this.change = this.change.bind(this);
   }
 
   componentDidMount() {
@@ -94,9 +97,52 @@ class CategoryContainer extends React.Component {
     });
   }
 
+  choose(cat) {
+    this.setState({
+      catToChange: cat
+    });
+  }
+
+  change(cat) {
+    console.log("Push data to server: change category - ", cat);
+
+    this.makeAJAX({
+      method: 'PUT',
+      url: '/category',
+      data: JSON.stringify(cat)
+    }, res => {
+      console.log(res);
+      let color = 'success';
+      let message = `Category ${cat.name} successfully updated.`;
+
+      if (res.result) {
+        this.setState({
+          categories: _.concat(_.without(this.state.categories, this.state.catToChange), cat),
+          catToChange: cat
+        });
+      } else {
+        color = 'warning';
+        message = `Can't update category ${cat.name}. Server error.`;
+      }
+
+      this.props.flash({
+        color: color,
+        message: message
+      });
+    });
+  }
+
   render() {
     return (
-      <Categories {...this.props} categories={this.state.categories} add={this.add} remove={this.remove} />
+      <Categories
+        {...this.props}
+        categories={this.state.categories}
+        add={this.add}
+        remove={this.remove}
+        choose={this.choose}
+        change={this.change}
+        catToChange={this.state.catToChange}
+      />
     );
   }
 }

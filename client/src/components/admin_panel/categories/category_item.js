@@ -29,7 +29,7 @@ class AdminCategoryItem extends React.Component {
   }
 
   change() {
-    this.props.change(this.props.category)
+    this.props.choose(this.props.category)
   }
 
   render() {
