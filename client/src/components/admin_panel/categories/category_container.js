@@ -22,7 +22,10 @@ class CategoryContainer extends React.Component {
     this.makeAJAX({
       method: 'GET',
       url: '/categories'
-    }, res => this.setState({ categories: res }));
+    }, res => {
+      console.log(res);
+      this.setState({ categories: res })
+    });
   }
 
   makeAJAX(obj, cb) {
@@ -50,8 +53,6 @@ class CategoryContainer extends React.Component {
         method: 'POST',
         data: JSON.stringify(cat) // VERY IMPORTANT PART OF REQUEST
       }, res => {
-        console.log(res);
-
         let color = 'success';
         let message = `Category ${cat.name} successfully added.`;
 

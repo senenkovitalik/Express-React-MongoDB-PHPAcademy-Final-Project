@@ -165,11 +165,15 @@ app.get('/categories', function(req, res) {
 
 // add new category to DB
 app.post('/category', function(req, res) {
+
+  const arr = req.body.prodProps.map(val => val);
+
   const catToSave = new Category({
     name: req.body.name,
     description: req.body.description,
-    prodProps: req.body.prodProps
+    prodProps: arr
   });
+
   catToSave.save(err => {
     if (err)  {
       console.log(err);
@@ -200,7 +204,7 @@ app.put('/category', function(req, res) {
     prodProps: req.body.prodProps
   };
   console.log(req.body);
-  Category.update({ _id: req.body._id }, { $set: {prodProps: req.body.prodProps} }, function(err) {
+  Category.findByIdAndUpdate({ _id: req.body._id }, { $set: catToUpdate }, function(err) {
     if (err) {
       console.log(err);
       res.json({result: false});
