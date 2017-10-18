@@ -105,14 +105,14 @@ class CategoryContainer extends React.Component {
   }
 
   change(cat) {
-    console.log("Push data to server: change category - ", cat);
-
     this.makeAJAX({
       method: 'PUT',
       url: '/category',
       data: JSON.stringify(cat)
     }, res => {
+      
       console.log(res);
+
       let color = 'success';
       let message = `Category ${cat.name} successfully updated.`;
 

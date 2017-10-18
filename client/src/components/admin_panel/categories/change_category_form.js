@@ -89,11 +89,17 @@ class ChangeCategoryForm extends React.Component {
   }
 
   save() {
-    this.props.change({
-      name: this.state.name,
-      description: this.state.description,
-      prodProps: this.state.fields
-    });
+    this.props.change(
+      Object.assign(
+        {}, 
+        this.props.category, 
+        {
+          name: this.state.name,
+          description: this.state.description,
+          prodProps: this.state.fields
+        }
+      )
+    );
   }
 
   componentWillReceiveProps(nextProps) {
