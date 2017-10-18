@@ -13,6 +13,7 @@ import {
   NavLink
 } from 'react-router-dom';
 import CategoryContainer from "./categories/category_container";
+import ProductContainer from "./products/product_container";
 import $ from 'jquery';
 
 class AdminPanel extends React.Component {
@@ -60,7 +61,7 @@ class AdminPanel extends React.Component {
               </UncontrolledAlert>
             }
             <Route path={`${this.props.match.url}/categories`} render={(props) => <CategoryContainer {...props} flash={this.flash} />} />
-            <Route path={`${this.props.match.url}/products`} render={() => <h1>Products</h1>} />
+            <Route path={`${this.props.match.url}/products`} render={(props) => <ProductContainer {...props} flash={this.flash} />} />
             <Route path={`${this.props.match.url}/users`} render={() => <h1>Users</h1>} />
             <Route path={`${this.props.match.url}/providers`} render={() => <h1>Providers</h1>} />
             <Route path={`${this.props.match.url}/orders`} render={() => <h1>Orders</h1>} />
