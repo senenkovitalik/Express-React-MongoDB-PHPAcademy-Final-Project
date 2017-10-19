@@ -9,26 +9,21 @@ import {
   Button
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import PropertyField from "../categories/property_field";
+import _ from 'lodash';
 
 class AddProductForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: {
-        name: '',
-        category: '',
-        model: '',
-        vendor: '',
-        provider: '',
-        description: '',
-        imgs: [],
-        mainImg: '',
-        price: 0
-      }
+      product: this.props.product,
+      category: null,
+      imgs: []
     };
 
     this.add = this.add.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.handleInputProps = this.handleInputProps.bind(this);
   }
 
   add() {
@@ -38,12 +33,86 @@ class AddProductForm extends React.Component {
   handleInput(e) {
     const name = e.target.name;
     const value = e.target.value;
+
+    let obj = {};
+
+    switch (name) {
+    case 'category':
+      const category = _.find(this.props.categories, { 'name': value });
+
+      let prodProps = {};
+      category.prodProps.forEach(elem => {
+        prodProps[elem.name.toLowerCase()] = (elem.type === 'number') ? 0 : '';
+      });
+
+      obj.category = category;
+      obj.product = Object.assign(this.state.product, { [name]: value });
+      obj.product.prodProps = prodProps;
+      break;
+    case 'imgs':
+      const fileList = e.target.files;
+      let arr = [];
+      let previewArr = [];
+
+      for (let i = 0; i < fileList.length; i++) {
+        let item = (fileList.item(i));
+
+        if (item.size < 3000000) {
+          arr.push(item.name);
+          previewArr.push(URL.createObjectURL(item));
+        }
+      }
+
+      obj.product = Object.assign({}, this.state.product, { imgs: arr });
+      obj.imgs = previewArr;
+      break;
+    default:
+      obj.product = Object.assign(this.state.product, { [name]: value });
+    }
+
+    this.setState(obj);
+  }
+
+  handleInputProps(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    const newProdProps = Object.assign({}, this.state.product.prodProps, { [name]: value });
+    const newProd = Object.assign({}, this.state.product, { 'prodProps': newProdProps })
+
     this.setState({
-      product: Object.assign(this.state.product, { [name]: value })
+      product: newProd
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.categories.length > 0) {
+
+      let prodProps = {};
+      nextProps.categories[0].prodProps.forEach(elem => {
+        prodProps[elem.name.toLowerCase()] = (elem.type === 'number') ? 0 : '';
+      });
+
+      this.setState({
+        product: Object.assign(
+          this.state.product,
+          { category: nextProps.categories[0].name },
+          { prodProps: prodProps }
+        ),
+        category: nextProps.categories[0],
+      });
+    }
+  }
+
   render() {
+
+    let prodProps = [];
+    if (this.state.category !== null) {
+       prodProps =  this.state.category.prodProps.map((property, i) => {
+        return <PropertyField key={i} property={property} handleInput={this.handleInputProps} />
+      });
+    }
+
     return (
       <Row style={{marginTop: 20+'px'}}>
         <Col sm="7">
@@ -55,7 +124,7 @@ class AddProductForm extends React.Component {
                 <Input type="select" id="addProductCategory" name="category" onChange={this.handleInput}>
                   {
                     this.props.categories.map((val, i) => {
-                      return <option key={i}>{val}</option>;
+                      return <option key={i}>{val.name}</option>;
                     })
                   }
                 </Input>
@@ -98,20 +167,16 @@ class AddProductForm extends React.Component {
             </FormGroup>
 
             <FormGroup row>
-              <Col sm="12">Set of category specific fields</Col>
-            </FormGroup>
-
-            <FormGroup row>
               <Label for="addProductPhoto" className="col-sm-2 col-form-label">Photos</Label>
               <Col sm="10">
-                <Input type="file" className="form-control-file" id="addProductPhoto" />
-              </Col>
-            </FormGroup>
-
-            <FormGroup row>
-              <Label for="addProductMainImg" className="col-sm-2 col-form-label">Main photo</Label>
-              <Col sm="10">
-                <Input type="file" className="form-control-file" id="addProductMainImg" />
+                <Input type="file" multiple id="addProductPhoto" name="imgs" style={{marginBottom: 5+'px'}} onChange={this.handleInput} />
+                {
+                  this.state.imgs.map((src, i) => {
+                    return  <div key={i} className="w-100">
+                              <img src={src} width="100%" height="100%" />
+                            </div>;
+                  })
+                }
               </Col>
             </FormGroup>
 
@@ -121,6 +186,12 @@ class AddProductForm extends React.Component {
                 <Input type="number" id="addProductPrice" name="price" onChange={this.handleInput} />
               </Col>
             </FormGroup>
+
+            <FormGroup row>
+              <Col sm="12"><strong>Category specific fields</strong></Col>
+            </FormGroup>
+
+            { prodProps }
 
             <FormGroup row>
               <Col sm="10">

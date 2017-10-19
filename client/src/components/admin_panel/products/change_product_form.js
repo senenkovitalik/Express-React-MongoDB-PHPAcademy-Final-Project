@@ -43,11 +43,11 @@ class ChangeProductForm extends React.Component {
               <Label for="changeProductCategory" className="col-sm-2 col-form-label">Category</Label>
               <Col sm="10">
                 <Input type="select" id="changeProductCategory" name="category" onChange={this.handleInput}>
-                  {
-                    this.props.categories.map((val, i) => {
-                      return <option key={i}>{val}</option>;
-                    })
-                  }
+                  {/*{*/}
+                    {/*this.props.categories.map((val, i) => {*/}
+                      {/*return <option key={i}>{val}</option>;*/}
+                    {/*})*/}
+                  {/*}*/}
                 </Input>
               </Col>
             </FormGroup>

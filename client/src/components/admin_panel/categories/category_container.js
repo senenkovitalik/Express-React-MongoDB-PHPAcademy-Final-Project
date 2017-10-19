@@ -1,6 +1,5 @@
 import React from 'react';
 import Categories from "./categories";
-import $ from 'jquery';
 import _ from 'lodash';
 
 class CategoryContainer extends React.Component {
@@ -11,7 +10,6 @@ class CategoryContainer extends React.Component {
       catToChange: null
     };
 
-    this.makeAJAX = this.makeAJAX.bind(this);
     this.add = this.add.bind(this);
     this.remove = this.remove.bind(this);
     this.choose = this.choose.bind(this);
@@ -19,25 +17,12 @@ class CategoryContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.makeAJAX({
+    this.props.makeAJAX({
       method: 'GET',
       url: '/categories'
     }, res => {
       console.log(res);
       this.setState({ categories: res })
-    });
-  }
-
-  makeAJAX(obj, cb) {
-    $.ajax({
-      ...obj,
-      contentType: "application/json; charset=utf-8", // VERY IMPORTANT PART OF REQUEST
-    })
-    .done(res => {
-      cb(res);
-    })
-    .fail(err => {
-      console.log(err);
     });
   }
 

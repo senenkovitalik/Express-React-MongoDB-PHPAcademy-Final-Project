@@ -11,6 +11,19 @@ import ChangeProductForm from './change_product_form';
 class Products extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      product: {
+        name: '',
+        category: '',
+        model: '',
+        vendor: '',
+        provider: '',
+        description: '',
+        imgs: [],
+        price: 0,
+        prodProps: {}
+      },
+    }
   }
 
   render() {
@@ -35,7 +48,11 @@ class Products extends React.Component {
         </Form>
 
         {/*<!-- Add new product -->*/}
-        <AddProductForm categories={this.props.categories} add={this.props.add} />
+        <AddProductForm
+          product={this.state.product}
+          categories={this.props.categories}
+          add={this.props.add}
+        />
 
         {/*<!-- Change product -->*/}
         <ChangeProductForm categories={this.props.categories} product={this.props.product} change={this.props.change} />

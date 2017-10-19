@@ -12,6 +12,7 @@ import {
   Route,
   NavLink
 } from 'react-router-dom';
+import $ from 'jquery';
 import CategoryContainer from "./categories/category_container";
 import ProductContainer from "./products/product_container";
 import UserContainer from "./users/user_container";
@@ -28,6 +29,20 @@ class AdminPanel extends React.Component {
     };
 
     this.flash = this.flash.bind(this);
+    this.makeAJAX = this.makeAJAX.bind(this);
+  }
+
+  makeAJAX(obj, cb) {
+    $.ajax({
+      ...obj,
+      contentType: "application/json; charset=utf-8", // VERY IMPORTANT PART OF REQUEST
+    })
+    .done(res => {
+      cb(res);
+    })
+    .fail(err => {
+      console.log(err);
+    });
   }
 
   flash(flashObj) {
@@ -60,8 +75,8 @@ class AdminPanel extends React.Component {
                 {this.state.flash.message}
               </UncontrolledAlert>
             }
-            <Route path={`${this.props.match.url}/categories`} render={(props) => <CategoryContainer {...props} flash={this.flash} />} />
-            <Route path={`${this.props.match.url}/products`} render={(props) => <ProductContainer {...props} flash={this.flash} />} />
+            <Route path={`${this.props.match.url}/categories`} render={(props) => <CategoryContainer {...props} flash={this.flash} makeAJAX={this.makeAJAX} />} />
+            <Route path={`${this.props.match.url}/products`} render={(props) => <ProductContainer {...props} flash={this.flash} makeAJAX={this.makeAJAX} />} />
             <Route path={`${this.props.match.url}/users`} render={() =>  <UserContainer/> } />
             <Route path={`${this.props.match.url}/providers`} render={() => <h1>Providers</h1>} />
             <Route path={`${this.props.match.url}/orders`} render={() => <h1>Orders</h1>} />

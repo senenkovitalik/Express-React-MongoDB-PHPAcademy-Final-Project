@@ -198,18 +198,12 @@ app.delete('/category/:name', function(req, res) {
 
 // update category
 app.put('/category', function(req, res) {
-
-  console.log('\n', req.body, '\n');
-
   const arr = req.body.prodProps.map(val => val);
-
   const catToUpdate = {
     name: req.body.name,
     description: req.body.description,
     prodProps: arr
   };
-
-  console.log('\n', catToUpdate, '\n');
 
   Category.findByIdAndUpdate({ _id: req.body._id }, catToUpdate, function(err) {
     if (err) {
