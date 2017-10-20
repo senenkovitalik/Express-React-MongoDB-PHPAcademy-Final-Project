@@ -19,7 +19,6 @@ class Products extends React.Component {
         vendor: '',
         provider: '',
         description: '',
-        imgs: [],
         price: 0,
         prodProps: {}
       },

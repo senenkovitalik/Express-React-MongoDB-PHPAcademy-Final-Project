@@ -18,6 +18,7 @@ class AddProductForm extends React.Component {
     this.state = {
       product: this.props.product,
       category: null,
+      upload: null,
       imgs: []
     };
 
@@ -27,7 +28,11 @@ class AddProductForm extends React.Component {
   }
 
   add() {
-    this.props.add(this.state.product);
+    if (this.state.upload) {
+      this.state.upload.append('product', JSON.stringify(this.state.product));
+      console.log(this.state.upload);
+      this.props.add(this.state.upload);
+    }
   }
 
   handleInput(e) {
@@ -51,19 +56,20 @@ class AddProductForm extends React.Component {
       break;
     case 'imgs':
       const fileList = e.target.files;
-      let arr = [];
       let previewArr = [];
+      let formData = new FormData();
 
       for (let i = 0; i < fileList.length; i++) {
-        let item = (fileList.item(i));
+        let item = fileList.item(i);
 
         if (item.size < 3000000) {
-          arr.push(item.name);
+          formData.append('imgs', item);
           previewArr.push(URL.createObjectURL(item));
         }
       }
 
-      obj.product = Object.assign({}, this.state.product, { imgs: arr });
+      // obj.product = Object.assign({}, this.state.product, { imgs: arr });
+      obj.upload = formData;
       obj.imgs = previewArr;
       break;
     default:
@@ -117,7 +123,7 @@ class AddProductForm extends React.Component {
       <Row style={{marginTop: 20+'px'}}>
         <Col sm="7">
           <h5>Add new product</h5>
-          <Form>
+          <Form encType="multipart/form-data">
             <FormGroup row>
               <Label for="addProductCategory" className="col-sm-2 col-form-label">Category</Label>
               <Col sm="10">

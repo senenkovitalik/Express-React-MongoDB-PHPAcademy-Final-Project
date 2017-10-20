@@ -1,32 +1,41 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var multer = require('multer');
+var upload = multer({ dest: '/static/img'});
 
 var productSchema = require('../db/schemas/product');
 var Product = mongoose.model('Product', productSchema);
 
 router.route('/')
-  .post((req, res) => {
+  .post(upload.array('imgs') , (req, res) => {
 
-    var product = new Product(req.body);
+    // var product = new Product(req.body);
 
-    Product.find({ name: req.body.name, category: req.body.category }, (err, doc) => {
+    const imgArr = req.files;
+    const prodObj = JSON.parse(req.body.product);
 
-      if (err) console.log(err);
+    res.json({ result: true });
 
-      if (doc.length === 0) {
-        product.save(err => {
-          if (err) {
-            console.log(err);
-            res.json({ result: false });
-          } else {
-            res.json({ result: true });
-          }
-        });
-      } else {
-        res.json({ result: false });
-      }
-    });
+
+
+    // Product.find({ name: req.body.name, category: req.body.category }, (err, doc) => {
+    //
+    //   if (err) console.log(err);
+    //
+    //   if (doc.length === 0) {
+    //     product.save(err => {
+    //       if (err) {
+    //         console.log(err);
+    //         res.json({ result: false });
+    //       } else {
+    //         res.json({ result: true });
+    //       }
+    //     });
+    //   } else {
+    //     res.json({ result: false });
+    //   }
+    // });
   });
 
 router.route('/all')
