@@ -14,14 +14,23 @@ class ProductContainer extends React.Component {
   componentDidMount() {
     this.props.makeAJAX({
       method: 'GET',
-      url: '/categories'
+      url: '/category/all'
     }, res => {
       this.setState({ categories: res })
     });
   }
 
   add(prod) {
+
 		console.log(prod);
+
+		this.props.makeAJAX({
+			url: '/product',
+			method: 'POST',
+			data: JSON.stringify(prod)
+		}, (res) => {
+			console.log(res)
+		});
 	}
 
 	render() {

@@ -19,7 +19,7 @@ class CategoryContainer extends React.Component {
   componentDidMount() {
     this.props.makeAJAX({
       method: 'GET',
-      url: '/categories'
+      url: '/category/all'
     }, res => {
       console.log(res);
       this.setState({ categories: res })

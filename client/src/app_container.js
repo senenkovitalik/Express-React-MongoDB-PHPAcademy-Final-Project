@@ -11,7 +11,7 @@ class AppContainer extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/products')
+    fetch('/product/all')
     .then(res => {
       return res.json();
     })
