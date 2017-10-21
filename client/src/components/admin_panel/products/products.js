@@ -51,10 +51,15 @@ class Products extends React.Component {
           product={this.state.product}
           categories={this.props.categories}
           add={this.props.add}
+          flash={this.props.flash}
         />
 
         {/*<!-- Change product -->*/}
-        <ChangeProductForm categories={this.props.categories} product={this.props.product} change={this.props.change} />
+        <ChangeProductForm
+          categories={this.props.categories}
+          product={this.props.product}
+          change={this.props.change}
+        />
 
       </div>
     );

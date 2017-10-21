@@ -34,8 +34,8 @@ class AdminPanel extends React.Component {
 
   makeAJAX(obj, cb) {
     $.ajax({
-      ...obj,
-      contentType: "application/json; charset=utf-8", // VERY IMPORTANT PART OF REQUEST
+      ...obj
+      //contentType: "application/json; charset=utf-8", // VERY IMPORTANT PART OF REQUEST
     })
     .done(res => {
       cb(res);

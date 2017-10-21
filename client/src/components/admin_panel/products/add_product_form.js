@@ -30,8 +30,10 @@ class AddProductForm extends React.Component {
   add() {
     if (this.state.upload) {
       this.state.upload.append('product', JSON.stringify(this.state.product));
-      console.log(this.state.upload);
       this.props.add(this.state.upload);
+      this.setState({
+        upload: null
+      });
     }
   }
 
@@ -68,7 +70,6 @@ class AddProductForm extends React.Component {
         }
       }
 
-      // obj.product = Object.assign({}, this.state.product, { imgs: arr });
       obj.upload = formData;
       obj.imgs = previewArr;
       break;
@@ -84,7 +85,7 @@ class AddProductForm extends React.Component {
     const value = e.target.value;
 
     const newProdProps = Object.assign({}, this.state.product.prodProps, { [name]: value });
-    const newProd = Object.assign({}, this.state.product, { 'prodProps': newProdProps })
+    const newProd = Object.assign({}, this.state.product, { 'prodProps': newProdProps });
 
     this.setState({
       product: newProd
@@ -176,13 +177,15 @@ class AddProductForm extends React.Component {
               <Label for="addProductPhoto" className="col-sm-2 col-form-label">Photos</Label>
               <Col sm="10">
                 <Input type="file" multiple id="addProductPhoto" name="imgs" style={{marginBottom: 5+'px'}} onChange={this.handleInput} />
+                <div className="d-flex flex-row flex-wrap">
                 {
                   this.state.imgs.map((src, i) => {
-                    return  <div key={i} className="w-100">
+                    return  <div key={i} className="w-50">
                               <img src={src} width="100%" height="100%" />
                             </div>;
                   })
                 }
+                </div>
               </Col>
             </FormGroup>
 
@@ -201,7 +204,7 @@ class AddProductForm extends React.Component {
 
             <FormGroup row>
               <Col sm="10">
-                <Button color="primary" onClick={this.add}>Save</Button>
+                <Button color="primary" onClick={this.add} disabled={!this.state.upload}>Save</Button>
               </Col>
             </FormGroup>
           </Form>

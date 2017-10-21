@@ -1,6 +1,5 @@
 import React from 'react';
 import Products from './products';
-import $ from 'jquery';
 
 class ProductContainer extends React.Component {
 	constructor(props) {
@@ -23,28 +22,39 @@ class ProductContainer extends React.Component {
 
   add(prod) {
 
-		console.log(prod);
-
-		$.ajax({
-			cache: false,
+		const propObj = {
+      cache: false,
       url: '/product',
       type: 'POST',
       data: prod,
-      contentType: false, /*"multipart/form-data",*/
-			dataType: 'json',
+      contentType: false,
+      dataType: 'json',
       processData: false
-		})
-		.done(res => {
-			console.log(res);
-		})
-		.fail(err => {
-			console.log(err);
+    };
+
+		this.props.makeAJAX(propObj, res => {
+      let color = 'success';
+      let message = `Product successfully added.`;
+
+      if (res.result) {
+        // this.setState({
+        //   categories: _.concat(this.state.categories, cat)
+        // });
+      } else {
+        color = 'warning';
+        message = `Sorry. Server problems.`;
+      }
+
+      this.props.flash({
+        color: color,
+        message: message
+      });
 		});
 	}
 
 	render() {
 		return (
-			<Products categories={this.state.categories} add={this.add} />
+			<Products categories={this.state.categories} add={this.add} flash={this.props.flash} />
 		);
 	}
 }

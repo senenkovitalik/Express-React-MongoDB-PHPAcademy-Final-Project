@@ -1,41 +1,53 @@
-var express = require('express');
-var router = express.Router();
-var mongoose = require('mongoose');
-var multer = require('multer');
-var upload = multer({ dest: '/static/img'});
+const express = require('express');
+const router = express.Router();
+const mongoose = require('mongoose');
+const multer = require('multer');
+const path = require('path');
 
-var productSchema = require('../db/schemas/product');
-var Product = mongoose.model('Product', productSchema);
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, '..', '..', '/static/img'))
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+});
+
+const upload = multer({ storage: storage });
+
+const productSchema = require('../db/schemas/product');
+const Product = mongoose.model('Product', productSchema);
 
 router.route('/')
   .post(upload.array('imgs') , (req, res) => {
 
-    // var product = new Product(req.body);
-
     const imgArr = req.files;
     const prodObj = JSON.parse(req.body.product);
 
-    res.json({ result: true });
+    const condition = {
+      name: prodObj.name,
+      category: prodObj.category,
+      model: prodObj.model
+    };
 
+    Product.find(condition, (err, doc) => {
 
+      if (err) console.log(err);
 
-    // Product.find({ name: req.body.name, category: req.body.category }, (err, doc) => {
-    //
-    //   if (err) console.log(err);
-    //
-    //   if (doc.length === 0) {
-    //     product.save(err => {
-    //       if (err) {
-    //         console.log(err);
-    //         res.json({ result: false });
-    //       } else {
-    //         res.json({ result: true });
-    //       }
-    //     });
-    //   } else {
-    //     res.json({ result: false });
-    //   }
-    // });
+      if (doc.length === 0) {
+        const product = new Product(prodObj);
+        product.save(err => {
+          if (err) {
+            console.log(err);
+            res.json({ result: false });
+          } else {
+            res.json({ result: true });
+          }
+        });
+      } else {
+        res.json({ result: false });
+      }
+    });
   });
 
 router.route('/all')
