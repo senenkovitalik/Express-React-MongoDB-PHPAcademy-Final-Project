@@ -21,7 +21,7 @@ class App extends React.Component {
     this.state = {
       products: [],
       productsToBuy: [],
-      loggedIn: true,
+      loggedIn: false,
       user: {
         role: 'admin'
       }
@@ -62,17 +62,32 @@ class App extends React.Component {
         <div>
           <Header logging={this.logging} />
 
-          <Route exact path="/" render={(props) => ( this.state.loggedIn && this.state.user.role === 'admin' ? ( <Redirect to="/admin" /> ) : ( <Home
-                                                products={this.props.products}
-                                                productsToBuy={this.state.productsToBuy}
-                                                add={this.addProduct}
-                                                remove={this.removeProduct}
-                                                changeCount={this.changeProdCount} /> )) }/>
+          <Route
+            exact path="/"
+            render={(props) => (
+              this.state.loggedIn && this.state.user.role === 'admin'
+                ? ( <Redirect to="/admin" /> )
+                : ( <Home
+                    products={this.props.products}
+                    productsToBuy={this.state.productsToBuy}
+                    add={this.addProduct}
+                    remove={this.removeProduct}
+                    changeCount={this.changeProdCount} /> ))}
+          />
 
-          <Route path="/product/:name" render={(props) => {
-            const productToShow = _.find(this.props.products, p => p.name ===  props.match.params.name);
-            const inBasket = _.indexOf(this.state.productsToBuy, productToShow) === -1 ? false : true;
-            return <Product product={productToShow} add={this.addProduct} inBasket={inBasket} />}
+          <Route path="/product/:name/:model" render={(props) => {
+            const productToShow = _.find(this.props.products, {
+              'name': props.match.params.name,
+              'model': props.match.params.model
+            });
+
+            if (productToShow) {
+              const inBasket = _.indexOf(this.state.productsToBuy, productToShow) === -1 ? false : true;
+              return <Product product={productToShow} add={this.addProduct} inBasket={inBasket}/>
+            } else {
+              return <Redirect to="/" />
+            }
+          }
           }/>
 
           <Route path="/order_processing" render={() => <OrderProcessing productsToBuy={this.state.productsToBuy} />} />

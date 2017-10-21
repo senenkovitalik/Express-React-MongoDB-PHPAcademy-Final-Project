@@ -58,6 +58,7 @@ class AddProductForm extends React.Component {
       break;
     case 'imgs':
       const fileList = e.target.files;
+      let arr = [];
       let previewArr = [];
       let formData = new FormData();
 
@@ -66,11 +67,13 @@ class AddProductForm extends React.Component {
 
         if (item.size < 3000000) {
           formData.append('imgs', item);
+          arr.push(item.name);
           previewArr.push(URL.createObjectURL(item));
         }
       }
 
       obj.upload = formData;
+      obj.product = Object.assign({}, this.state.product, { imgs: arr });
       obj.imgs = previewArr;
       break;
     default:
@@ -102,6 +105,7 @@ class AddProductForm extends React.Component {
 
       this.setState({
         product: Object.assign(
+          {},
           this.state.product,
           { category: nextProps.categories[0].name },
           { prodProps: prodProps }

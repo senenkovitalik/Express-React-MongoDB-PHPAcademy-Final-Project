@@ -5,7 +5,8 @@ class ProductContainer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			categories: []
+			categories: [],
+      prodToChange: null
 		};
 
 		this.add = this.add.bind(this);
@@ -37,9 +38,7 @@ class ProductContainer extends React.Component {
       let message = `Product successfully added.`;
 
       if (res.result) {
-        // this.setState({
-        //   categories: _.concat(this.state.categories, cat)
-        // });
+
       } else {
         color = 'warning';
         message = `Sorry. Server problems.`;
@@ -54,7 +53,7 @@ class ProductContainer extends React.Component {
 
 	render() {
 		return (
-			<Products categories={this.state.categories} add={this.add} flash={this.props.flash} />
+			<Products {...this.props} categories={this.state.categories} add={this.add} flash={this.props.flash} />
 		);
 	}
 }

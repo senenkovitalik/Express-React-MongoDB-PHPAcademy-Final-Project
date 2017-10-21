@@ -1,5 +1,12 @@
 import React from 'react';
 import $ from 'jquery';
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Table
+} from 'reactstrap';
 
 class Product extends React.Component {
   constructor(props) {
@@ -34,67 +41,76 @@ class Product extends React.Component {
   }
 
   render() {
-    const imgGalleryItems = this.props.product.imgList.map((img, index) => {
+    const imgGalleryItems = this.props.product.imgs.map((img, index) => {
       return <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
-        <img className="d-block w-100" src={`http://localhost:3030/${img}`} alt="Carousel" />
+        <img className="d-block w-100" src={`/${img}`} alt="Carousel" />
       </div>;
     });
-    const description = this.props.product.description.map((paragraph, index) => {
-      return <p key={index}>{paragraph}</p>;
-    });
-    const characteristics = this.props.product.characteristics.map((item, index) => {
-      return <tbody key={index}>
-        <tr>
-          <td colSpan="2" className="table-info text-center"><strong>{item.header}</strong></td>
-        </tr>
-        {
-          item.props.map((pair, index) => {
-            return <tr key={index}>
-              <td className="d-inline-block col-4">{pair.name}</td>
-              <td className="d-inline-block col-8">{pair.value}</td>
-            </tr>;
-          })
-        }
-        </tbody>
-    });
-    const images = this.props.product.imgList.map((img, index) => {
-      return <img key={index} src={`http://localhost:3030/${img}`} className="w-100 mb-1" alt="Product" />;
+    // IT'S A VERY BAD IDEA!!!
+    const characteristics = [];
+    let i = 0;
+    for (let prop in this.props.product.prodProps) {
+      characteristics.push(
+           <tr key={i}>
+              <td className="d-inline-block col-4">{prop}</td>
+              <td className="d-inline-block col-8">{this.props.product.prodProps[prop]}</td>
+            </tr>
+        );
+      i++;
+    }
+    // IT'S A VERY BAD IDEA!!!
+    //   this.props.product.prodProps.map((item, index) => {
+    //   return <tbody key={index}>
+    //     {
+    //       item.props.map((pair, index) => {
+    //         return <tr key={index}>
+    //           <td className="d-inline-block col-4">{pair.name}</td>
+    //           <td className="d-inline-block col-8">{pair.value}</td>
+    //         </tr>;
+    //       })
+    //     }
+    //     </tbody>
+    // });
+    const images = this.props.product.imgs.map((img, index) => {
+      return <img key={index} src={`/${img}`} className="w-100 mb-1" alt={this.props.product.name} />;
     });
 
     return (
-      <div className="container-fluid">
+      <Container fluid>
 
-        <div className="row">
-          <div className="col-12">
+        <Row>
+          <Col sm="12">
             <h1>{this.props.product.name}</h1>
-          </div>
-        </div>
+          </Col>
+        </Row>
 
-        <div className="row">
-          <div className="col-12 col-lg-5 col-xl-6 order-lg-2 mb-2">
-            <div className="row justify-content-center">
-              <div className="col-12 col-lg-7 text-center">
+        <Row>
+
+          <Col xs="12" lg="5" xl="6" className="order-lg-2 mb-2">
+            <Row className="justify-content-center">
+              <Col xs="12" lg="7" className="text-center">
                 <div className="px-1" style={{fontSize: 1.3+'rem', backgroundColor: '#fff3b5'}}>
                   <strong>{this.props.product.price} {this.props.product.currency}</strong>
-                  <div className="row justify-content-center">
-                    <div className="col-12 col-lg-6 mb-2">
-                      <button onClick={this.handleClick} type="button" className={`btn btn-success ${this.state.inBasket ? "disabled" : ""} btn-block`}>
+                  <Row className="justify-content-center">
+                    <Col xs="12" lg="6" className="mb-2">
+                      <Button onClick={this.handleClick} color="success" block disabled={this.state.inBasket}>
                         <i className="fa fa-shopping-cart" aria-hidden="true"></i> Buy
-                      </button>
-                    </div>
-                  </div>
+                      </Button>
+                    </Col>
+                  </Row>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-lg-7 col-xl-6 order-lg-1">
+              </Col>
+            </Row>
+          </Col>
+
+          <Col xs="12" lg="7" xl="6" className="order-lg-1">
             <nav className="nav nav-pills flex-column flex-sm-row" id="myTabs" role="tablist">
               <a className="flex-sm-fill text-sm-center nav-link active" href="#overview" role="tab" data-toggle="tab">Overview</a>
               <a className="flex-sm-fill text-sm-center nav-link" href="#characteristic" role="tab" data-toggle="tab">Characteristic</a>
               <a className="flex-sm-fill text-sm-center nav-link" href="#photos" role="tab" data-toggle="tab">Photos</a>
-              <a className="flex-sm-fill text-sm-center nav-link" href="#comments" role="tab" data-toggle="tab">Comments</a>
             </nav>
             <div className="tab-content mt-2" id="tabContent">
+
               <div className="tab-pane active" id="overview" role="tabpanel">
                 <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                   <div className="carousel-inner">
@@ -110,51 +126,26 @@ class Product extends React.Component {
                   </a>
                 </div>
 
-                {description}
+                <p>{this.props.product.description}</p>
 
               </div>
+
               <div className="tab-pane" id="characteristic" role="tabpanel">
-                <table className="table table-sm">
-                  {characteristics}
-                </table>
+                <Table size="sm">
+                  <tbody>
+                    {characteristics}
+                  </tbody>
+                </Table>
               </div>
+
               <div className="tab-pane" id="photos" role="tabpanel">
                 {images}
               </div>
-              <div className="tab-pane" id="comments" role="tabpanel">
-                <ul className="list-unstyled mt-3">
-                  <li className="media">
-                    <img className="d-flex" src="img/comment-icon.png" alt="Avatar" />
-                    <div className="media-body">
-                      <h5 className="mt-0 mb-1">Senenko Vitaliy</h5>
-                      I wanna to buy this guitar. It's awesome!
 
-                      <div className="media mt-3">
-                        <a className="d-flex pr-3" href="#">
-                          <img src="img/comment-icon.png" alt="Generic placeholder"/>
-                        </a>
-                        <div className="media-body">
-                          <h5 className="mt-0">Media heading</h5>
-                          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
-                          purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-                          vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="media">
-                    <img className="d-flex" src="img/comment-icon.png" alt="User avatar" />
-                    <div className="media-body">
-                      <h5 className="mt-0 mb-1">Senenko Vitaliy</h5>
-                      But I don't have money(
-                    </div>
-                  </li>
-                </ul>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

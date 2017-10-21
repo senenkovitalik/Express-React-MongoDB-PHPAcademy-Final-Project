@@ -3,7 +3,13 @@ import {
   Form,
   Label,
   Input,
+  Button
 } from 'reactstrap';
+import {
+  Route,
+  Link,
+  Redirect
+} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddProductForm from './add_product_form';
 import ChangeProductForm from './change_product_form';
@@ -19,6 +25,7 @@ class Products extends React.Component {
         vendor: '',
         provider: '',
         description: '',
+        imgs: [],
         price: 0,
         prodProps: {}
       },
@@ -29,6 +36,7 @@ class Products extends React.Component {
     return (
       <div>
         <h4 style={{display: 'inline-block', marginRight: 15+'px'}}>Products</h4>
+        <Button color="primary" size="sm" tag={Link} to={`${this.props.match.url}/add-new-product`}>Add new</Button>
 
         {/*<!-- List of products. Can be filtered. -->*/}
         <Form inline className="justify-content-center">
@@ -47,20 +55,25 @@ class Products extends React.Component {
         </Form>
 
         {/*<!-- Add new product -->*/}
-        <AddProductForm
-          product={this.state.product}
-          categories={this.props.categories}
-          add={this.props.add}
-          flash={this.props.flash}
+        <Route
+          path={`${this.props.match.url}/add-new-product`}
+          render={() => <AddProductForm
+            product={this.state.product}
+            categories={this.props.categories}
+            add={this.props.add}
+            flash={this.props.flash}
+          /> }
         />
 
         {/*<!-- Change product -->*/}
-        <ChangeProductForm
-          categories={this.props.categories}
-          product={this.props.product}
-          change={this.props.change}
+        <Route
+          path={`${this.props.match.url}/change-product`}
+          render={() => (
+            this.props.catToChange
+              ? (<ChangeProductForm categories={this.props.categories} product={this.props.product} change={this.props.change} />)
+              : (<Redirect to={this.props.match.url} />)
+          )}
         />
-
       </div>
     );
   }
