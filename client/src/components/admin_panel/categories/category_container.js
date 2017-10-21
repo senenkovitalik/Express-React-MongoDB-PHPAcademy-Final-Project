@@ -33,9 +33,10 @@ class CategoryContainer extends React.Component {
         message: `Sorry, but category ${cat.name} already exist( Try to change name to another.`
       });
     } else {
-      this.makeAJAX({
+      this.props.makeAJAX({
         url: '/category',
         method: 'POST',
+        contentType: "application/json; charset=utf-8",
         data: JSON.stringify(cat) // VERY IMPORTANT PART OF REQUEST
       }, res => {
         let color = 'success';
@@ -60,7 +61,7 @@ class CategoryContainer extends React.Component {
   }
 
   remove(cat) {
-    this.makeAJAX({
+    this.props.makeAJAX({
       method: 'DELETE',
       url: `/category/${cat.name}`
     }, res => {
@@ -90,9 +91,10 @@ class CategoryContainer extends React.Component {
   }
 
   change(cat) {
-    this.makeAJAX({
+    this.props.makeAJAX({
       method: 'PUT',
       url: '/category',
+      contentType: "application/json; charset=utf-8",
       data: JSON.stringify(cat)
     }, res => {
       

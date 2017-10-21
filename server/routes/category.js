@@ -7,9 +7,13 @@ const Category = mongoose.model('Category', categorySchema);
 
 router.route("/")
   .post((req, res) => {
+
+    console.log(req.body);
+
     const arr = req.body.prodProps.map(val => val);
     const catToSave = new Category({
       name: req.body.name,
+      subcategories: req.body.subcategories,
       description: req.body.description,
       prodProps: arr
     });
@@ -27,6 +31,7 @@ router.route("/")
     const arr = req.body.prodProps.map(val => val);
     const catToUpdate = {
       name: req.body.name,
+      subcategories: req.body.subcategories,
       description: req.body.description,
       prodProps: arr
     };

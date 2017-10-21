@@ -38,6 +38,7 @@ class AdminCategoryItem extends React.Component {
         <ListGroupItem onClick={this.toggle}>
           <strong>{this.props.category.name}</strong>
           <Collapse isOpen={this.state.isOpen}>
+            <p>Subcategories: {this.props.category.subcategories.join(', ')}</p>
             <p className="mb-3">{this.props.category.description}</p>
             <Table>
               <thead>

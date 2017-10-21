@@ -7,6 +7,7 @@ var properties = mongoose.Schema({
 
 var category = mongoose.Schema({
   name: { type: String, required: true },
+  subcategories: [{ type: String, required: true }],
   description: { type: String, default: '' },
   prodProps: [properties]
 });

@@ -16,7 +16,8 @@ class AddCategoryForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: null,
+      name: '',
+      subcategories: [],
       description: '',
       prodProps: [],
       fieldTypes: this.props.fieldTypes,
@@ -27,7 +28,9 @@ class AddCategoryForm extends React.Component {
       nameValid: false,
       isNameDirty: false,
       fieldValid: false,
-      isFieldDirty: false
+      isFieldDirty: false,
+      isSubCatsDirty: false,
+      subCatsValid: false
     };
 
     this.addField = this.addField.bind(this);
@@ -60,6 +63,22 @@ class AddCategoryForm extends React.Component {
       stateObj.name = value;
       stateObj.nameValid = value.length >= 3;
       stateObj.isNameDirty = value.length > 0;
+      break;
+    case "subCats":
+      const regex = /^(\w+\s*?)*$/gi;
+      const result = regex.test(value);
+
+      let valid = this.state.subCatsValid;
+
+      if (result) {
+        stateObj.subcategories = value.trim().match(/\w+/gi);
+        valid = true;
+      } else {
+        valid = false;
+      }
+
+      stateObj.subCatsValid = valid;
+      stateObj.isSubCatsDirty = value.length > 0;
       break;
     case "categoryDescription":
       stateObj.description = value;
@@ -94,10 +113,12 @@ class AddCategoryForm extends React.Component {
   save() {
     const obj = {
       name: this.state.name,
+      subcategories: this.state.subcategories,
       prodProps: this.state.prodProps,
       description: this.state.description
     };
     this.props.add(obj);
+    console.log(obj);
   }
 
   render() {
@@ -117,6 +138,20 @@ class AddCategoryForm extends React.Component {
                     placeholder="Category name"
                     onChange={this.handleInputChange}
                     { ...this.state.isNameDirty ? {valid: this.state.nameValid} : {} }
+                  />
+                </Col>
+              </FormGroup>
+
+              <FormGroup row>
+                <Label for="subcategories" className="col-sm-3 col-form-label">Subcategories</Label>
+                <Col xs="9">
+                  <Input
+                    type="text"
+                    id="subCats"
+                    name="subCats"
+                    placeholder="Subcategories list"
+                    onChange={this.handleInputChange}
+                    { ...this.state.isSubCatsDirty ? { valid: this.state.subCatsValid } : {} }
                   />
                 </Col>
               </FormGroup>
@@ -208,7 +243,7 @@ class AddCategoryForm extends React.Component {
                   <Button
                     color="primary"
                     onClick={this.save}
-                    disabled={ !(this.state.nameValid && this.state.prodProps.length > 0) }
+                    disabled={ !(this.state.nameValid && this.state.prodProps.length > 0 && this.state.subcategories.length > 0) }
                   >Save</Button>
                 </Col>
               </FormGroup>

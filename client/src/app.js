@@ -21,7 +21,7 @@ class App extends React.Component {
     this.state = {
       products: [],
       productsToBuy: [],
-      loggedIn: false,
+      loggedIn: true,
       user: {
         role: 'admin'
       }
