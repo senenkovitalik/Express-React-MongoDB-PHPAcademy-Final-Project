@@ -24,7 +24,7 @@ class PropertyField extends React.Component {
           <Input
             type={this.props.property.type}
             id={`addProduct${capName}`}
-            name={name.toLowerCase()}
+            name={name}
             onChange={this.props.handleInput}
           />
         </Col>

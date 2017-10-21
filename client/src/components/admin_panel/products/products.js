@@ -27,9 +27,9 @@ class Products extends React.Component {
         description: '',
         imgs: [],
         price: 0,
-        prodProps: {}
-      },
-    }
+        prodProps: []
+      }
+    };
   }
 
   render() {

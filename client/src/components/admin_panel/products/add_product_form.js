@@ -29,11 +29,12 @@ class AddProductForm extends React.Component {
 
   add() {
     if (this.state.upload) {
-      this.state.upload.append('product', JSON.stringify(this.state.product));
-      this.props.add(this.state.upload);
-      this.setState({
-        upload: null
-      });
+      console.log(this.state.product);
+      // this.state.upload.append('product', JSON.stringify(this.state.product));
+      // this.props.add(this.state.upload);
+      // this.setState({
+      //   upload: null
+      // });
     }
   }
 
@@ -87,28 +88,40 @@ class AddProductForm extends React.Component {
     const name = e.target.name;
     const value = e.target.value;
 
-    const newProdProps = Object.assign({}, this.state.product.prodProps, { [name]: value });
-    const newProd = Object.assign({}, this.state.product, { 'prodProps': newProdProps });
+    const prop = _.find(this.state.product.prodProps, { name: name });
 
-    this.setState({
-      product: newProd
-    });
+    if (prop) {
+      const newProp = Object.assign({}, prop, { value: (e.target.type === "number") ? parseInt(value, 10) : value });
+
+      const filteredArr = _.filter(this.state.product.prodProps, val => {
+        return val.name !== name;
+      });
+
+      this.setState({
+        product: Object.assign({}, this.state.product, { prodProps: _.concat(filteredArr, newProp) })
+      })
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.categories.length > 0) {
 
-      let prodProps = {};
+      let prodProps = [];
       nextProps.categories[0].prodProps.forEach(elem => {
-        prodProps[elem.name.toLowerCase()] = (elem.type === 'number') ? 0 : '';
+        prodProps.push({ name: elem.name, value: (elem.type === 'number') ? 0 : '' })
       });
+
+      console.log(prodProps);
 
       this.setState({
         product: Object.assign(
           {},
           this.state.product,
-          { category: nextProps.categories[0].name },
-          { prodProps: prodProps }
+          {
+            category: nextProps.categories[0].name,
+            subcategory: nextProps.categories[0].subcategories[0],
+            prodProps: prodProps
+          }
         ),
         category: nextProps.categories[0],
       });
@@ -128,7 +141,7 @@ class AddProductForm extends React.Component {
       <Row style={{marginTop: 20+'px'}}>
         <Col sm="7">
           <h5>Add new product</h5>
-          <Form encType="multipart/form-data">
+          <Form>
             <FormGroup row>
               <Label for="addProductCategory" className="col-sm-2 col-form-label">Category</Label>
               <Col sm="10">
@@ -136,6 +149,20 @@ class AddProductForm extends React.Component {
                   {
                     this.props.categories.map((val, i) => {
                       return <option key={i}>{val.name}</option>;
+                    })
+                  }
+                </Input>
+              </Col>
+            </FormGroup>
+
+            <FormGroup row>
+              <Label for="addProductSubcategory" className="col-sm-2 col-form-label">Subcategory</Label>
+              <Col sm="10">
+                <Input type="select" id="addProductSubcategory" name="subcategory" onChange={this.handleInput}>
+                  {
+                    this.state.category &&
+                    this.state.category.subcategories.map((val, i) => {
+                      return <option key={i}>{val}</option>;
                     })
                   }
                 </Input>

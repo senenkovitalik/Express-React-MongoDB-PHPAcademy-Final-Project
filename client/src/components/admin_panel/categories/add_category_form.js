@@ -118,7 +118,6 @@ class AddCategoryForm extends React.Component {
       description: this.state.description
     };
     this.props.add(obj);
-    console.log(obj);
   }
 
   render() {
