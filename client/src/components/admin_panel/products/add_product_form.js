@@ -29,6 +29,7 @@ class AddProductForm extends React.Component {
 
   add() {
     if (this.state.upload) {
+      console.log(this.state.product);
       this.state.upload.append('product', JSON.stringify(this.state.product));
       this.props.add(this.state.upload);
       this.setState({
@@ -47,9 +48,9 @@ class AddProductForm extends React.Component {
     case 'category':
       const category = _.find(this.props.categories, { 'name': value });
 
-      let prodProps = {};
+      let prodProps = [];
       category.prodProps.forEach(elem => {
-        prodProps[elem.name.toLowerCase()] = (elem.type === 'number') ? 0 : '';
+        prodProps.push({ name: elem.name, value: '' })
       });
 
       obj.category = category;
@@ -104,7 +105,8 @@ class AddProductForm extends React.Component {
 
       let prodProps = [];
       nextProps.categories[0].prodProps.forEach(elem => {
-        prodProps.push({ name: elem.name, value: (elem.type === 'number') ? 0 : '' })
+        // prodProps.push({ name: elem.name, value: (elem.type === 'number') ? 0 : '' })
+        prodProps.push({ name: elem.name, value: '' })
       });
 
       console.log(prodProps);
