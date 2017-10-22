@@ -29,12 +29,11 @@ class AddProductForm extends React.Component {
 
   add() {
     if (this.state.upload) {
-      console.log(this.state.product);
-      // this.state.upload.append('product', JSON.stringify(this.state.product));
-      // this.props.add(this.state.upload);
-      // this.setState({
-      //   upload: null
-      // });
+      this.state.upload.append('product', JSON.stringify(this.state.product));
+      this.props.add(this.state.upload);
+      this.setState({
+        upload: null
+      });
     }
   }
 
@@ -59,7 +58,6 @@ class AddProductForm extends React.Component {
       break;
     case 'imgs':
       const fileList = e.target.files;
-      let arr = [];
       let previewArr = [];
       let formData = new FormData();
 
@@ -68,13 +66,11 @@ class AddProductForm extends React.Component {
 
         if (item.size < 3000000) {
           formData.append('imgs', item);
-          arr.push(item.name);
           previewArr.push(URL.createObjectURL(item));
         }
       }
 
       obj.upload = formData;
-      obj.product = Object.assign({}, this.state.product, { imgs: arr });
       obj.imgs = previewArr;
       break;
     default:

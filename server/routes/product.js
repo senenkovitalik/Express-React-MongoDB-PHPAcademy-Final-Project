@@ -9,11 +9,26 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, '..', '..', '/static/img'))
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname)
+    const index = file.originalname.lastIndexOf(".");
+    let name = '';
+    if (index) {
+      const ext = file.originalname.slice(index);
+      name = file.originalname.slice(0, index) + '-' + Date.now() + ext;
+    }
+    cb(null, name)
   }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage,
+  fileFilter: function(req, file, cb) {
+    const ext = path.extname(file.originalname);
+    const fileTypes = [".jpg", ".jpeg", ".png", ".bmp"];
+    if (fileTypes.indexOf(ext) !== -1) {
+      return cb(null, true)
+    }
+  }
+});
 
 const productSchema = require('../db/schemas/product');
 const Product = mongoose.model('Product', productSchema);
@@ -23,9 +38,13 @@ router.route('/')
 
     const prodObj = JSON.parse(req.body.product);
 
+    const imgArr = req.files.map(f => f.filename);
+    const prodToSave = Object.assign({}, prodObj, { imgs: imgArr });
+
     const condition = {
       name: prodObj.name,
       category: prodObj.category,
+      subcategory: prodObj.subcategory,
       model: prodObj.model
     };
 
@@ -34,7 +53,7 @@ router.route('/')
       if (err) console.log(err);
 
       if (doc.length === 0) {
-        const product = new Product(prodObj);
+        const product = new Product(prodToSave);
         product.save(err => {
           if (err) {
             console.log(err);
