@@ -38,9 +38,6 @@ router.route('/')
 
     const prodObj = JSON.parse(req.body.product);
 
-    const imgArr = req.files.map(f => f.filename);
-    const prodToSave = Object.assign({}, prodObj, { imgs: imgArr });
-
     const condition = {
       name: prodObj.name,
       category: prodObj.category,
@@ -53,7 +50,10 @@ router.route('/')
       if (err) console.log(err);
 
       if (doc.length === 0) {
+        const imgArr = req.files.map(f => f.filename);
+        const prodToSave = Object.assign({}, prodObj, { imgs: imgArr });
         const product = new Product(prodToSave);
+
         product.save(err => {
           if (err) {
             console.log(err);

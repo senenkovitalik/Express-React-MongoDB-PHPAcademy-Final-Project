@@ -17,18 +17,6 @@ import ChangeProductForm from './change_product_form';
 class Products extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      product: {
-        name: '',
-        category: '',
-        model: '',
-        vendor: '',
-        provider: '',
-        description: '',
-        price: 0,
-        prodProps: []
-      }
-    };
   }
 
   render() {
@@ -57,8 +45,11 @@ class Products extends React.Component {
         <Route
           path={`${this.props.match.url}/add-new-product`}
           render={() => <AddProductForm
-            product={this.state.product}
             categories={this.props.categories}
+            category={this.props.category}
+            prodProps={this.props.prodProps}
+            handleInput={this.props.handleAddInput}
+            handleInputProps={this.props.handleAddInputProps}
             add={this.props.add}
             flash={this.props.flash}
           /> }

@@ -42,35 +42,20 @@ class Product extends React.Component {
 
   render() {
     const imgGalleryItems = this.props.product.imgs.map((img, index) => {
-      return <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
-        <img className="d-block w-100" src={`/${img}`} alt="Carousel" />
-      </div>;
+      return  <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
+                <img className="d-block w-100" src={`/${img}`} alt="Carousel" />
+              </div>
     });
-    // IT'S A VERY BAD IDEA!!!
-    const characteristics = [];
-    let i = 0;
-    for (let prop in this.props.product.prodProps) {
-      characteristics.push(
-           <tr key={i}>
-              <td className="d-inline-block col-4">{prop}</td>
-              <td className="d-inline-block col-8">{this.props.product.prodProps[prop]}</td>
-            </tr>
-        );
-      i++;
-    }
-    // IT'S A VERY BAD IDEA!!!
-    //   this.props.product.prodProps.map((item, index) => {
-    //   return <tbody key={index}>
-    //     {
-    //       item.props.map((pair, index) => {
-    //         return <tr key={index}>
-    //           <td className="d-inline-block col-4">{pair.name}</td>
-    //           <td className="d-inline-block col-8">{pair.value}</td>
-    //         </tr>;
-    //       })
-    //     }
-    //     </tbody>
-    // });
+
+    const characteristics = this.props.product.prodProps.map((item, index) => {
+      return  <tbody key={index}>
+                <tr>
+                  <td className="d-inline-block col-4">{item.name}</td>
+                  <td className="d-inline-block col-8">{item.value}</td>
+                </tr>
+              </tbody>
+    });
+
     const images = this.props.product.imgs.map((img, index) => {
       return <img key={index} src={`/${img}`} className="w-100 mb-1" alt={this.props.product.name} />;
     });
@@ -80,12 +65,11 @@ class Product extends React.Component {
 
         <Row>
           <Col sm="12">
-            <h1>{this.props.product.name}</h1>
+            <h1>{this.props.product.name} {this.props.product.model}</h1>
           </Col>
         </Row>
 
         <Row>
-
           <Col xs="12" lg="5" xl="6" className="order-lg-2 mb-2">
             <Row className="justify-content-center">
               <Col xs="12" lg="7" className="text-center">
@@ -132,9 +116,7 @@ class Product extends React.Component {
 
               <div className="tab-pane" id="characteristic" role="tabpanel">
                 <Table size="sm">
-                  <tbody>
-                    {characteristics}
-                  </tbody>
+                  {characteristics}
                 </Table>
               </div>
 

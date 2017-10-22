@@ -16,9 +16,6 @@ class AddProductForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: this.props.product,
-      category: null,
-      upload: null,
       imgs: []
     };
 
@@ -28,112 +25,44 @@ class AddProductForm extends React.Component {
   }
 
   add() {
-    if (this.state.upload) {
-      console.log(this.state.product);
-      this.state.upload.append('product', JSON.stringify(this.state.product));
-      this.props.add(this.state.upload);
-      this.setState({
-        upload: null
-      });
-    }
+    this.props.add();
   }
 
   handleInput(e) {
-    const name = e.target.name;
-    const value = e.target.value;
+    const name = e.target.name
+
+    this.props.handleInput(e);
 
     let obj = {};
-
+    //
     switch (name) {
-    case 'category':
-      const category = _.find(this.props.categories, { 'name': value });
-
-      let prodProps = [];
-      category.prodProps.forEach(elem => {
-        prodProps.push({ name: elem.name, value: '' })
-      });
-
-      obj.category = category;
-      obj.product = Object.assign(this.state.product, { [name]: value });
-      obj.product.prodProps = prodProps;
-      break;
     case 'imgs':
       const fileList = e.target.files;
       let previewArr = [];
-      let formData = new FormData();
-
+    //   let formData = new FormData();
+    //
       for (let i = 0; i < fileList.length; i++) {
         let item = fileList.item(i);
-
+    //
         if (item.size < 3000000) {
-          formData.append('imgs', item);
+    //       formData.append('imgs', item);
           previewArr.push(URL.createObjectURL(item));
         }
       }
-
-      obj.upload = formData;
       obj.imgs = previewArr;
       break;
-    default:
-      obj.product = Object.assign(this.state.product, { [name]: value });
+    // default:
+    //   obj.product = Object.assign(this.state.product, { [name]: value });
     }
-
+    //
     this.setState(obj);
   }
 
   handleInputProps(e) {
-    const name = e.target.name;
-    const value = e.target.value;
-
-    const prop = _.find(this.state.product.prodProps, { name: name });
-
-    if (prop) {
-      const newProp = Object.assign({}, prop, { value: (e.target.type === "number") ? parseInt(value, 10) : value });
-
-      const filteredArr = _.filter(this.state.product.prodProps, val => {
-        return val.name !== name;
-      });
-
-      this.setState({
-        product: Object.assign({}, this.state.product, { prodProps: _.concat(filteredArr, newProp) })
-      })
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.categories.length > 0) {
-
-      let prodProps = [];
-      nextProps.categories[0].prodProps.forEach(elem => {
-        // prodProps.push({ name: elem.name, value: (elem.type === 'number') ? 0 : '' })
-        prodProps.push({ name: elem.name, value: '' })
-      });
-
-      console.log(prodProps);
-
-      this.setState({
-        product: Object.assign(
-          {},
-          this.state.product,
-          {
-            category: nextProps.categories[0].name,
-            subcategory: nextProps.categories[0].subcategories[0],
-            prodProps: prodProps
-          }
-        ),
-        category: nextProps.categories[0],
-      });
-    }
+    this.props.handleInputProps(e);
   }
 
   render() {
-
-    let prodProps = [];
-    if (this.state.category !== null) {
-       prodProps =  this.state.category.prodProps.map((property, i) => {
-        return <PropertyField key={i} property={property} handleInput={this.handleInputProps} />
-      });
-    }
 
     return (
       <Row style={{marginTop: 20+'px'}}>
@@ -158,8 +87,7 @@ class AddProductForm extends React.Component {
               <Col sm="10">
                 <Input type="select" id="addProductSubcategory" name="subcategory" onChange={this.handleInput}>
                   {
-                    this.state.category &&
-                    this.state.category.subcategories.map((val, i) => {
+                    this.props.category.subcategories.map((val, i) => {
                       return <option key={i}>{val}</option>;
                     })
                   }
@@ -229,11 +157,15 @@ class AddProductForm extends React.Component {
               <Col sm="12"><strong>Category specific fields</strong></Col>
             </FormGroup>
 
-            { prodProps }
+            {
+              this.props.prodProps.map((property, i) => {
+                return <PropertyField key={i} property={property} handleInput={this.handleInputProps} />
+              })
+            }
 
             <FormGroup row>
               <Col sm="10">
-                <Button color="primary" onClick={this.add} disabled={!this.state.upload}>Save</Button>
+                <Button color="primary" onClick={this.add}>Save</Button>
               </Col>
             </FormGroup>
           </Form>

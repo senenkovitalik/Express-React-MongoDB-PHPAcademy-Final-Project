@@ -1,15 +1,32 @@
 import React from 'react';
 import Products from './products';
+import _ from 'lodash';
 
 class ProductContainer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			categories: [],
-      prodToChange: null
+      category: null,
+      prodProps: [],
+      prodToChange: null,
+      files: [],
+      product: {
+        name: '',
+        category: '',
+        subcategory: '',
+        model: '',
+        vendor: '',
+        provider: '',
+        description: '',
+        price: 0,
+        prodProps: []
+      }
 		};
 
 		this.add = this.add.bind(this);
+		this.handleAddInput = this.handleAddInput.bind(this);
+    this.handleAddInputProps = this.handleAddInputProps.bind(this);
 	}
 
   componentDidMount() {
@@ -17,17 +34,108 @@ class ProductContainer extends React.Component {
       method: 'GET',
       url: '/category/all',
     }, res => {
-      this.setState({ categories: res })
+      const prodProps = res[0].prodProps.map(elem => {
+        return { name: elem.name, value: '' }
+      });
+
+      this.setState({
+        categories: res,
+        category: res[0],
+        prodProps: prodProps,
+        product: Object.assign(
+          {},
+          this.state.product,
+          {
+            category: res[0].name,
+            subcategory: res[0].subcategories[0],
+            prodProps: prodProps
+          })
+      })
     });
   }
 
-  add(prod) {
+  handleAddInput(e) {
+
+    const name = e.target.name;
+    const value = e.target.value;
+
+    switch (name) {
+    case 'category':
+      const category = _.find(this.state.categories, { 'name': value });
+
+      let prodProps = [];
+      category.prodProps.forEach(elem => {
+        prodProps.push({ name: elem.name, value: '' })
+      });
+
+      this.setState({
+        category: category,
+        prodProps: prodProps,
+        product: Object.assign(
+          {},
+          this.state.product,
+          {
+            category: value,
+            subcategory: category.subcategories[0],
+            prodProps: prodProps
+          })
+      });
+
+      break;
+    case 'imgs':
+      const fileList = e.target.files;
+      let arr = [];
+      for (let i = 0; i < fileList.length; i++) {
+        let item = fileList.item(i);
+        if (item.size < 3000000) {
+          arr.push(item);
+        }
+      }
+      this.setState({
+        files: arr
+      });
+      break;
+    default:  // for model, vendor, provider, description and price
+      this.setState({
+        product: Object.assign({}, this.state.product, { [name]: value })
+      });
+    }
+  }
+
+  handleAddInputProps(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    const prop = _.find(this.state.product.prodProps, { name: name });
+
+    if (prop) {
+      const newProp = Object.assign({}, prop, { value: value });
+
+      const filteredArr = _.filter(this.state.product.prodProps, val => {
+        return val.name !== name;
+      });
+
+      this.setState({
+        product: Object.assign({}, this.state.product, { prodProps: _.concat(filteredArr, newProp) })
+      })
+    }
+  }
+
+  add() {
+
+	  const formData = new FormData();
+
+	  this.state.files.forEach(f => formData.append("imgs", f));
+
+	  formData.append("product", JSON.stringify(this.state.product));
+
+	  console.log(formData);
 
 		const propObj = {
       cache: false,
       url: '/product',
       type: 'POST',
-      data: prod,
+      data: formData,
       contentType: false,
       dataType: 'json',
       processData: false
@@ -53,7 +161,15 @@ class ProductContainer extends React.Component {
 
 	render() {
 		return (
-			<Products {...this.props} categories={this.state.categories} add={this.add} flash={this.props.flash} />
+			<Products {...this.props}
+                product={this.state.product}
+                categories={this.state.categories}
+                category={this.state.category}
+                prodProps={this.state.prodProps}
+                handleAddInput={this.handleAddInput}
+                handleAddInputProps={this.handleAddInputProps}
+                add={this.add}
+                flash={this.props.flash} />
 		);
 	}
 }

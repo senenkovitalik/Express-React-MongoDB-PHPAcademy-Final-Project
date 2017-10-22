@@ -36,12 +36,14 @@ app.post('/login/:login/:password', function(req, res) {
   ];
   const login = req.params.login;
   const password = req.params.password;
+  let logged = false;
   users.forEach(val => {
     if (val.name === login && val.password === password) {
       res.json(val);
+      return logged = true;
     }
   });
-  res.json(false);
+  if (!logged) res.json(false);
 });
 
 app.listen(app.get("port"), () => {

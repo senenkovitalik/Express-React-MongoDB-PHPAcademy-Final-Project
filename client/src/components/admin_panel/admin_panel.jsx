@@ -41,6 +41,7 @@ class AdminPanel extends React.Component {
       cb(res);
     })
     .fail(err => {
+      cb(err);
       console.log(err);
     });
   }
