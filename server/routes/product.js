@@ -80,4 +80,22 @@ router.route('/all')
     });
   });
 
+router.route('/:cat/:subcat')
+.get((req, res) => {
+  Product.find({ category: req.params.cat, subcategory: req.params.subcat }, (err, doc) => {
+    if (err) {
+      console.log(err);
+      return res.json({ result: false, message: 'Error during find process' });
+    }
+    if (doc.length !== 0) {
+      res.json({ result: true, products: doc });
+    } else {
+      res.json({ result: false, message: 'No documents that math given condition' });
+    }
+  });
+});
+
+
+
+
 module.exports = router;

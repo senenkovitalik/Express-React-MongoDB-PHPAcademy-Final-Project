@@ -1,8 +1,5 @@
 import React from 'react';
 import {
-  Form,
-  Label,
-  Input,
   Button
 } from 'reactstrap';
 import {
@@ -11,6 +8,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ProductListWFilter from './product_list_w_filter/product_list_w_filter';
 import AddProductForm from './add_product_form';
 import ChangeProductForm from './change_product_form';
 
@@ -26,20 +24,14 @@ class Products extends React.Component {
         <Button color="primary" size="sm" tag={Link} to={`${this.props.match.url}/add-new-product`}>Add new</Button>
 
         {/*<!-- List of products. Can be filtered. -->*/}
-        <Form inline className="justify-content-center">
-          <Label for="selectCategory" className="mr-sm-2">Select category</Label>
-          <Input type="select" id="selectCategory" className="mb-2 mr-sm-2 mb-sm-0">
-            <option>Guitars</option>
-            <option>Combos</option>
-            <option>Amps</option>
-            <option>Strings</option>
-            <option>Effects</option>
-            <option>Other</option>
-          </Input>
-
-          <Label for="filter" className="mr-sm-2">Filter</Label>
-          <Input type="text" id="filter" className="mb-2 mr-sm-2 mb-sm-0" />
-        </Form>
+        <ProductListWFilter
+          categories={this.props.categories}
+          category={this.props.category}
+          filteredProducts={this.props.filteredProducts}
+          handleFilter={this.props.handleFilter}
+          filter={this.props.filter}
+          products={this.props.products}
+        />
 
         {/*<!-- Add new product -->*/}
         <Route

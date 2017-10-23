@@ -8,9 +8,11 @@ class ProductContainer extends React.Component {
 		this.state = {
 			categories: [],
       category: null,
+      subcats: [],
       prodProps: [],
       prodToChange: null,
       files: [],
+
       product: {
         name: '',
         category: '',
@@ -21,10 +23,21 @@ class ProductContainer extends React.Component {
         description: '',
         price: 0,
         prodProps: []
-      }
+      },
+
+      filter: {
+			  category: '',
+        subcategory: '',
+        // name: '',
+        // model: ''
+      },
+
+      filteredProducts: []
 		};
 
 		this.add = this.add.bind(this);
+		this.filter = this.filter.bind(this);
+		this.handleFilter = this.handleFilter.bind(this);
 		this.handleAddInput = this.handleAddInput.bind(this);
     this.handleAddInputProps = this.handleAddInputProps.bind(this);
 	}
@@ -41,6 +54,7 @@ class ProductContainer extends React.Component {
       this.setState({
         categories: res,
         category: res[0],
+        subcats: res[0].subcategories,
         prodProps: prodProps,
         product: Object.assign(
           {},
@@ -49,9 +63,78 @@ class ProductContainer extends React.Component {
             category: res[0].name,
             subcategory: res[0].subcategories[0],
             prodProps: prodProps
-          })
-      })
+          }
+        ),
+        filter: Object.assign(
+          {},
+          this.state.filter,
+          {
+            category: res[0].name,
+            subcategory: res[0].subcategories[0]
+          }
+        )
+      });
     });
+  }
+
+  filter() {
+	  const cat = this.state.filter.category;
+	  const subcat = this.state.filter.subcategory;
+	  this.props.makeAJAX({
+      method: 'GET',
+      url: `/product/${cat}/${subcat}`
+    }, res => {
+	    // console.log(res);
+	    if (res.result) {
+	      this.setState({
+          filteredProducts: res.products
+        });
+      }
+    });
+  }
+
+  handleFilter(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    switch (name) {
+    case "category":
+      const newCat = _.find(this.state.categories, { name: value });
+      this.setState({
+        category: newCat,
+        filter: Object.assign(
+          {},
+          this.state.filter,
+          {
+            category: value,
+            subcategory: newCat.subcategories[0]
+          }
+        )
+      });
+      break;
+    case "subcategory":
+      this.setState({
+        filter: Object.assign(
+          {},
+          this.state.filter,
+          {
+            subcategory: value
+          }
+        )
+      });
+      break;
+    // default:
+    //   console.log(name, value);
+    //   this.setState({
+    //     filter: Object.assign(
+    //       {},
+    //       this.state.filter,
+    //       {
+    //         [name]: value
+    //       }
+    //     )
+    //   });
+    }
   }
 
   handleAddInput(e) {
@@ -129,8 +212,6 @@ class ProductContainer extends React.Component {
 
 	  formData.append("product", JSON.stringify(this.state.product));
 
-	  console.log(formData);
-
 		const propObj = {
       cache: false,
       url: '/product',
@@ -162,12 +243,14 @@ class ProductContainer extends React.Component {
 	render() {
 		return (
 			<Products {...this.props}
-                product={this.state.product}
                 categories={this.state.categories}
                 category={this.state.category}
                 prodProps={this.state.prodProps}
+                filteredProducts={this.state.filteredProducts}
+                handleFilter={this.handleFilter}
                 handleAddInput={this.handleAddInput}
                 handleAddInputProps={this.handleAddInputProps}
+                filter={this.filter}
                 add={this.add}
                 flash={this.props.flash} />
 		);
