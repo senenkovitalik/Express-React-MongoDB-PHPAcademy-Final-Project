@@ -11,7 +11,7 @@ class List extends React.Component {
       <div className="mt-3">
       {
         this.props.filteredProducts.map((p, i) => {
-          return <ListItem key={i} product={p} />
+          return <ListItem key={i} product={p} remove={this.props.remove} />
         })
       }
       </div>

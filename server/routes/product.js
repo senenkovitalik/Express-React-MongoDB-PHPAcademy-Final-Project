@@ -66,6 +66,24 @@ router.route('/')
         res.json({ result: false });
       }
     });
+  })
+  .delete((req, res) => {
+    const prod = req.body;
+    const condition = {
+      name: prod.name,
+      category: prod.category,
+      subcategory: prod.subcategory,
+      model: prod.model
+    };
+
+    Product.remove(condition, (err) => {
+      if (err) {
+        console.log(err);
+        res.json({ result: false, message: "Server error" });
+      } else {
+        res.json({ result: true, message: "Product successfully removed" });
+      }
+    });
   });
 
 router.route('/all')
@@ -81,19 +99,19 @@ router.route('/all')
   });
 
 router.route('/:cat/:subcat')
-.get((req, res) => {
-  Product.find({ category: req.params.cat, subcategory: req.params.subcat }, (err, doc) => {
-    if (err) {
-      console.log(err);
-      return res.json({ result: false, message: 'Error during find process' });
-    }
-    if (doc.length !== 0) {
-      res.json({ result: true, products: doc });
-    } else {
-      res.json({ result: false, message: 'No documents that math given condition' });
-    }
+  .get((req, res) => {
+    Product.find({ category: req.params.cat, subcategory: req.params.subcat }, (err, doc) => {
+      if (err) {
+        console.log(err);
+        return res.json({ result: false, message: 'Error during find process' });
+      }
+      if (doc.length !== 0) {
+        res.json({ result: true, products: doc });
+      } else {
+        res.json({ result: false, message: 'No documents that math given condition' });
+      }
+    });
   });
-});
 
 
 

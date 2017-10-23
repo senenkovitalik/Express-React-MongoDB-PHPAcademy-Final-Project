@@ -19,7 +19,7 @@ class ListItem extends React.Component {
   }
 
   remove() {
-    console.log("Remove product ", this.props.product.name);
+    this.props.remove(this.props.product);
   }
 
   render() {

@@ -30,6 +30,7 @@ class Products extends React.Component {
           filteredProducts={this.props.filteredProducts}
           handleFilter={this.props.handleFilter}
           filter={this.props.filter}
+          remove={this.props.remove}
           products={this.props.products}
         />
 

@@ -36,6 +36,7 @@ class ProductContainer extends React.Component {
 		};
 
 		this.add = this.add.bind(this);
+		this.remove = this.remove.bind(this);
 		this.filter = this.filter.bind(this);
 		this.handleFilter = this.handleFilter.bind(this);
 		this.handleAddInput = this.handleAddInput.bind(this);
@@ -240,6 +241,35 @@ class ProductContainer extends React.Component {
 		});
 	}
 
+	remove(prod) {
+    this.props.makeAJAX({
+      method: "DELETE",
+      url: "/product",
+      data: JSON.stringify(prod),
+      contentType: "application/json; charset=utf-8"
+    }, res => {
+
+      this.setState({
+        filteredProducts: _.without(this.state.filteredProducts, prod)
+      });
+
+      let color = 'success';
+      let message = `Product successfully removed.`;
+
+      if (res.result) {
+
+      } else {
+        color = 'warning';
+        message = res.message;
+      }
+
+      this.props.flash({
+        color: color,
+        message: message
+      });
+    });
+  }
+
 	render() {
 		return (
 			<Products {...this.props}
@@ -251,6 +281,7 @@ class ProductContainer extends React.Component {
                 handleAddInput={this.handleAddInput}
                 handleAddInputProps={this.handleAddInputProps}
                 filter={this.filter}
+                remove={this.remove}
                 add={this.add}
                 flash={this.props.flash} />
 		);
