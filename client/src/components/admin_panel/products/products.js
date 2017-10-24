@@ -25,12 +25,14 @@ class Products extends React.Component {
 
         {/*<!-- List of products. Can be filtered. -->*/}
         <ProductListWFilter
+          {...this.props}
           categories={this.props.categories}
           category={this.props.category}
           filteredProducts={this.props.filteredProducts}
           handleFilter={this.props.handleFilter}
           filter={this.props.filter}
           remove={this.props.remove}
+          chooseToChange={this.props.chooseToChange}
           products={this.props.products}
         />
 
@@ -52,8 +54,13 @@ class Products extends React.Component {
         <Route
           path={`${this.props.match.url}/change-product`}
           render={() => (
-            this.props.catToChange
-              ? (<ChangeProductForm categories={this.props.categories} product={this.props.product} change={this.props.change} />)
+            this.props.prodToChange
+              ? (<ChangeProductForm
+                  categories={this.props.categories}
+                  category={this.props.category}
+                  product={this.props.prodToChange}
+                  prodProps={this.props.changeProdProps}
+                />)
               : (<Redirect to={this.props.match.url} />)
           )}
         />

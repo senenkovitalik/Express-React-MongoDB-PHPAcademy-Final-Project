@@ -17,8 +17,10 @@ class ProductListWFilter extends React.Component {
           filter={this.props.filter}
         />
         <List
+          {...this.props}
           filteredProducts={this.props.filteredProducts}
           remove={this.props.remove}
+          chooseToChange={this.props.chooseToChange}
         />
       </div>
     );

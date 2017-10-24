@@ -25,6 +25,7 @@ class PropertyField extends React.Component {
             type={this.props.property.type}
             id={`addProduct${capName}`}
             name={name}
+            defaultValue={this.props.property.value}
             onChange={this.props.handleInput}
           />
         </Col>

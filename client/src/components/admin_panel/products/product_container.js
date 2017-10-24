@@ -10,7 +10,6 @@ class ProductContainer extends React.Component {
       category: null,
       subcats: [],
       prodProps: [],
-      prodToChange: null,
       files: [],
 
       product: {
@@ -32,11 +31,14 @@ class ProductContainer extends React.Component {
         // model: ''
       },
 
-      filteredProducts: []
+      filteredProducts: [],
+
+      prodToChange: null,
 		};
 
 		this.add = this.add.bind(this);
 		this.remove = this.remove.bind(this);
+		this.chooseToChange = this.chooseToChange.bind(this);
 		this.filter = this.filter.bind(this);
 		this.handleFilter = this.handleFilter.bind(this);
 		this.handleAddInput = this.handleAddInput.bind(this);
@@ -270,18 +272,28 @@ class ProductContainer extends React.Component {
     });
   }
 
+  chooseToChange(prod) {
+	  this.setState({
+	    prodToChange: prod,
+      changeProdProps: prod.prodProps
+    });
+  }
+
 	render() {
 		return (
 			<Products {...this.props}
                 categories={this.state.categories}
                 category={this.state.category}
                 prodProps={this.state.prodProps}
+                changeProdProps={this.state.changeProdProps}
                 filteredProducts={this.state.filteredProducts}
                 handleFilter={this.handleFilter}
                 handleAddInput={this.handleAddInput}
                 handleAddInputProps={this.handleAddInputProps}
                 filter={this.filter}
                 remove={this.remove}
+                chooseToChange={this.chooseToChange}
+                prodToChange={this.state.prodToChange}
                 add={this.add}
                 flash={this.props.flash} />
 		);

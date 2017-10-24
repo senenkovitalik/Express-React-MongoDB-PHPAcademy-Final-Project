@@ -10,7 +10,6 @@ import {
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PropertyField from "../categories/property_field";
-import _ from 'lodash';
 
 class AddProductForm extends React.Component {
   constructor(props) {
@@ -29,32 +28,25 @@ class AddProductForm extends React.Component {
   }
 
   handleInput(e) {
-    const name = e.target.name
+    const name = e.target.name;
 
     this.props.handleInput(e);
 
     let obj = {};
-    //
+
     switch (name) {
     case 'imgs':
       const fileList = e.target.files;
       let previewArr = [];
-    //   let formData = new FormData();
-    //
       for (let i = 0; i < fileList.length; i++) {
         let item = fileList.item(i);
-    //
         if (item.size < 3000000) {
-    //       formData.append('imgs', item);
           previewArr.push(URL.createObjectURL(item));
         }
       }
       obj.imgs = previewArr;
       break;
-    // default:
-    //   obj.product = Object.assign(this.state.product, { [name]: value });
     }
-    //
     this.setState(obj);
   }
 
@@ -63,7 +55,6 @@ class AddProductForm extends React.Component {
   }
 
   render() {
-
     return (
       <Row style={{marginTop: 20+'px'}}>
         <Col sm="7">
