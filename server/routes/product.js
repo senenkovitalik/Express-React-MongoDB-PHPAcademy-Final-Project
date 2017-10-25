@@ -67,6 +67,21 @@ router.route('/')
       }
     });
   })
+  .put(upload.array('imgs'), (req, res) => {
+
+    const prodObj = JSON.parse(req.body.product);
+    const imgArr = req.files.map(f => f.filename);
+    const prodToUpdate = Object.assign({}, prodObj, { imgs: imgArr.concat(prodObj.imgs) });
+    
+    Product.findOneAndUpdate({ _id: prodObj._id }, prodToUpdate, (err) => {
+      if (err) {
+        console.log(err);
+        res.json({ result: false, message: 'Can\'t update product' });
+      } else {
+        res.json({ result: true, message: "Successfully updated" });
+      }
+    });
+  })
   .delete((req, res) => {
     const prod = req.body;
     const condition = {

@@ -10,7 +10,7 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductListWFilter from './product_list_w_filter/product_list_w_filter';
 import AddProductForm from './add_product_form';
-import ChangeProductForm from './change_product_form';
+import ChangeProductFormContainer from "./change_product_form_container";
 
 class Products extends React.Component {
   constructor(props) {
@@ -55,11 +55,10 @@ class Products extends React.Component {
           path={`${this.props.match.url}/change-product`}
           render={() => (
             this.props.prodToChange
-              ? (<ChangeProductForm
+              ? (<ChangeProductFormContainer
                   categories={this.props.categories}
-                  category={this.props.category}
                   product={this.props.prodToChange}
-                  prodProps={this.props.changeProdProps}
+                  change={this.props.change}
                 />)
               : (<Redirect to={this.props.match.url} />)
           )}
