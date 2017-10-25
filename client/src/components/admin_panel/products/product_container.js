@@ -277,7 +277,7 @@ class ProductContainer extends React.Component {
 	  const newImgs = prod.imgs.map(img => {
 	    return { src: `/${img}`, saved: true }
     });
-	  console.log(newImgs);
+
 	  this.setState({
 	    prodToChange: Object.assign(
         {},
@@ -290,10 +290,6 @@ class ProductContainer extends React.Component {
   }
 
   change(formDataObj) {
-    console.log("Change product to: ", formDataObj);
-
-
-
     this.props.makeAJAX({
       url: '/product',
       type: 'PUT',

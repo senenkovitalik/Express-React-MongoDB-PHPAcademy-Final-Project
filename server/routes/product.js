@@ -72,7 +72,7 @@ router.route('/')
     const prodObj = JSON.parse(req.body.product);
     const imgArr = req.files.map(f => f.filename);
     const prodToUpdate = Object.assign({}, prodObj, { imgs: imgArr.concat(prodObj.imgs) });
-    
+
     Product.findOneAndUpdate({ _id: prodObj._id }, prodToUpdate, (err) => {
       if (err) {
         console.log(err);

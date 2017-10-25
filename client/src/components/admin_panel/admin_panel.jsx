@@ -78,7 +78,7 @@ class AdminPanel extends React.Component {
             }
             <Route path={`${this.props.match.url}/categories`} render={(props) => <CategoryContainer {...props} flash={this.flash} makeAJAX={this.makeAJAX} />} />
             <Route path={`${this.props.match.url}/products`} render={(props) => <ProductContainer {...props} flash={this.flash} makeAJAX={this.makeAJAX} />} />
-            <Route path={`${this.props.match.url}/users`} render={() =>  <UserContainer/> } />
+            <Route path={`${this.props.match.url}/users`} render={(props) =>  <UserContainer {...props} flash={this.flash} makeAJAX={this.makeAJAX} /> } />
             <Route path={`${this.props.match.url}/providers`} render={() => <h1>Providers</h1>} />
             <Route path={`${this.props.match.url}/orders`} render={() => <h1>Orders</h1>} />
             <Route path={`${this.props.match.url}/statistics`} render={() => <h1>Statistics</h1>} />

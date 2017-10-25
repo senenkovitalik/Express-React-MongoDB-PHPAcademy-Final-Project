@@ -22,7 +22,6 @@ class ChangeProductFormContainer extends React.Component {
   handleInput(e) {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(name, value);
 
     switch (name) {
     case 'category':
@@ -62,8 +61,6 @@ class ChangeProductFormContainer extends React.Component {
         }
       }
 
-      console.log(arr);
-
       this.setState({
         files: arr,
         imgs: _.uniqBy(_.concat(this.state.imgs, imgs), 'src')
@@ -83,7 +80,6 @@ class ChangeProductFormContainer extends React.Component {
   handleInputProp(e) {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(name, value);
 
     const prop = _.find(this.state.product.prodProps, { name: name });
 
@@ -105,7 +101,6 @@ class ChangeProductFormContainer extends React.Component {
   }
 
   removeImg(img) {
-    console.log(_.without(this.state.imgs, img));
     this.setState({
       imgs: _.without(this.state.imgs, img)
     });
