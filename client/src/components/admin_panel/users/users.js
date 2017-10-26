@@ -24,7 +24,7 @@ class Users extends React.Component {
 
         {/*<!-- Users list -->*/}
         {
-          this.props.users.length !== 0 && <UserList users={this.props.users} />
+          this.props.users.length !== 0 && <UserList users={this.props.users} remove={this.props.remove} />
         }
 
         {/*<!-- Add new user -->*/}

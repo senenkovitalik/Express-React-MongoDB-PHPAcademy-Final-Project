@@ -10,6 +10,7 @@ class UserContainer extends React.Component {
     };
 
     this.add = this.add.bind(this);
+    this.remove = this.remove.bind(this);
   }
 
   componentDidMount() {
@@ -52,6 +53,32 @@ class UserContainer extends React.Component {
     })
   }
 
+  remove(userObj) {
+    this.props.makeAJAX({
+      url: `/users/${userObj._id}`,
+      method: 'DELETE',
+    }, res => {
+      if (res.result) {
+        let color = 'success';
+        let message = `User ${userObj.name} successfully removed.`;
+
+        if (res.result) {
+          this.setState({
+              users: _.without(this.state.users, userObj)
+          });
+        } else {
+          color = 'warning';
+          message = `Sorry. Server problems.`;
+        }
+
+        this.props.flash({
+          color: color,
+          message: message
+        });
+      }
+    })
+  }
+
   render() {
     return (
       <Users
@@ -59,6 +86,7 @@ class UserContainer extends React.Component {
         users={this.state.users}
         makeAJAX={this.props.makeAJAX}
         add={this.add}
+        remove={this.remove}
       />
     );
   }

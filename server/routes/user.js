@@ -30,4 +30,16 @@ router.route('/')
     });
   });
 
+router.route('/:id')
+    .delete((req, res) => {
+        User.findByIdAndRemove(req.params.id, function(err) {
+            if (err) {
+                console.log(err);
+                res.json({result: false, message: err});
+            } else {
+                res.json({result: true});
+            }
+        })
+    });
+
 module.exports = router;
