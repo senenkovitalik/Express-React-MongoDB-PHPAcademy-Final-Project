@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const UserItem = (props) => {
   return  <tr>
-            <th scope="row">1</th>
+            <th scope="row">{props.index}</th>
             <td>{props.user.name}</td>
             <td>{props.user.login}</td>
             <td>{props.user.password}</td>

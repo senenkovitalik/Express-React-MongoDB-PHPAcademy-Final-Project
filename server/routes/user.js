@@ -17,4 +17,17 @@ router.route('/all')
     });
   });
 
+router.route('/')
+  .post((req, res) => {
+    const user = new User(req.body);
+    user.save(req.body, (err, user) => {
+      if (err) {
+        console.log(err);
+        res.json({ result: false, message: err });
+      } else {
+        res.json({ result: true, user: user });
+      }
+    });
+  });
+
 module.exports = router;

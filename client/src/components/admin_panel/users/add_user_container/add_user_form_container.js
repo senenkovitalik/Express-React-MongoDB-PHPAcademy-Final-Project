@@ -5,32 +5,38 @@ class AddUserFormContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      login: '',
-      password: '',
-      c_password: '',
-      role: '',
-      phone: '',
-      mail: '',
-      address: ''
+      user: {
+        name: '',
+        login: '',
+        password: '',
+        c_password: '',
+        role: 'admin',
+        phone: '',
+        email: '',
+        address: '',
+      },
+      roles: ['admin', 'user']
     };
 
     this.handleInput = this.handleInput.bind(this);
+    this.add = this.add.bind(this);
   }
 
   handleInput(e) {
     const name = e.target.name;
     const value = e.target.value;
 
-    console.log(name, value);
-
     this.setState({
-      [name]: value
+      user: Object.assign({}, this.state.user, { [name]: value })
     });
   }
 
+  add() {
+    this.props.add(this.state.user);
+  }
+
   render() {
-    return <AddUserForm handleInput={this.handleInput} />;
+    return <AddUserForm roles={this.state.roles} handleInput={this.handleInput} add={this.add} />;
   }
 }
 
