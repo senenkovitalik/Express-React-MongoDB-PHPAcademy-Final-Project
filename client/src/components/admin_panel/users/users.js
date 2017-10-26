@@ -5,9 +5,10 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   Route,
-  Link
+  Link,
+  Redirect
 } from 'react-router-dom';
-import UserList from './user_list';
+import UserList from './list/user_list';
 import AddUserFormContainer from "./add_user_container/add_user_form_container";
 import ChangeUserFormContainer from "./change_user_container/chnage_user_form_container";
 
@@ -24,14 +25,31 @@ class Users extends React.Component {
 
         {/*<!-- Users list -->*/}
         {
-          this.props.users.length !== 0 && <UserList users={this.props.users} remove={this.props.remove} />
+          this.props.users.length !== 0
+          &&
+          <UserList
+            {...this.props}
+            users={this.props.users}
+            remove={this.props.remove}
+            chooseToChange={this.props.chooseToChange}
+          />
         }
 
         {/*<!-- Add new user -->*/}
         <Route path={`${this.props.match.url}/add-new-user`} render={() => <AddUserFormContainer add={this.props.add} />} />
 
         {/*<!-- Change user data -->*/}
-        <Route path={`${this.props.match.url}/change-user`} render={() => <ChangeUserFormContainer />} />
+        <Route
+          path={`${this.props.match.url}/change-user`}
+          render={() => (
+            this.props.userToChange
+            ? (<ChangeUserFormContainer
+                user={this.props.userToChange}
+                change={this.props.change}
+              />)
+            : (<Redirect to={this.props.match.url} />)
+          )}
+        />
       </div>
     );
   }

@@ -28,6 +28,18 @@ router.route('/')
         res.json({ result: true, user: user });
       }
     });
+  })
+  .put((req, res) => {
+    console.log(req.body);
+    res.json({result: true});
+    User.findByIdAndUpdate(req.body._id, req.body, err => {
+      if (err) {
+        console.log(err);
+        res.json({ result: false, message: err });
+      } else {
+        res.json({ result: true });
+      }
+    })
   });
 
 router.route('/:id')

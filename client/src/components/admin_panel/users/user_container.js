@@ -6,11 +6,14 @@ class UserContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: []
+      users: [],
+      userToChange: null
     };
 
     this.add = this.add.bind(this);
     this.remove = this.remove.bind(this);
+    this.chooseToChange = this.chooseToChange.bind(this);
+    this.change = this.change.bind(this);
   }
 
   componentDidMount() {
@@ -79,14 +82,56 @@ class UserContainer extends React.Component {
     })
   }
 
+  chooseToChange(userObj) {
+    this.setState({
+      userToChange: userObj
+    })
+  }
+
+  change(userObj) {
+    console.log(userObj);
+    this.props.makeAJAX({
+      url: '/users',
+      method: 'PUT',
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify(userObj)
+    }, res => {
+      if (res.result) {
+        let color = 'success';
+        let message = `User ${userObj.name} successfully updated.`;
+
+        if (res.result) {
+          const index = _.findIndex(this.state.users, { '_id': userObj._id });
+          const users = _.fill(this.state.users, userObj, index, index + 1);
+          console.log(users);
+
+          this.setState({
+            users: users,
+            userToChange: null
+          });
+        } else {
+          color = 'warning';
+          message = `Sorry. Server problems.`;
+        }
+
+        this.props.flash({
+          color: color,
+          message: message
+        });
+      }
+    })
+  }
+
   render() {
     return (
       <Users
         {...this.props}
         users={this.state.users}
-        makeAJAX={this.props.makeAJAX}
         add={this.add}
         remove={this.remove}
+        userToChange={this.state.userToChange}
+        chooseToChange={this.chooseToChange}
+        change={this.change}
       />
     );
   }
