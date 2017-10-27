@@ -21,7 +21,6 @@ class UserContainer extends React.Component {
       method: 'GET',
       url: '/users/all'
     }, res => {
-      console.log(res);
       this.setState({
         users: res.users
       });
@@ -89,7 +88,6 @@ class UserContainer extends React.Component {
   }
 
   change(userObj) {
-    console.log(userObj);
     this.props.makeAJAX({
       url: '/users',
       method: 'PUT',
@@ -103,7 +101,6 @@ class UserContainer extends React.Component {
         if (res.result) {
           const index = _.findIndex(this.state.users, { '_id': userObj._id });
           const users = _.fill(this.state.users, userObj, index, index + 1);
-          console.log(users);
 
           this.setState({
             users: users,

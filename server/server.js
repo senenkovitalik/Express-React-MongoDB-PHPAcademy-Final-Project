@@ -1,11 +1,13 @@
+const fs = require('fs');
+const https = require('https');
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-const category = require('./server/routes/category');
-const product = require('./server/routes/product');
-const user = require('./server/routes/user');
+const category = require('./routes/category');
+const product = require('./routes/product');
+const user = require('./routes/user');
 
 mongoose.connect('mongodb://senenkovitalik:3akp1RoxACDcaYo1@academy-shard-00-00-0myio.mongodb.net:27017,academy-shard-00-01-0myio.mongodb.net:27017,academy-shard-00-02-0myio.mongodb.net:27017/test?ssl=true&replicaSet=Academy-shard-0&authSource=admin');
 const db = mongoose.connection;
@@ -33,5 +35,5 @@ app.use('/category', category);
 app.use('/users', user);
 
 app.listen(app.get("port"), () => {
-  console.log(`Find the server at: http://localhost:${app.get("port")}/`); // eslint-disable-line no-console
+  console.log(`Find the server at: http://localhost:${app.get("port")}/`);
 });

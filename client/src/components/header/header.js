@@ -4,6 +4,7 @@ import {
   Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink, Form, FormGroup, Label, Input, Button, Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
 import $ from 'jquery';
+import SignUpFormContainer from "./sign_up_form/sign_up_form_container";
 
 class Header extends React.Component {
 
@@ -12,16 +13,16 @@ class Header extends React.Component {
     this.state = {
       isOpen: false,
       modal: false,
-      login: '',
-      password: ''
     };
-    this.toggle = this.toggle.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
+
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleLoginButton = this.handleLoginButton.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
-  toggle() {
+  toggle(e) {
+    e.preventDefault();
     this.setState({
       isOpen: !this.state.isOpen
     });
@@ -91,34 +92,8 @@ class Header extends React.Component {
           </Form>
         </Collapse>
 
-        <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
-          <ModalHeader toggle={this.toggleModal}>Sign up</ModalHeader>
-          <ModalBody>
-            <Form>
-              <FormGroup>
-                <Label for="username">Login</Label>
-                <Input type="text" size="sm" id="username" placeholder="Login"/>
-              </FormGroup>
-              <FormGroup>
-                <Label for="email">Email</Label>
-                <Input type="email" size="sm" id="email" placeholder="name@example.com" />
-                <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-              </FormGroup>
-              <FormGroup>
-                <Label for="password">Password</Label>
-                <Input type="password" size="sm" id="password" placeholder="Password"/>
-              </FormGroup>
-              <FormGroup>
-                <Label for="password">Confirm password</Label>
-                <Input type="password" size="sm" id="confirmPassword" placeholder="Confirm password"/>
-              </FormGroup>
-            </Form>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="secondary" size="sm" onClick={this.toggleModal}>Close</Button>
-            <Button color="primary" size="sm">Sign Up</Button>
-          </ModalFooter>
-        </Modal>
+        <SignUpFormContainer modal={this.state.modal} toggle={this.toggleModal} signUp={this.props.signUp} />
+
     </Navbar>
     );
   }

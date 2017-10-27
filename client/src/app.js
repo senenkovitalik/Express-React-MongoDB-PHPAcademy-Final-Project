@@ -8,7 +8,7 @@ import _ from 'lodash';
 import Home from './components/home/home.js';
 import Product from './components/product.js';
 import OrderProcessing from './components/order_processing/order_processing.js';
-import Header from "./components/header.js";
+import Header from "./components/header/header.js";
 import ContactUs from './components/contact_us.js';
 import Footer from './components/footer.jsx';
 import AdminPanel from './components/admin_panel/admin_panel';
@@ -21,16 +21,11 @@ class App extends React.Component {
     this.state = {
       products: [],
       productsToBuy: [],
-      loggedIn: true,
-      user: {
-        role: 'admin'
-      }
     };
 
     this.addProduct = this.addProduct.bind(this);
     this.removeProduct = this.removeProduct.bind(this);
     this.changeProdCount = this.changeProdCount.bind(this);
-    this.logging = this.logging.bind(this);
   }
 
   addProduct(prodObj) {
@@ -49,23 +44,16 @@ class App extends React.Component {
     console.log(obj);
   }
 
-  logging(value) {
-    this.setState({
-      loggedIn: value.loggedIn,
-      user: value.user
-    });
-  }
-
   render() {
     return (
       <Router>
         <div>
-          <Header logging={this.logging} />
+          <Header signUp={this.props.signUp} />
 
           <Route
             exact path="/"
             render={(props) => (
-              this.state.loggedIn && this.state.user.role === 'admin'
+              this.props.user && this.props.user.role === 'admin'
                 ? ( <Redirect to="/admin" /> )
                 : ( <Home
                     products={this.props.products}

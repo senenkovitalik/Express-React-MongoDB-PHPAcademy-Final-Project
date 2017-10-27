@@ -17,6 +17,23 @@ router.route('/all')
     });
   });
 
+router.route('/signup')
+  .post((req, res) => {
+    const userObj = Object.assign({}, req.body, { role: 'user' });
+    const user = new User(userObj);
+    user.save(err => {
+      if (err) {
+        console.log(err);
+        res.json({ result: false, message: err });
+      } else {
+        // initialize session
+        // send cookie
+        res.cookie("session_id", "727523238243756384", { expires: new Date(Date.now() + 900000), httpOnly: true });
+        res.json({ result: true, user: userObj });
+      }
+    });
+  });
+
 router.route('/')
   .post((req, res) => {
     const user = new User(req.body);
