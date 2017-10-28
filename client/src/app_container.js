@@ -8,11 +8,13 @@ class AppContainer extends React.Component {
     super(props);
     this.state = {
       products: [],
-      user: null
+      user: null,
+      isLogged: false
     };
 
     this.signUp = this.signUp.bind(this);
     this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
@@ -54,8 +56,6 @@ class AppContainer extends React.Component {
   }
 
   login(loginObj) {
-    console.log(loginObj);
-
     $.ajax({
       url: '/users/login',
       method: 'POST',
@@ -66,7 +66,8 @@ class AppContainer extends React.Component {
       console.log(res);
       if (res.result) {
         this.setState({
-          user: res.user
+          user: res.user,
+          isLogged: true
         });
         console.log("You successfully logged");
       } else {
@@ -78,11 +79,30 @@ class AppContainer extends React.Component {
     });
   }
 
+  logout() {
+    $.ajax({
+      url: '/users/logout',
+      method: 'POST'
+    })
+    .done(res => {
+      this.setState({
+        user: null,
+        isLogged: false
+      });
+      console.log("You are logged out");
+    })
+    .fail(err => {
+      console.log(err);
+    });
+  }
+
   render() {
     return <App products={this.state.products}
                 user={this.state.user}
                 signUp={this.signUp}
-                login={this.login} />;
+                login={this.login}
+                isLogged={this.state.isLogged}
+                logout={this.logout} />;
   }
 }
 

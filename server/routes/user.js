@@ -50,6 +50,16 @@ router.route('/login')
     });
   });
 
+router.route('/logout')
+  .post((req, res) => {
+    const user = req.session.user;
+    req.session.destroy(err => {
+      if (err) console.log(err);
+      console.log('Session destroyed for user: ', user);
+      res.json({ result: true });
+    });
+  });
+
 router.route('/')
   .post((req, res) => {
     const user = new User(req.body);

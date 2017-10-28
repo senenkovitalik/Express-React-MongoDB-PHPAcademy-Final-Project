@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import {
   Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink
 } from 'reactstrap';
-import $ from 'jquery';
 
 import SignUpFormContainer from "./sign_up_form/sign_up_form_container";
 import LoginFormContainer from "./login_form/login_form_container";
@@ -50,7 +49,9 @@ class Header extends React.Component {
           </Nav>
 
           <LoginFormContainer toggleModal={this.toggleModal}
-                              login={this.props.login} />
+                              login={this.props.login}
+                              isLogged={this.props.isLogged}
+                              logout={this.props.logout} />
 
         </Collapse>
 

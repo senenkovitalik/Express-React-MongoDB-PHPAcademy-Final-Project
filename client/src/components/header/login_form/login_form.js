@@ -27,17 +27,22 @@ const LoginForm = (props) => {
              type="password"
              placeholder="Password"
       />
-      <Button onClick={props.handleLogin}
-              color="success"
-              className="my-2 my-sm-0"
-              style={{marginRight: 10+'px'}}
-      >Log in</Button>
+
+      {
+        props.isLogged
+          ? (<Button onClick={props.handleLogout}
+                     color="success"
+                     className="my-2 my-sm-0 mr-2">Logout</Button>)
+          : (<Button onClick={props.handleLogin}
+                     color="success"
+                     className="my-2 my-sm-0 mr-2">Login</Button>)
+      }
+
       <Button onClick={props.toggleModal}
               color="primary"
-              className="my-2 my-sm-0"
-      >Sign up</Button>
+              className="my-2 my-sm-0">Sign up</Button>
     </Form>
-  );
+  )
 };
 
 export default LoginForm;

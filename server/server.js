@@ -51,9 +51,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // this is used for parsing the JSON object from POST
 

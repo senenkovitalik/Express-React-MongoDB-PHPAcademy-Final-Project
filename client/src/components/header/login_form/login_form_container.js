@@ -7,11 +7,12 @@ class LoginFormContainer extends React.Component {
     this.state = {
       login: '',
       password: '',
-      disabled: true
+      disabled: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   handleChange(e) {
@@ -31,10 +32,20 @@ class LoginFormContainer extends React.Component {
     this.props.login({ login: login, password: password });
   }
 
+  handleLogout(e) {
+    e.preventDefault();
+    this.props.logout();
+  }
+
+
+
+
   render() {
     return <LoginForm toggleModal={this.props.toggleModal}
                       handleChange={this.handleChange}
-                      handleLogin={this.handleLogin} />;
+                      handleLogin={this.handleLogin}
+                      handleLogout={this.handleLogout}
+                      isLogged={this.props.isLogged} />;
   }
 }
 

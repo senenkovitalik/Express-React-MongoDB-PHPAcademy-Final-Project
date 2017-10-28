@@ -49,7 +49,9 @@ class App extends React.Component {
       <Router>
         <div>
           <Header signUp={this.props.signUp}
-                  login={this.props.login} />
+                  login={this.props.login}
+                  isLogged={this.props.isLogged}
+                  logout={this.props.logout} />
 
           <Route
             exact path="/"
