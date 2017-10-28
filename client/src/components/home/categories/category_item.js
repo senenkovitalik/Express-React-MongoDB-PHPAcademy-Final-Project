@@ -18,7 +18,7 @@ class CategoryItem extends React.Component {
   }
 
   handleClick(sub) {
-    this.props.showProds({
+    this.props.getProds({
       category: this.props.category.name,
       subcategory: sub
     });

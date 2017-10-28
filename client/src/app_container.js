@@ -1,11 +1,13 @@
 import React from 'react';
 import App from "./app";
 import $ from 'jquery';
+import _ from 'lodash';
 
 class AppContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      products: [],
       prodsInBasket: [],
       user: null,
       isLogged: false
@@ -14,6 +16,8 @@ class AppContainer extends React.Component {
     this.signUp = this.signUp.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.getProdsByCategory = this.getProdsByCategory.bind(this);
+    this.addToBasket = this.addToBasket.bind(this);
   }
 
   signUp(userObj) {
@@ -80,13 +84,43 @@ class AppContainer extends React.Component {
     });
   }
 
+  getProdsByCategory(o) {
+    $.ajax({
+      url: `/product/${o.category}/${o.subcategory}`,
+      method: 'GET'
+    })
+    .done(res => {
+      if (res.result) {
+        this.setState({
+          products: res.products
+        });
+      } else {
+        this.setState({
+          products: []
+        });
+      }
+    })
+    .fail(err => {
+      console.log(err);
+    });
+  }
+
+  addToBasket(prodObj) {
+    this.setState({
+      prodsInBasket: _.union(this.state.prodsInBasket, [prodObj])
+    });
+  }
+
   render() {
     return <App products={this.state.products}
+                prodsInBasket={this.state.prodsInBasket}
                 user={this.state.user}
                 signUp={this.signUp}
                 login={this.login}
                 isLogged={this.state.isLogged}
-                logout={this.logout} />;
+                logout={this.logout}
+                getProds={this.getProdsByCategory}
+                addToBasket={this.addToBasket} />;
   }
 }
 

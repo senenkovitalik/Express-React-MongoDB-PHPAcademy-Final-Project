@@ -10,14 +10,8 @@ class HomeContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: [],
-      products: [],
-      prodsInBasket: []
+      categories: []
     };
-
-    this.showProds = this.showProds.bind(this);
-    this.addToBasket = this.addToBasket.bind(this);
-    this.remove = this.remove.bind(this);
   }
 
   componentDidMount() {
@@ -38,54 +32,27 @@ class HomeContainer extends React.Component {
     });
   }
 
-  showProds(o) {
-    console.log(o);
-    $.ajax({
-      url: `/product/${o.category}/${o.subcategory}`,
-      method: 'GET'
-    })
-    .done(res => {
-      if (res.result) {
-        this.setState({
-          products: res.products
-        });
-      } else {
-        this.setState({
-          products: []
-        });
-      }
-    })
-    .fail(err => {
-      console.log(err);
-    });
-  }
-
-  addToBasket() {
-
-  }
-
-  remove() {
-
-  }
-
   render() {
     return (
       <Container fluid>
         <Row style={{marginTop: 15+'px'}}>
-          <Basket products={this.props.productsToBuy}
+          <Basket products={this.props.prodsInBasket}
                   remove={this.props.remove}
                   changeCount={this.props.changeCount}
           />
           <Categories categories={this.state.categories}
-                      showProds={this.showProds}
+                      getProds={this.props.getProds}
           />
-          <ProductsList products={this.state.products}
-                        productsToBuy={this.props.productsToBuy}
-                        add={this.props.add} />
+          <ProductsList products={this.props.products}
+                        prodsInBasket={this.props.prodsInBasket}
+                        addToBasket={this.props.addToBasket} />
         </Row>
       </Container>
     );
   }
 }
+
+
+
 
 export default HomeContainer;

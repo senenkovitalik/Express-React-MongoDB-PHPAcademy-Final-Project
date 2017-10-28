@@ -50,12 +50,12 @@ class BasketProductItem extends React.Component {
       <div className="productItem mb-2">
         <Row>
           <Col xs="6">
-            <img className="card-img-top" src={`/${this.props.prodObj.product.mainImg}`} alt={this.props.prodObj.product.name} />
+            <img className="card-img-top" src={`/${this.props.prodObj.product.imgs[0]}`} alt={this.props.prodObj.product.name} />
           </Col>
           <Col sx="6" className="pl-0 d-flex flex-column justify-content-between">
             <div>
               <p className="mb-0">
-                <strong>{this.props.prodObj.product.name}</strong><br />
+                <strong>{this.props.prodObj.product.name} {this.props.prodObj.product.model}</strong><br />
                 <span style={{backgroundColor: '#fff3b5', padding: '6px 5px 5px'}}>{this.props.prodObj.product.price}</span>
               </p>
             </div>

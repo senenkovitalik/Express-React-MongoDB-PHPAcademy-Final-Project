@@ -11,11 +11,11 @@ class ProductsList extends React.Component {
     let prodItems = '';
     if (this.props.products.length !== 0) {
       prodItems = this.props.products.map((product, index) => {
-        const inBasket = (_.find(this.props.productsToBuy, val => val.product.name === product.name ) !== undefined) ? true : false;
+        const inBasket = _.find(this.props.prodsInBasket, { product: { name: product.name, model: product.model } } ) !== undefined;
         return <ProductItem
           key={index}
           product={product}
-          add={this.props.add}
+          addToBasket={this.props.addToBasket}
           inBasket={inBasket}
         />;
       });
@@ -36,5 +36,8 @@ class ProductsList extends React.Component {
     );
   }
 }
+
+
+
 
 export default ProductsList;

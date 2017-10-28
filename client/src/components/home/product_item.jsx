@@ -11,7 +11,7 @@ class ProductItem extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.props.add({ product: this.props.product, count: 1 });
+    this.props.addToBasket({ product: this.props.product, count: 1 });
   }
 
   render() {
@@ -19,16 +19,16 @@ class ProductItem extends React.Component {
       <Card className="customCard">
         <CardImg top src={`/${this.props.product.imgs[0]}`} alt={this.props.product.name}/>
         <CardBody>
-          <CardTitle>{this.props.product.name}</CardTitle>
+          <CardTitle>{this.props.product.name} {this.props.product.model}</CardTitle>
           <CardText>
             {this.props.product.description.substr(0, 100)+'...'}
             <Link to={`/product/${this.props.product.name}/${this.props.product.model}`}>Detail</Link>
           </CardText>
           <span className="productPrice">{this.props.product.price}</span>
           <Button color="success"
-            onClick={(e) => this.handleClick(e)}
+            onClick={this.handleClick}
             className='float-right priceButton'
-            disabled = {this.props.inBasket}
+            disabled={this.props.inBasket}
           >Buy</Button>
         </CardBody>
       </Card>

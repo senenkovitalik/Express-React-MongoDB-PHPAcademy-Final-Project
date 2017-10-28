@@ -15,7 +15,7 @@ class Categories extends React.Component {
           {this.props.categories.map((c, index) => {
             return <CategoryItem key={index}
                                  category={c}
-                                 showProds={this.props.showProds} />;
+                                 getProds={this.props.getProds} />;
           })}
         </ListGroup>
       </Col>

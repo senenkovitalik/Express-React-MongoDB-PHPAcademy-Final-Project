@@ -5,7 +5,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import _ from 'lodash';
-import Home from './components/home/home_container';
+import HomeContainer from './components/home/home_container';
 import Product from './components/product.js';
 import OrderProcessing from './components/order_processing/order_processing.js';
 import Header from "./components/header/header.js";
@@ -18,21 +18,13 @@ import './index.css';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      products: [],
-      productsToBuy: [],
-    };
 
-    this.addProduct = this.addProduct.bind(this);
+
     this.removeProduct = this.removeProduct.bind(this);
     this.changeProdCount = this.changeProdCount.bind(this);
   }
 
-  addProduct(prodObj) {
-    this.setState({
-      productsToBuy: _.union(this.state.productsToBuy, [prodObj])
-    });
-  }
+
 
   removeProduct(product) {
     this.setState({
@@ -58,12 +50,13 @@ class App extends React.Component {
             render={(props) => (
               this.props.user && this.props.user.role === 'admin'
                 ? ( <Redirect to="/admin" /> )
-                : ( <Home
+                : ( <HomeContainer
                     products={this.props.products}
-                    productsToBuy={this.state.productsToBuy}
-                    add={this.addProduct}
+                    prodsInBasket={this.props.prodsInBasket}
+                    getProds={this.props.getProds}
                     remove={this.removeProduct}
-                    changeCount={this.changeProdCount} /> ))}
+                    changeCount={this.changeProdCount}
+                    addToBasket={this.props.addToBasket} /> ))}
           />
 
           <Route path="/product/:name/:model" render={(props) => {
@@ -73,8 +66,8 @@ class App extends React.Component {
             });
 
             if (productToShow) {
-              const inBasket = _.indexOf(this.state.productsToBuy, productToShow) === -1 ? false : true;
-              return <Product product={productToShow} add={this.addProduct} inBasket={inBasket}/>
+              const inBasket = _.indexOf(this.props.prodsInBasket, productToShow) === -1 ? false : true;
+              return <Product product={productToShow} add={this.props.addProduct} inBasket={inBasket}/>
             } else {
               return <Redirect to="/" />
             }
