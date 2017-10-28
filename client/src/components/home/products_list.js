@@ -8,15 +8,20 @@ class ProductsList extends React.Component {
 
   render() {
 
-    const prodItems = this.props.products.map((product, index) => {
-      const inBasket = (_.find(this.props.productsToBuy, val => val.product.name === product.name ) !== undefined) ? true : false;
-      return <ProductItem
-        key={index}
-        product={product}
-        add={this.props.add}
-        inBasket={inBasket}
-      />;
-    });
+    let prodItems = '';
+    if (this.props.products.length !== 0) {
+      prodItems = this.props.products.map((product, index) => {
+        const inBasket = (_.find(this.props.productsToBuy, val => val.product.name === product.name ) !== undefined) ? true : false;
+        return <ProductItem
+          key={index}
+          product={product}
+          add={this.props.add}
+          inBasket={inBasket}
+        />;
+      });
+    } else {
+      prodItems = "Sorry, there are no products in this category";
+    }
 
     return (
       <Col xs="12" md="6" lg="6" className="order-md-2">

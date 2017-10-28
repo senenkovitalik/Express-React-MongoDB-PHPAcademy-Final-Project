@@ -5,8 +5,17 @@ const mongoose = require('mongoose');
 const userSchema = require('../db/schemas/user');
 const User = mongoose.model('User', userSchema);
 
+const checkAuth = (req, res, next) => {
+  if (req.session.user.role !== 'admin') {
+    console.log(req.session.user);
+    res.status(403).end();
+  } else {
+    next();
+  }
+};
+
 router.route('/all')
-  .get((req, res) => {
+  .get(checkAuth, (req, res) => {
     User.find({}, (err, docs) => {
       if (err) {
         console.log(err);
@@ -61,7 +70,7 @@ router.route('/logout')
   });
 
 router.route('/')
-  .post((req, res) => {
+  .post(checkAuth, (req, res) => {
     const user = new User(req.body);
     user.save(req.body, (err, user) => {
       if (err) {
@@ -72,7 +81,7 @@ router.route('/')
       }
     });
   })
-  .put((req, res) => {
+  .put(checkAuth, (req, res) => {
     User.findByIdAndUpdate(req.body._id, req.body, err => {
       if (err) {
         console.log(err);
@@ -84,7 +93,7 @@ router.route('/')
   });
 
 router.route('/:id')
-    .delete((req, res) => {
+    .delete(checkAuth, (req, res) => {
         User.findByIdAndRemove(req.params.id, function(err) {
             if (err) {
                 console.log(err);

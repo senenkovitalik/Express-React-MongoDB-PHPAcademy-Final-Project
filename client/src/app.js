@@ -5,7 +5,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import _ from 'lodash';
-import Home from './components/home/home.js';
+import Home from './components/home/home_container';
 import Product from './components/product.js';
 import OrderProcessing from './components/order_processing/order_processing.js';
 import Header from "./components/header/header.js";
@@ -81,11 +81,16 @@ class App extends React.Component {
           }
           }/>
 
-          <Route path="/order_processing" render={() => <OrderProcessing productsToBuy={this.state.productsToBuy} />} />
+          <Route path="/order_processing"
+                 render={() => <OrderProcessing productsToBuy={this.state.productsToBuy} />} />
 
           <Route path="/contact_us" component={ContactUs} />
 
-          <Route path="/admin" render={(props) => this.props.user && this.props.user.role === 'admin' ? <AdminPanel {...props} /> : <Redirect to="/"/> } />
+          <Route path="/admin"
+                 render={
+                   (props) => this.props.user && this.props.user.role === 'admin'
+                     ? <AdminPanel {...props} />
+                     : <Redirect to="/"/> } />
 
           <Footer/>
         </div>

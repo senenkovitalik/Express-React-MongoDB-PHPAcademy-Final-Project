@@ -1,5 +1,4 @@
 import React from 'react';
-import fetch from 'isomorphic-fetch';
 import App from "./app";
 import $ from 'jquery';
 
@@ -7,7 +6,7 @@ class AppContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [],
+      prodsInBasket: [],
       user: null,
       isLogged: false
     };
@@ -15,21 +14,6 @@ class AppContainer extends React.Component {
     this.signUp = this.signUp.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
-  }
-
-  componentDidMount() {
-    fetch('/product/all')
-    .then(res => {
-      return res.json();
-    })
-    .then(arr => {
-      this.setState({
-        products: arr.products
-      });
-    })
-    .catch(e => {
-      console.log("Can't fetch data from server");
-    });
   }
 
   signUp(userObj) {

@@ -50,7 +50,7 @@ router.route('/all')
   .get((req, res) => {
     Category.find(function(err, cats) {
       if (err) res.json(err);
-      res.json(cats);
+      res.json({ result: true, categories: cats });
     });
 });
 

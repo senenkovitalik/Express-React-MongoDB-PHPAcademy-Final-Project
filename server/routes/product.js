@@ -129,7 +129,4 @@ router.route('/:cat/:subcat')
     });
   });
 
-
-
-
 module.exports = router;

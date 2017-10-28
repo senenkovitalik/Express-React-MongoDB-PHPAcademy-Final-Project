@@ -36,7 +36,6 @@ app.use(session({
 }));
 
 app.use((req, res, next) => {
-
   if (req.session.user) {
     console.log('\n', 'User: ', req.session.user);
     // console.log('Session ID: ', req.session.id, '\n');

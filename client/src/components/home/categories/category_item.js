@@ -8,6 +8,7 @@ class CategoryItem extends React.Component {
       isOpen: false
     };
     this.toggle = this.toggle.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   toggle() {
@@ -16,18 +17,38 @@ class CategoryItem extends React.Component {
     });
   }
 
+  handleClick(sub) {
+    this.props.showProds({
+      category: this.props.category.name,
+      subcategory: sub
+    });
+  }
+
   render() {
     return (
       <div>
-        <ListGroupItem color="success" tag="a" onClick={this.toggle}>{this.props.category.name} <span className="oi oi-chevron-bottom float-right"></span></ListGroupItem>
-        <Collapse isOpen={this.state.isOpen} id="listCollapseGuitar">
-          {this.props.category.subcategories.map((item, index) => {
-            return <ListGroupItem key={index} tag="a" href={item.link} action>{item.name}</ListGroupItem>
-          })}
+        <ListGroupItem color="success"
+                       tag="a"
+                       onClick={this.toggle}
+        >{this.props.category.name}</ListGroupItem>
+
+        <Collapse isOpen={this.state.isOpen}>
+          {
+              this.props.category.subcategories.map((item, index) => {
+              return <ListGroupItem key={index}
+                                    tag="a"
+                                    action
+                                    onClick={(e) => this.handleClick(item)}>{item}</ListGroupItem>
+            })
+          }
         </Collapse>
       </div>
     );
   }
 }
+
+
+
+
 
 export default CategoryItem;
