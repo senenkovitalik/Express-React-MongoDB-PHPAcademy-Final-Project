@@ -26,10 +26,26 @@ router.route('/signup')
         console.log(err);
         res.json({ result: false, message: err });
       } else {
-        // initialize session
-        // send cookie
-        res.cookie("session_id", "727523238243756384", { expires: new Date(Date.now() + 900000), httpOnly: true });
+        // set session.user
+        req.session.user = userObj;
         res.json({ result: true, user: userObj });
+      }
+    });
+  });
+
+router.route('/login')
+  .post((req, res) => {
+    User.findOne({ login: req.body.login, password: req.body.password }, (err, user) => {
+      if (err) {
+        console.log(err);
+        res.json({ result: false, user: { role: 'anonymous' }});
+      } else {
+        if (user) {
+          req.session.user = user;
+          res.json({ result: true, user: user });
+        } else {
+          res.json({ result: false, user: { role: 'anonymous' }});
+        }
       }
     });
   });

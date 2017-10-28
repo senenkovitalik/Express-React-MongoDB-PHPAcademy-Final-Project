@@ -12,6 +12,7 @@ class AppContainer extends React.Component {
     };
 
     this.signUp = this.signUp.bind(this);
+    this.login = this.login.bind(this);
   }
 
   componentDidMount() {
@@ -48,16 +49,40 @@ class AppContainer extends React.Component {
       }
     })
     .fail(err => {
-      console.log('Sorry. Some problems');
+      console.log('Sorry. Some problems', err);
+    });
+  }
+
+  login(loginObj) {
+    console.log(loginObj);
+
+    $.ajax({
+      url: '/users/login',
+      method: 'POST',
+      data: JSON.stringify(loginObj),
+      contentType: "application/json; charset=utf-8"
+    })
+    .done(res => {
+      console.log(res);
+      if (res.result) {
+        this.setState({
+          user: res.user
+        });
+        console.log("You successfully logged");
+      } else {
+        console.log(res.message);
+      }
+    })
+    .fail(err => {
+      console.log('Sorry. Some problems', err);
     });
   }
 
   render() {
-    return  <App
-              products={this.state.products}
-              user={this.state.user}
-              signUp={this.signUp}
-            />;
+    return <App products={this.state.products}
+                user={this.state.user}
+                signUp={this.signUp}
+                login={this.login} />;
   }
 }
 

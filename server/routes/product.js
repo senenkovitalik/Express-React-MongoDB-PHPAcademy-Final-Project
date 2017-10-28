@@ -103,6 +103,7 @@ router.route('/')
 
 router.route('/all')
   .get((req, res) => {
+    // console.log('\n', 'GET /product/all, User: ', req.session.user, '\n');
     Product.find({}, (err, result) => {
       if (err) {
         console.log(err);

@@ -48,7 +48,8 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Header signUp={this.props.signUp} />
+          <Header signUp={this.props.signUp}
+                  login={this.props.login} />
 
           <Route
             exact path="/"
@@ -82,7 +83,7 @@ class App extends React.Component {
 
           <Route path="/contact_us" component={ContactUs} />
 
-          <Route path="/admin" render={(props) => this.state.loggedIn ? <AdminPanel {...props} /> : <Redirect to="/"/> } />
+          <Route path="/admin" render={(props) => this.props.user && this.props.user.role === 'admin' ? <AdminPanel {...props} /> : <Redirect to="/"/> } />
 
           <Footer/>
         </div>
