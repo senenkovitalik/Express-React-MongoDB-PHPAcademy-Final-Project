@@ -59,7 +59,16 @@ class App extends React.Component {
           }/>
 
           <Route path="/order_processing"
-                 render={() => <OrderProcessing productsToBuy={this.state.productsToBuy} />} />
+                 render={
+                   (props) => this.props.prodsInBasket.length
+                   ? <OrderProcessing products={this.props.prodsInBasket}
+                                      user={this.props.user}
+                                      total={ this.props.prodsInBasket.reduce((total, prod) => {
+                                        return total + (prod.product.price * prod.count)
+                                      }, 0) }/>
+                   : <Redirect to="/" />
+                 }
+          />
 
           <Route path="/contact_us" component={ContactUs} />
 

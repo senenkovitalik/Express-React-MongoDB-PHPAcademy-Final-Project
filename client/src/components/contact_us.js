@@ -8,7 +8,7 @@ class ContactUs extends React.Component {
       <Container fluid>
         <Row>
           <Col lg="6">
-            <img src="http://localhost:3030/guitar-shop.jpg" className="w-100 my-2" alt="GuitarShop" />
+            <img src="/guitarshop.jpg" className="w-100 my-2" alt="GuitarShop" />
           </Col>
           <Col lg="6">
             <h2 className="mt-2">GuitarShop</h2>
@@ -27,9 +27,9 @@ class ContactUs extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Col lg="6">
-            <div id="map" className="my-2 w-100" style={{height: 400+'px'}}></div>
-          </Col>
+          {/*<Col lg="6">*/}
+            {/*<div id="map" className="my-2 w-100" style={{height: 400+'px'}}></div>*/}
+          {/*</Col>*/}
         </Row>
       </Container>
     );

@@ -125,7 +125,6 @@ class AppContainer extends React.Component {
     this.setState({
       prodsInBasket: _.fill(this.state.prodsInBasket, newProd, index, index + 1)
     });
-    console.log(this.state.prodsInBasket);
   }
 
   render() {
