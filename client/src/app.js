@@ -19,17 +19,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-
-    this.removeProduct = this.removeProduct.bind(this);
     this.changeProdCount = this.changeProdCount.bind(this);
-  }
-
-
-
-  removeProduct(product) {
-    this.setState({
-      productsToBuy: _.without(this.state.productsToBuy, product)
-    });
   }
 
   changeProdCount(obj) {
@@ -54,7 +44,7 @@ class App extends React.Component {
                     products={this.props.products}
                     prodsInBasket={this.props.prodsInBasket}
                     getProds={this.props.getProds}
-                    remove={this.removeProduct}
+                    remove={this.props.remove}
                     changeCount={this.changeProdCount}
                     addToBasket={this.props.addToBasket} /> ))}
           />
@@ -92,3 +82,5 @@ class App extends React.Component {
   };
 }
 export default App;
+
+

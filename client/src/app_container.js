@@ -18,6 +18,7 @@ class AppContainer extends React.Component {
     this.logout = this.logout.bind(this);
     this.getProdsByCategory = this.getProdsByCategory.bind(this);
     this.addToBasket = this.addToBasket.bind(this);
+    this.remove = this.remove.bind(this);
   }
 
   signUp(userObj) {
@@ -111,6 +112,12 @@ class AppContainer extends React.Component {
     });
   }
 
+  remove(product) {
+    this.setState({
+      prodsInBasket: _.without(this.state.prodsInBasket, product)
+    });
+  }
+
   render() {
     return <App products={this.state.products}
                 prodsInBasket={this.state.prodsInBasket}
@@ -120,7 +127,8 @@ class AppContainer extends React.Component {
                 isLogged={this.state.isLogged}
                 logout={this.logout}
                 getProds={this.getProdsByCategory}
-                addToBasket={this.addToBasket} />;
+                addToBasket={this.addToBasket}
+                remove={this.remove} />;
   }
 }
 

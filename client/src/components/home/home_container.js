@@ -1,10 +1,10 @@
 import React from 'react';
-import Basket from "./basket/basket.js";
 import Categories from "./categories/categories.jsx";
 import ProductsList from "./products_list.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row } from 'reactstrap';
 import $ from 'jquery';
+import BasketContainer from "./basket/basket_container";
 
 class HomeContainer extends React.Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class HomeContainer extends React.Component {
       }
     })
     .fail(err => {
-      console.log(err);
+      console.log('Couldn\'t get data from server', err);
     });
   }
 
@@ -36,9 +36,9 @@ class HomeContainer extends React.Component {
     return (
       <Container fluid>
         <Row style={{marginTop: 15+'px'}}>
-          <Basket products={this.props.prodsInBasket}
-                  remove={this.props.remove}
-                  changeCount={this.props.changeCount}
+          <BasketContainer prodsInBasket={this.props.prodsInBasket}
+                           remove={this.props.remove}
+                           changeCount={this.props.changeCount}
           />
           <Categories categories={this.state.categories}
                       getProds={this.props.getProds}
