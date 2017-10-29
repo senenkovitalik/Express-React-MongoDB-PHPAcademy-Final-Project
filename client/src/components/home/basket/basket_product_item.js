@@ -26,7 +26,7 @@ const BasketProductItem = (props) => {
           <div className="d-flex flex-row justify-content-between">
             <div>
               <Input
-                defaultValue={props.prod.count}
+                value={props.prod.count}
                 onChange={e => props.handleChange(e, props.prod)}
                 type="number"
                 min="1"

@@ -24,7 +24,6 @@ class Basket extends React.Component {
   }
 
   remove(prod) {
-    console.log('Remove product: ', prod);
     this.props.remove(prod);
   }
 
