@@ -19,6 +19,7 @@ class AppContainer extends React.Component {
     this.getProdsByCategory = this.getProdsByCategory.bind(this);
     this.addToBasket = this.addToBasket.bind(this);
     this.remove = this.remove.bind(this);
+    this.changeProdCount = this.changeProdCount.bind(this);
   }
 
   signUp(userObj) {
@@ -118,6 +119,16 @@ class AppContainer extends React.Component {
     });
   }
 
+  changeProdCount(prod, count) {
+    console.log(prod, count);
+    const index = _.findIndex(this.state.prodsInBasket, prod);
+    const newProd = Object.assign({}, prod, { count: count });
+    this.setState({
+      prodsInBasket: _.fill(this.state.prodsInBasket, newProd, index, index + 1)
+    });
+    console.log(this.state.prodsInBasket);
+  }
+
   render() {
     return <App products={this.state.products}
                 prodsInBasket={this.state.prodsInBasket}
@@ -128,7 +139,8 @@ class AppContainer extends React.Component {
                 logout={this.logout}
                 getProds={this.getProdsByCategory}
                 addToBasket={this.addToBasket}
-                remove={this.remove} />;
+                remove={this.remove}
+                changeCount={this.changeProdCount}  />;
   }
 }
 

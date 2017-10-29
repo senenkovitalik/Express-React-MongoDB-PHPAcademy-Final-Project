@@ -18,12 +18,6 @@ import './index.css';
 class App extends React.Component {
   constructor(props) {
     super(props);
-
-    this.changeProdCount = this.changeProdCount.bind(this);
-  }
-
-  changeProdCount(obj) {
-    console.log(obj);
   }
 
   render() {
@@ -45,7 +39,7 @@ class App extends React.Component {
                     prodsInBasket={this.props.prodsInBasket}
                     getProds={this.props.getProds}
                     remove={this.props.remove}
-                    changeCount={this.changeProdCount}
+                    changeCount={this.props.changeCount}
                     addToBasket={this.props.addToBasket} /> ))}
           />
 

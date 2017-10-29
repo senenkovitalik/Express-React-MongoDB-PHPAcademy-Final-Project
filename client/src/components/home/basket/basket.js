@@ -28,10 +28,9 @@ class Basket extends React.Component {
     this.props.remove(prod);
   }
 
-  handleChange(e) {
-    e.preventDefault();
+  handleChange(e, prod) {
     const count = e.target.value;
-    console.log(count);
+    this.props.changeCount(prod, count);
   }
 
   render() {
@@ -40,7 +39,6 @@ class Basket extends React.Component {
       return  <div key={index}>
                 <BasketProductItem prod={item}
                                    remove={this.remove}
-                                   changeCount={this.props.changeCount}
                                    handleChange={this.handleChange} />
                 {index !== this.props.prodsInBasket.length - 1 &&  <hr />}
               </div>;
