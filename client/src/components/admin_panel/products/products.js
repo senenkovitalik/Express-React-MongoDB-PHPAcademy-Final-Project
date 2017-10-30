@@ -13,10 +13,6 @@ import AddProductForm from './add_product_form';
 import ChangeProductFormContainer from "./change_product_form_container";
 
 class Products extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>

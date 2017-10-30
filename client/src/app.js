@@ -16,10 +16,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Router>

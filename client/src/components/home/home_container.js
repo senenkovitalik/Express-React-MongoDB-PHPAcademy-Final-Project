@@ -21,7 +21,6 @@ class HomeContainer extends React.Component {
     })
     .done(res => {
       if (res.result) {
-        console.log(res);
         this.setState({
           categories: res.categories
         });

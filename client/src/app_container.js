@@ -121,7 +121,7 @@ class AppContainer extends React.Component {
 
   changeProdCount(prod, count) {
     const index = _.findIndex(this.state.prodsInBasket, prod);
-    const newProd = Object.assign({}, prod, { count: count });
+    const newProd = Object.assign({}, prod, { count: count === '' ? '' : parseInt(count, 10)  });
     this.setState({
       prodsInBasket: _.fill(this.state.prodsInBasket, newProd, index, index + 1)
     });

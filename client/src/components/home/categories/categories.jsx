@@ -4,10 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Col, ListGroup } from 'reactstrap';
 
 class Categories extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Col xs="12" md="3" lg="2" className="order-md-1" id="categories">

@@ -16,6 +16,7 @@ import $ from 'jquery';
 import CategoryContainer from "./categories/category_container";
 import ProductContainer from "./products/product_container";
 import UserContainer from "./users/user_container";
+import Orders from "./orders/orders";
 
 class AdminPanel extends React.Component {
   constructor(props) {
@@ -80,7 +81,7 @@ class AdminPanel extends React.Component {
             <Route path={`${this.props.match.url}/products`} render={(props) => <ProductContainer {...props} flash={this.flash} makeAJAX={this.makeAJAX} />} />
             <Route path={`${this.props.match.url}/users`} render={(props) =>  <UserContainer {...props} flash={this.flash} makeAJAX={this.makeAJAX} /> } />
             <Route path={`${this.props.match.url}/providers`} render={() => <h1>Providers</h1>} />
-            <Route path={`${this.props.match.url}/orders`} render={() => <h1>Orders</h1>} />
+            <Route path={`${this.props.match.url}/orders`} render={() => <Orders />} />
             <Route path={`${this.props.match.url}/statistics`} render={() => <h1>Statistics</h1>} />
           </Col>
         </Row>

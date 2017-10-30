@@ -13,10 +13,6 @@ import AddUserFormContainer from "./add_user_container/add_user_form_container";
 import ChangeUserFormContainer from "./change_user_container/chnage_user_form_container";
 
 class Users extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>
