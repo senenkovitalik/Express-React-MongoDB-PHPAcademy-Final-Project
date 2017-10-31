@@ -6,6 +6,20 @@ const orderSchema = require('../db/schemas/order');
 const Order = mongoose.model('Order', orderSchema);
 
 router.route('/')
+  .get((req, res) => {
+    Order.find({}, (err, orders) => {
+      if (err) {
+        console.log(err);
+        res.json({ result: false });
+      } else {
+        if (orders.length !== 0) {
+          res.json({ result: true, orders: orders });
+        } else {
+          res.json({ result: false });
+        }
+      }
+    });
+  })
   .post((req, res) => {
     const order = new Order(req.body);
 
