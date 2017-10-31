@@ -31,8 +31,14 @@ const OrderItem = (props) => {
       <td>${total}</td>
       <td className="table-danger">Pending</td>
       <td>
-        <Button color="info" size="sm" outline title="Change provider data"><i className="fa fa-pencil" aria-hidden="true"></i></Button>
-        <Button color="danger" size="sm" outline title="Delete provider account"><i className="fa fa-trash-o" aria-hidden="true"></i></Button>
+        <Button color="info" size="sm" outline title="Change order"
+                onClick={() => props.handleChange(props.order)}>
+          <i className="fa fa-pencil" aria-hidden="true"></i>
+        </Button>
+        <Button color="danger" size="sm" outline title="Delete order"
+                onClick={() => props.handleRemove(props.order)}>
+          <i className="fa fa-trash-o" aria-hidden="true"></i>
+        </Button>
       </td>
     </tr>
   )

@@ -35,4 +35,16 @@ router.route('/')
     });
   });
 
+router.route('/:id')
+  .delete((req, res) => {
+    Order.findByIdAndRemove(req.params.id, err => {
+      console.log(req.params.id);
+      if (err) {
+        console.error(err);
+        res.json({ result: false });
+      } else {
+        res.json({ result: true });
+      }
+    })
+  });
 module.exports = router;
