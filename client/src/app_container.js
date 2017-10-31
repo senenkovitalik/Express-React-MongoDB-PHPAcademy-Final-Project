@@ -10,7 +10,8 @@ class AppContainer extends React.Component {
       products: [],
       prodsInBasket: [],
       user: null,
-      isLogged: false
+      isLogged: false,
+      orderSaved: false
     };
 
     this.signUp = this.signUp.bind(this);
@@ -20,6 +21,7 @@ class AppContainer extends React.Component {
     this.addToBasket = this.addToBasket.bind(this);
     this.remove = this.remove.bind(this);
     this.changeProdCount = this.changeProdCount.bind(this);
+    this.saveOrder = this.saveOrder.bind(this);
   }
 
   signUp(userObj) {
@@ -127,6 +129,17 @@ class AppContainer extends React.Component {
     });
   }
 
+  saveOrder(result) {
+    if (result) {
+      this.setState({
+        orderSaved: true
+      })
+    }
+  }
+
+
+
+
   render() {
     return <App products={this.state.products}
                 prodsInBasket={this.state.prodsInBasket}
@@ -138,7 +151,8 @@ class AppContainer extends React.Component {
                 getProds={this.getProdsByCategory}
                 addToBasket={this.addToBasket}
                 remove={this.remove}
-                changeCount={this.changeProdCount}  />;
+                changeCount={this.changeProdCount}
+                saveOrder={this.saveOrder} />;
   }
 }
 

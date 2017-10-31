@@ -1,17 +1,18 @@
 import React from 'react';
 import ProductList from './product_list/prod_list';
+import Forms from "./forms/forms";
+import Summary from "./summary";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
-  Container,
   Row,
   Col,
   Button
 } from 'reactstrap';
-import Forms from "./forms/forms";
-import Summary from "./summary";
+import {
+  Link
+} from 'react-router-dom';
 
 class OrderProcessing extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -67,16 +68,19 @@ class OrderProcessing extends React.Component {
       name: this.state.name,
       phone: this.state.phone,
       delivery: this.state.delivery,
-      address: this.state.address
+      address: this.state.address,
+      status: 'pending'
     };
 
     console.log("Order: ", order);
+
+    this.props.saveOrder(order);
   }
 
   render() {
-
     return (
-      <Container>
+      <div>
+
         <Row>
           <Col xs="12">
             <h1>Order processing</h1>
@@ -84,12 +88,10 @@ class OrderProcessing extends React.Component {
         </Row>
 
         <Row>
-
           <ProductList products={this.props.products}
                        total={this.props.total} />
 
           <Col xs="12" lg="6" className="order-lg-1">
-
             <Forms name={this.state.name}
                    phone={this.state.phone}
                    address={this.state.address}
@@ -103,11 +105,13 @@ class OrderProcessing extends React.Component {
             <Button color="success"
                     block
                     className="mb-2"
+                    tag={Link}
+                    to={`${this.props.match.url}/order_status`}
                     onClick={this.handleConfirm}>Confirm the order</Button>
           </Col>
         </Row>
-      </Container>
-    );
+      </div>
+    )
   }
 }
 

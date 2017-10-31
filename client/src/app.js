@@ -7,13 +7,13 @@ import {
 import _ from 'lodash';
 import HomeContainer from './components/home/home_container';
 import Product from './components/product.js';
-import OrderProcessing from './components/order_processing/order_processing.js';
 import Header from "./components/header/header.js";
 import ContactUs from './components/contact_us.js';
 import Footer from './components/footer.jsx';
 import AdminPanel from './components/admin_panel/admin_panel';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
+import OrderProcessingContainer from "./components/order_processing/order_processing_container";
 
 class App extends React.Component {
   render() {
@@ -57,11 +57,10 @@ class App extends React.Component {
           <Route path="/order_processing"
                  render={
                    (props) => this.props.prodsInBasket.length
-                   ? <OrderProcessing products={this.props.prodsInBasket}
-                                      user={this.props.user}
-                                      total={ this.props.prodsInBasket.reduce((total, prod) => {
-                                        return total + (prod.product.price * prod.count)
-                                      }, 0) }/>
+                   ? <OrderProcessingContainer {...props}
+                                              products={this.props.prodsInBasket}
+                                              user={this.props.user}
+                                              saveOrder={this.props.saveOrder} />
                    : <Redirect to="/" />
                  }
           />

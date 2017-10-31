@@ -10,6 +10,7 @@ const app = express();
 const category = require('./routes/category');
 const product = require('./routes/product');
 const user = require('./routes/user');
+const order = require('./routes/order');
 
 mongoose.connect('mongodb://senenkovitalik:3akp1RoxACDcaYo1@academy-shard-00-00-0myio.mongodb.net:27017,academy-shard-00-01-0myio.mongodb.net:27017,academy-shard-00-02-0myio.mongodb.net:27017/test?ssl=true&replicaSet=Academy-shard-0&authSource=admin');
 const db = mongoose.connection;
@@ -60,6 +61,8 @@ app.use('/product', product);
 app.use('/category', category);
 
 app.use('/users', user);
+
+app.use('/orders', order);
 
 app.listen(app.get("port"), () => {
   console.log(`Find the server at: http://localhost:${app.get("port")}/`);
