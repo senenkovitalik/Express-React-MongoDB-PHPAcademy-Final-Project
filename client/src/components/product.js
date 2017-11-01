@@ -7,13 +7,11 @@ import {
   Button,
   Table
 } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Product extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      inBasket: this.props.inBasket
-    };
 
     this.handleClick = this.handleClick.bind(this);
   }
@@ -34,10 +32,7 @@ class Product extends React.Component {
   }
 
   handleClick() {
-    this.props.add(this.props.product);
-    this.setState({
-      inBasket: true
-    });
+    this.props.add({ product: this.props.product, count: 1 });
   }
 
   render() {
@@ -77,7 +72,7 @@ class Product extends React.Component {
                   <strong>{this.props.product.price} {this.props.product.currency}</strong>
                   <Row className="justify-content-center">
                     <Col xs="12" lg="6" className="mb-2">
-                      <Button onClick={this.handleClick} color="success" block disabled={this.state.inBasket}>
+                      <Button onClick={this.handleClick} color="success" block disabled={this.props.inBasket}>
                         <i className="fa fa-shopping-cart" aria-hidden="true"></i> Buy
                       </Button>
                     </Col>

@@ -45,9 +45,17 @@ class App extends React.Component {
               'model': props.match.params.model
             });
 
+            const inBasket = _.find(this.props.prodsInBasket, {
+              product: {
+                'name': props.match.params.name,
+                'model': props.match.params.model
+              }
+            });
+
             if (productToShow) {
-              const inBasket = _.indexOf(this.props.prodsInBasket, productToShow) === -1 ? false : true;
-              return <Product product={productToShow} add={this.props.addProduct} inBasket={inBasket}/>
+              return <Product product={productToShow}
+                              add={this.props.addToBasket}
+                              inBasket={!!inBasket}/>
             } else {
               return <Redirect to="/" />
             }
