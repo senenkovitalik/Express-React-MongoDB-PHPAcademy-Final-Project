@@ -19,7 +19,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <div>
+        <div style={{ minHeight: 100+'vh', position: 'relative' }}>
           <Header signUp={this.props.signUp}
                   login={this.props.login}
                   isLogged={this.props.isLogged}
@@ -73,7 +73,7 @@ class App extends React.Component {
                      ? <AdminPanel {...props} />
                      : <Redirect to="/"/> } />
 
-          <Footer/>
+          <Footer />
         </div>
       </Router>
     )
