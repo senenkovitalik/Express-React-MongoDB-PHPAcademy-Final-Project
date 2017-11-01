@@ -137,9 +137,6 @@ class AppContainer extends React.Component {
     }
   }
 
-
-
-
   render() {
     return <App products={this.state.products}
                 prodsInBasket={this.state.prodsInBasket}

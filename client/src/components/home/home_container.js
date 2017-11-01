@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row } from 'reactstrap';
 import $ from 'jquery';
 import BasketContainer from "./basket/basket_container";
+import ScrollToTopButton from "./scroll_to_top_button/scroll_to_top_button";
 
 class HomeContainer extends React.Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class HomeContainer extends React.Component {
   render() {
     return (
       <Container fluid>
-        <Row style={{marginTop: 15+'px'}}>
+        <Row style={{marginTop: 15+'px'}} className="justify-content-between">
           <BasketContainer prodsInBasket={this.props.prodsInBasket}
                            remove={this.props.remove}
                            changeCount={this.props.changeCount}
@@ -45,6 +46,8 @@ class HomeContainer extends React.Component {
           <ProductsList products={this.props.products}
                         prodsInBasket={this.props.prodsInBasket}
                         addToBasket={this.props.addToBasket} />
+
+          <ScrollToTopButton scrollStepInPx="50" delayInMs="16.66" />
         </Row>
       </Container>
     );
