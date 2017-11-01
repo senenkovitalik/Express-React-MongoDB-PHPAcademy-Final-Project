@@ -47,4 +47,20 @@ router.route('/:id')
       }
     })
   });
+
+router.route('/:id/:status')
+  .put((req, res) => {
+    const id = req.params.id;
+    const status = req.params.status;
+
+    Order.findByIdAndUpdate(id, { status: status }, err => {
+      if (err) {
+        console.error(err);
+        res.json({ result: false });
+      } else {
+        res.json({ result: true });
+      }
+    });
+  });
+
 module.exports = router;

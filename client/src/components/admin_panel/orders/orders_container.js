@@ -9,7 +9,7 @@ class OrdersContainer extends React.Component {
       orders: []
     };
 
-    this.change = this.change.bind(this);
+    this.changeStatus = this.changeStatus.bind(this);
     this.remove = this.remove.bind(this);
   }
 
@@ -26,8 +26,30 @@ class OrdersContainer extends React.Component {
     });
   }
 
-  change(order) {
-    console.log(order);
+  changeStatus(e, order) {
+    const status = e.target.value;
+
+    this.props.makeAJAX({
+      url: `/orders/${order._id}/${status}`,
+      method: 'PUT'
+    }, res => {
+      if (res.result) {
+        const index = _.findIndex(this.state.orders, order);
+        const newOrder = Object.assign({}, order, { status: status });
+
+        this.setState({
+          orders: _.fill(this.state.orders, newOrder, index, index + 1)
+        })
+      } else {
+        this.props.flash({
+          color: 'danger',
+          message: 'Can\'t change order status. Please, contact your system' +
+          ' administartor'
+        });
+      }
+    });
+
+
   }
 
   remove(order) {
@@ -55,7 +77,7 @@ class OrdersContainer extends React.Component {
 
   render() {
     return <Orders orders={this.state.orders}
-                   change={this.change}
+                   changeStatus={this.changeStatus}
                    remove={this.remove} />
   }
 }

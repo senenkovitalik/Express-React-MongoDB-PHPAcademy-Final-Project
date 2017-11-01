@@ -33,7 +33,7 @@ class Orders extends React.Component {
                   {
                     this.props.orders.map((order, index) => {
                       return <OrderItem key={index} order={order} index={index + 1}
-                                        handleChange={this.props.change}
+                                        changeStatus={this.props.changeStatus}
                                         handleRemove={this.props.remove} />
                     })
                   }
