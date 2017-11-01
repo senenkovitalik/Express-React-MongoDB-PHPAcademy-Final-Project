@@ -21,6 +21,7 @@ class Categories extends React.Component {
       categories: this.props.categories,
       fieldTypes: ['text', 'number']
     };
+    console.log(this.props.categories);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,12 +35,14 @@ class Categories extends React.Component {
       <div>
         <div className="d-flex flex-row align-items-center">
           <h4 style={{display: 'inline-block', marginRight: 15+'px'}}>List of categories</h4>
-          <Button color="primary" size="sm" tag={Link} to={`${this.props.match.url}/add-new-category`}>Add new</Button>
+          <Button color="primary" size="sm"
+                  tag={Link}
+                  to={`${this.props.match.url}/add-new-category`}>Add new</Button>
         </div>
 
           {/*<!-- Category list -->*/}
           <ListGroup style={{marginTop: 5+'px'}}>
-            {this.state.categories.map((category, i) => {
+            {this.props.categories.map((category, i) => {
               return <AdminCategoryItem key={i} category={category} {...this.props} />;
             })}
           </ListGroup>
@@ -47,7 +50,8 @@ class Categories extends React.Component {
           {/* Add new category */}
           <Route
             path={`${this.props.match.url}/add-new-category`}
-            render={() => <AddCategoryForm fieldTypes={this.state.fieldTypes} add={this.props.add} />}
+            render={() => <AddCategoryForm fieldTypes={this.state.fieldTypes}
+                                           add={this.props.add} />}
           />
 
           {/*<!-- Change existing category -->*/}
@@ -55,7 +59,9 @@ class Categories extends React.Component {
             path={`${this.props.match.url}/change-category`}
             render={() => (
               this.props.catToChange
-                ? (<ChangeCategoryForm category={this.props.catToChange} fieldTypes={this.state.fieldTypes} change={this.props.change} />)
+                ? (<ChangeCategoryForm category={this.props.catToChange}
+                                       fieldTypes={this.state.fieldTypes}
+                                       change={this.props.change} />)
                 : (<Redirect to={this.props.match.url} />)
             )}
           />

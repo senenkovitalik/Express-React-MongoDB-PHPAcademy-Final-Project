@@ -21,7 +21,7 @@ class CategoryContainer extends React.Component {
       method: 'GET',
       url: '/category/all'
     }, res => {
-      this.setState({ categories: res })
+      this.setState({ categories: res.categories })
     });
   }
 

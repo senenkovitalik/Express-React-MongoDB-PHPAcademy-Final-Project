@@ -51,21 +51,22 @@ class ProductContainer extends React.Component {
       method: 'GET',
       url: '/category/all',
     }, res => {
-      const prodProps = res[0].prodProps.map(elem => {
+
+      const prodProps = res.categories[0].prodProps.map(elem => {
         return { name: elem.name, value: '' }
       });
 
       this.setState({
-        categories: res,
-        category: res[0],
-        subcats: res[0].subcategories,
+        categories: res.categories,
+        category: res.categories[0],
+        subcats: res.categories[0].subcategories,
         prodProps: prodProps,
         product: Object.assign(
           {},
           this.state.product,
           {
-            category: res[0].name,
-            subcategory: res[0].subcategories[0],
+            category: res.categories[0].name,
+            subcategory: res.categories[0].subcategories[0],
             prodProps: prodProps
           }
         ),
@@ -73,8 +74,8 @@ class ProductContainer extends React.Component {
           {},
           this.state.filter,
           {
-            category: res[0].name,
-            subcategory: res[0].subcategories[0]
+            category: res.categories[0].name,
+            subcategory: res.categories[0].subcategories[0]
           }
         )
       });
