@@ -1,6 +1,6 @@
 import React from 'react';
 import Categories from "./categories/categories.jsx";
-import ProductsList from "./products_list.js";
+import ProductsList from "./product_list/products_list.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row } from 'reactstrap';
 import $ from 'jquery';

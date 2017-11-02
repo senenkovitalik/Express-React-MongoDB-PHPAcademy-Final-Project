@@ -9,7 +9,7 @@ const buttonStyle = {
   color: '#fff'
 };
 
-const badgeStyle = {
+const iconStyle = {
   width: 25 + 'px',
   height: 25 + 'px',
   color: '#fff'
@@ -28,7 +28,7 @@ const BasketButton = (props) => (
             style={buttonStyle}
     >Basket <i className="fa fa-shopping-cart"
                aria-hidden="true"
-               style={badgeStyle}/>
+               style={iconStyle}/>
       {
         props.count > 0
         && <Badge color="success">{props.count}</Badge>
