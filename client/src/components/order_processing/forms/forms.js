@@ -12,6 +12,12 @@ import {
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CustomLink from './custom_link';
+import {
+  AvForm,
+  AvGroup,
+  AvInput,
+  AvFeedback
+} from 'availity-reactstrap-validation';
 
 class Forms extends React.Component {
   constructor(props) {
@@ -21,10 +27,30 @@ class Forms extends React.Component {
       isOpenSecond: false,
       badgeColorFirst: 'success',
       badgeColorSecond: 'dark',
-      isLink: false
+      isLink: false,
+
+      name: false
     };
 
     this.toggle = this.toggle.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleValidSubmit = this.handleValidSubmit.bind(this);
+    this.handleInvalidSubmit = this.handleInvalidSubmit.bind(this);
+  }
+
+  handleSubmit(event, errors, values) {
+    this.setState({errors, values});
+    console.log("Submit: ", errors, values);
+  }
+
+  handleValidSubmit(event, values) {
+    console.log("Valid: ", values);
+    // this.setState({name: values.name});
+  }
+
+  handleInvalidSubmit(event, errors, values) {
+    console.log("Invalid: ", errors, values);
+    // this.setState({name: values.name, error: true});
   }
 
   toggle() {
@@ -44,28 +70,42 @@ class Forms extends React.Component {
                   color={this.state.badgeColorFirst}
                   toggle={this.toggle} />
       <Collapse isOpen={this.state.isOpenFirst}>
-        <Form>
-          <FormGroup>
+
+        <AvForm onSubmit={this.handleSubmit} onValidSubmit={this.handleValidSubmit} onInvalidSubmit={this.handleInvalidSubmit}>
+
+          <AvGroup>
             <Label for="orderUserName">Name and surname</Label>
-            <Input type="text" id="orderUserName"
-                   placeholder="Name Surname"
-                   name="name"
-                   onChange={this.props.handleChange}
-                   value={this.props.name} />
-          </FormGroup>
-          <FormGroup>
+            <AvInput type="text"
+                     id="orderUserName"
+                     placeholder="Name Surname"
+                     name="name"
+                     required
+                     // onChange={this.props.handleChange}
+                     // value={this.props.name}
+            />
+            <AvFeedback>Type your name</AvFeedback>
+          </AvGroup>
+
+          <AvGroup>
             <Label for="orderUserPhone">Phone</Label>
-            <Input type="tel"
-                   id="orderUserPhone"
-                   name="phone"
-                   onChange={this.props.handleChange}
-                   value={this.props.phone}
-                   placeholder="+XX(0XX)-XX-XX-XX"/>
-          </FormGroup>
-          <FormGroup>
-            <Button color="success" block onClick={this.toggle}>Next</Button>
-          </FormGroup>
-        </Form>
+            <AvInput type="tel"
+                     id="orderUserPhone"
+                     name="phone"
+                     required
+                     // onChange={this.props.handleChange}
+                     // value={this.props.phone}
+                     placeholder="+XX(XXX)-XX-XX-XX" />
+            <AvFeedback>We need your phone number to contact you</AvFeedback>
+          </AvGroup>
+
+          <AvGroup>
+            <Button color="success" block
+                    // onClick={this.toggle}
+            >Next</Button>
+          </AvGroup>
+
+        </AvForm>
+
       </Collapse>
 
       <h4>
