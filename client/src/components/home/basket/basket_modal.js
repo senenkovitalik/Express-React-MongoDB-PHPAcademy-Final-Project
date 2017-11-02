@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   Link
 } from 'react-router-dom';
-import BasketProductItem from './basket/basket_product_item';
+import BasketProductItem from './basket_product_item';
 
 class BasketModal extends React.Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class BasketModal extends React.Component {
     const productList = this.props.prodsInBasket.map((item, index) => {
       return  <div key={index}>
         <BasketProductItem prod={item}
-                           remove={this.remove}
+                           remove={this.props.remove}
                            changeCount = {this.props.changeCount} />
         {index !== this.props.prodsInBasket.length - 1 &&  <hr />}
       </div>;
@@ -50,7 +50,7 @@ class BasketModal extends React.Component {
           {productList}
         </ModalBody>
         <ModalFooter>
-          <Button color="secondary" onClick={(e) => this.back(e)}>Cancel</Button>
+          <Button color="secondary" onClick={(e) => this.back(e)}>Close</Button>
           <Button
             tag={Link}
             to="/order_processing"

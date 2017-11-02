@@ -14,7 +14,7 @@ import AdminPanel from './components/admin_panel/admin_panel';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import OrderProcessingContainer from "./components/order_processing/order_processing_container";
-import BasketModal from './components/home/basket_modal';
+import BasketModal from './components/home/basket/basket_modal';
 
 class App extends React.Component {
   constructor(props) {
@@ -105,12 +105,14 @@ class App extends React.Component {
                        ? <AdminPanel {...props} />
                        : <Redirect to="/"/> } />
           </Switch>
-          {isModal ? <Route path='/basket'
-                            render={(props) =>
-                                  <BasketModal {...props} prodsInBasket={this.props.prodsInBasket}
-                                               remove={this.props.remove}
-                                               changeCount={this.props.changeCount} />
-                            } />
+          {isModal
+            ? <Route path='/basket'
+                     render={(props) =>
+                        <BasketModal {...props}
+                                     prodsInBasket={this.props.prodsInBasket}
+                                     remove={this.props.remove}
+                                     changeCount={this.props.changeCount} />
+                     } />
             : null
           }
 

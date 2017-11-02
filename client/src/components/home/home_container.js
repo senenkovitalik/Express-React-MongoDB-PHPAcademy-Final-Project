@@ -4,8 +4,8 @@ import ProductsList from "./products_list.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row } from 'reactstrap';
 import $ from 'jquery';
-import BasketContainer from "./basket/basket_container";
 import ScrollToTopButton from "./scroll_to_top_button/scroll_to_top_button";
+import BasketButton from "./basket/basket_button";
 
 class HomeContainer extends React.Component {
   constructor(props) {
@@ -36,10 +36,7 @@ class HomeContainer extends React.Component {
     return (
       <Container fluid>
         <Row style={{marginTop: 15+'px'}} className="justify-content-between">
-          <BasketContainer prodsInBasket={this.props.prodsInBasket}
-                           remove={this.props.remove}
-                           changeCount={this.props.changeCount}
-          />
+          <BasketButton count={this.props.prodsInBasket.length} />
           <Categories categories={this.state.categories}
                       getProds={this.props.getProds}
           />
