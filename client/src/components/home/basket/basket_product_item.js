@@ -27,7 +27,7 @@ const BasketProductItem = (props) => {
             <div>
               <Input
                 value={props.prod.count}
-                onChange={e => props.handleChange(e, props.prod)}
+                onChange={e => props.changeCount(props.prod, e.target.value)}
                 type="number"
                 min="1"
                 size="sm"

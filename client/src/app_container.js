@@ -2,6 +2,10 @@ import React from 'react';
 import App from "./app";
 import $ from 'jquery';
 import _ from 'lodash';
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom';
 
 class AppContainer extends React.Component {
   constructor(props) {
@@ -122,6 +126,7 @@ class AppContainer extends React.Component {
   }
 
   changeProdCount(prod, count) {
+    console.log(count);
     const index = _.findIndex(this.state.prodsInBasket, prod);
     const newProd = Object.assign({}, prod, { count: count === '' ? '' : parseInt(count, 10)  });
     this.setState({
@@ -138,7 +143,10 @@ class AppContainer extends React.Component {
   }
 
   render() {
-    return <App products={this.state.products}
+    return (
+    <Router>
+      <Route render = {(props) => (
+          <App  {...props} products={this.state.products}
                 prodsInBasket={this.state.prodsInBasket}
                 user={this.state.user}
                 signUp={this.signUp}
@@ -149,7 +157,9 @@ class AppContainer extends React.Component {
                 addToBasket={this.addToBasket}
                 remove={this.remove}
                 changeCount={this.changeProdCount}
-                saveOrder={this.saveOrder} />;
+                saveOrder={this.saveOrder} />)} />
+    </Router>
+    )
   }
 }
 

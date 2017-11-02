@@ -2,6 +2,9 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col } from 'reactstrap';
 import ProdItem from './ProdItem';
+import {
+  Link
+} from 'react-router-dom';
 
 const ProductList = (props) => {
 
@@ -24,8 +27,10 @@ const ProductList = (props) => {
       </Row>
 
       <Row className="justify-content-center">
-        <Col xs="auto">
-          <a href="#">Edit order</a>
+        <Col xs="auto" className="text-center">
+          <Link to={{pathname: "/basket", state: { modal: true }}}>Edit order</Link>
+          <br />
+          <Link to="/">Back to shopping</Link>
         </Col>
       </Row>
     </Col>

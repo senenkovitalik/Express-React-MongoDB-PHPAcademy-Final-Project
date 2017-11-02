@@ -53,12 +53,18 @@ class Basket extends React.Component {
         >
           Basket <i className="fa fa-shopping-cart"
                     aria-hidden="true"
-                    style={{width: 25 + 'px', height: 25+'px', color: '#fff'}}></i>
+                    style={{width: 25 + 'px', height: 25 + 'px', color: '#fff'}}/>
           {
             this.props.prodsInBasket.length > 0
             && <Badge color="success">{this.props.prodsInBasket.length}</Badge>
           }
         </Button>
+
+        <Button to={{
+          pathname: "/basket",
+          // this is the trick!
+          state: { modal: true }
+        }} tag={Link}>Test basket</Button>
 
         <Modal isOpen={this.state.isOpen} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Basket</ModalHeader>
@@ -68,7 +74,7 @@ class Basket extends React.Component {
               <div className="text-center">
                 <i className="fa fa-shopping-cart"
                    aria-hidden="true"
-                   style={{width: 25 + 'px', height: 25+'px', color: '#000'}}></i>
+                   style={{width: 25 + 'px', height: 25+'px', color: '#000'}}/>
                 Your basket is empty)<br />Try to add some products.
               </div>
             }
