@@ -72,14 +72,12 @@ class OrderProcessing extends React.Component {
       status: 'pending'
     };
 
-    console.log("Order: ", order);
-
     this.props.saveOrder(order);
   }
 
   render() {
     return (
-      <div>
+      <div style={{paddingBottom: 80 + 'px'}}>
 
         <Row>
           <Col xs="12">

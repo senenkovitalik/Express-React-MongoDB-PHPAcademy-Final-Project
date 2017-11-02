@@ -15,6 +15,13 @@ const iconStyle = {
   color: '#fff'
 };
 
+const badgeStyle = {
+  top: -8 + 'px',
+  borderRadius: 50 + '%',
+  left: -10 + 'px',
+  fontSize: 0.7 + 'rem'
+};
+
 const BasketButton = (props) => (
   <Col xs="12" md="3" lg="2" className="order-md-3">
     <Button size="lg"
@@ -31,7 +38,7 @@ const BasketButton = (props) => (
                style={iconStyle}/>
       {
         props.count > 0
-        && <Badge color="success">{props.count}</Badge>
+        && <Badge color="success" style={badgeStyle}>{props.count}</Badge>
       }
     </Button>
   </Col>
