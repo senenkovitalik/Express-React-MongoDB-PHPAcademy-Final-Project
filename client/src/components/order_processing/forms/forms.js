@@ -10,14 +10,17 @@ import {
   Button,
   FormText
 } from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import CustomLink from './custom_link';
 import {
   AvForm,
   AvGroup,
   AvInput,
-  AvFeedback
+  AvFeedback,
+  AvRadio,
+  AvRadioGroup
 } from 'availity-reactstrap-validation';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Summary from "../summary";
 
 class Forms extends React.Component {
   constructor(props) {
@@ -29,28 +32,34 @@ class Forms extends React.Component {
       badgeColorSecond: 'dark',
       isLink: false,
 
-      name: false
+      nextError: true,
+      confirmError: true
     };
 
     this.toggle = this.toggle.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleValidSubmit = this.handleValidSubmit.bind(this);
-    this.handleInvalidSubmit = this.handleInvalidSubmit.bind(this);
+    this.handleValidNext = this.handleValidNext.bind(this);
+    this.handleInvalidNext = this.handleInvalidNext.bind(this);
+    this.handleValidConfirm = this.handleValidConfirm.bind(this);
   }
 
-  handleSubmit(event, errors, values) {
-    this.setState({errors, values});
-    console.log("Submit: ", errors, values);
-  }
-
-  handleValidSubmit(event, values) {
+  handleValidNext(event, values) {
     console.log("Valid: ", values);
-    // this.setState({name: values.name});
+    this.setState({ nextError: false });
+    this.toggle();
   }
 
-  handleInvalidSubmit(event, errors, values) {
+  handleInvalidNext(event, errors, values) {
     console.log("Invalid: ", errors, values);
-    // this.setState({name: values.name, error: true});
+    this.setState({ nextError: true });
+  }
+
+  handleValidConfirm(event, values) {
+    console.log("Valid: ", values);
+
+    if (!this.state.nextError) {
+      this.props.handleConfirm();
+      this.props.history.push(`${this.props.match.url}/order_status`);
+    }
   }
 
   toggle() {
@@ -64,6 +73,9 @@ class Forms extends React.Component {
   }
 
   render() {
+    const defValues = {
+      delivery: this.props.checked ? 'self-checkout' : 'courier'
+    };
     return (
       <div>
       <CustomLink isLink={this.state.isLink}
@@ -71,7 +83,8 @@ class Forms extends React.Component {
                   toggle={this.toggle} />
       <Collapse isOpen={this.state.isOpenFirst}>
 
-        <AvForm onSubmit={this.handleSubmit} onValidSubmit={this.handleValidSubmit} onInvalidSubmit={this.handleInvalidSubmit}>
+        <AvForm onValidSubmit={this.handleValidNext}
+                onInvalidSubmit={this.handleInvalidNext}>
 
           <AvGroup>
             <Label for="orderUserName">Name and surname</Label>
@@ -80,28 +93,28 @@ class Forms extends React.Component {
                      placeholder="Name Surname"
                      name="name"
                      required
-                     // onChange={this.props.handleChange}
-                     // value={this.props.name}
+                     minLength="5"
+                     onChange={this.props.handleChange}
+                     value={this.props.name}
             />
             <AvFeedback>Type your name</AvFeedback>
           </AvGroup>
 
           <AvGroup>
             <Label for="orderUserPhone">Phone</Label>
-            <AvInput type="tel"
+            <AvInput type="text"
                      id="orderUserPhone"
                      name="phone"
                      required
-                     // onChange={this.props.handleChange}
-                     // value={this.props.phone}
-                     placeholder="+XX(XXX)-XX-XX-XX" />
+                     pattern="\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})"
+                     onChange={this.props.handleChange}
+                     value={this.props.phone}
+                     placeholder="XXX-XXX-XXXX" />
             <AvFeedback>We need your phone number to contact you</AvFeedback>
           </AvGroup>
 
           <AvGroup>
-            <Button color="success" block
-                    // onClick={this.toggle}
-            >Next</Button>
+            <Button color="success" block>Next</Button>
           </AvGroup>
 
         </AvForm>
@@ -112,57 +125,69 @@ class Forms extends React.Component {
         <Badge pill color={this.state.badgeColorSecond}>2</Badge>Delivery
       </h4>
 
-      <Collapse isOpen={this.state.isOpenSecond}>
-        <Form>
-          <FormGroup row>
-            <Col sm="4">
-              <Label>Delivery</Label>
-            </Col>
-            <Col xs="8">
-              <FormGroup check>
-                <Label check>
-                  <Input type="radio"
-                         name="delivery"
-                         value="self-checkout"
-                         checked={this.props.checked}
-                         onChange={this.props.handleChange} />
-                  self-checkout from our store
-                </Label>
-                <FormText color="muted">Free</FormText>
-              </FormGroup>
-              <FormGroup check>
-                <Label check>
-                  <Input type="radio"
-                         name="delivery"
-                         value="courier"
-                         checked={!this.props.checked}
-                         onChange={this.props.handleChange} />
-                  by courier
-                </Label>
-                <FormText color="muted">Check price by manager</FormText>
-              </FormGroup>
-            </Col>
-          </FormGroup>
-          <hr className="mt-1 mb-1"/>
-          <FormGroup row>
-            <Col xs="4">
-              <Label htmlFor="deliveryAddress">Address</Label>
-            </Col>
-            <Col xs="8">
-              <Input type="text" size="sm" className="mt-1"
-                     id="deliveryAddress" name="address"
-                     onChange={this.props.handleChange}
-                     value={this.props.address} />
-            </Col>
-          </FormGroup>
-        </Form>
-      </Collapse>
+        <AvForm model={defValues}
+                onValidSubmit={this.handleValidConfirm}>
+
+          <Collapse isOpen={this.state.isOpenSecond}>
+
+            <AvGroup row>
+              <Col sm="4">
+                <Label>Delivery</Label>
+              </Col>
+              <Col xs="8">
+
+                <AvRadioGroup name="delivery">
+                  <AvRadio label="self-checkout from our store"
+                           value="self-checkout"
+                           onChange={this.props.handleChange} />
+                  <FormText color="muted">Free</FormText>
+
+                  <AvRadio label="by courier"
+                           value="courier"
+                           onChange={this.props.handleChange} />
+                  <FormText color="muted">Check price by manager</FormText>
+                </AvRadioGroup>
+
+              </Col>
+            </AvGroup>
+
+            <hr className="mt-1 mb-1"/>
+
+            <AvGroup row>
+              <Col xs="4">
+                <Label htmlFor="deliveryAddress">Address</Label>
+              </Col>
+              <Col xs="8">
+                <AvInput type="text"
+                         size="sm"
+                         className="mt-1"
+                         id="deliveryAddress"
+                         name="address"
+                         minLength="10"
+                         disabled={this.props.checked}
+                         required={!this.props.checked}
+                         onChange={this.props.handleChange}
+                         value={this.props.address} />
+                <AvFeedback>Courier need to know your address</AvFeedback>
+              </Col>
+            </AvGroup>
+
+          </Collapse>
+
+          <Summary count={this.props.products.length}
+                   total={this.props.total}
+                   useCourier={this.state.useCourier} />
+
+          <AvGroup>
+            <Button color="success"
+                    block
+                    className="mb-2"
+            >Confirm the order</Button>
+          </AvGroup>
+        </AvForm>
       </div>
     );
   }
 }
-
-
-
 
 export default Forms;

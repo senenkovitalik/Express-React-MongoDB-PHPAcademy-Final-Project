@@ -1,16 +1,12 @@
 import React from 'react';
 import ProductList from './product_list/prod_list';
 import Forms from "./forms/forms";
-import Summary from "./summary";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   Row,
   Col,
   Button
 } from 'reactstrap';
-import {
-  Link
-} from 'react-router-dom';
 
 class OrderProcessing extends React.Component {
   constructor(props) {
@@ -90,22 +86,17 @@ class OrderProcessing extends React.Component {
                        total={this.props.total} />
 
           <Col xs="12" lg="6" className="order-lg-1">
-            <Forms name={this.state.name}
+            <Forms {...this.props}
+                   name={this.state.name}
                    phone={this.state.phone}
                    address={this.state.address}
                    checked={this.state.checked}
-                   handleChange={this.handleChange} />
-
-            <Summary count={this.props.products.length}
-                     total={this.props.total}
-                     useCourier={this.state.useCourier} />
-
-            <Button color="success"
-                    block
-                    className="mb-2"
-                    tag={Link}
-                    to={`${this.props.match.url}/order_status`}
-                    onClick={this.handleConfirm}>Confirm the order</Button>
+                   handleChange={this.handleChange}
+                   handleConfirm={this.handleConfirm}
+                   count={this.props.products.length}
+                   total={this.props.total}
+                   useCourier={this.state.useCourier}
+            />
           </Col>
         </Row>
       </div>

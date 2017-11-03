@@ -4,7 +4,7 @@ const order = mongoose.Schema({
   name: { type: String, required: true },
   phone: { type: String, required: true },
   delivery: { type: String, required: true },
-  address: { type: String, required: true },
+  address: { type: String },
   products: [{}],
   date: { type: Date, default: Date.now },
   status: { type: String, required: true }
