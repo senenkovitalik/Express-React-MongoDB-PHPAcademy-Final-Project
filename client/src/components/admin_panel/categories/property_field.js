@@ -6,6 +6,10 @@ import {
   Input
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  AvGroup,
+  AvInput
+} from 'availity-reactstrap-validation';
 
 class PropertyField extends React.Component {
   render() {
@@ -27,6 +31,7 @@ class PropertyField extends React.Component {
             name={name}
             defaultValue={this.props.property.value}
             onChange={this.props.handleInput}
+            required
           />
         </Col>
       </FormGroup>

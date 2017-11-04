@@ -81,10 +81,6 @@ class AddCategoryForm extends React.Component {
   }
 
   handleValidSubmit(event, values) {
-    console.log("Valid: ", values);
-    console.log('Subcategories: ', values.subcategories.trim().match(/\w+/gi));
-    console.log('Properties: ', this.state.prodProps);
-
     const obj = {
       name: values.name,
       subcategories: values.subcategories.trim().match(/\w+/gi),

@@ -9,7 +9,12 @@ import {
   Button
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import PropertyField from "../categories/property_field";
+import {
+  AvForm,
+  AvInput,
+  AvGroup,
+  AvFeedback
+} from 'availity-reactstrap-validation';
 
 class AddProductForm extends React.Component {
   constructor(props) {
@@ -18,13 +23,8 @@ class AddProductForm extends React.Component {
       imgs: []
     };
 
-    this.add = this.add.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleInputProps = this.handleInputProps.bind(this);
-  }
-
-  add() {
-    this.props.add();
   }
 
   handleInput(e) {
@@ -59,7 +59,7 @@ class AddProductForm extends React.Component {
       <Row style={{marginTop: 20+'px'}}>
         <Col sm="7">
           <h5>Add new product</h5>
-          <Form>
+          <AvForm onValidSubmit={this.props.add}>
             <FormGroup row>
               <Label for="addProductCategory" className="col-sm-2 col-form-label">Category</Label>
               <Col sm="10">
@@ -86,19 +86,26 @@ class AddProductForm extends React.Component {
               </Col>
             </FormGroup>
 
-            <FormGroup row>
+            <AvGroup row>
               <Label for="addProductName" className="col-sm-2 col-form-label">Name</Label>
               <Col sm="10">
-                <Input type="text" id="addProductName" name="name" onChange={this.handleInput} />
+                <AvInput type="text" id="addProductName" name="name"
+                         minLength="3"
+                         onChange={this.handleInput} required />
+                <AvFeedback>Type product name. Min 3 chars.</AvFeedback>
               </Col>
-            </FormGroup>
+            </AvGroup>
 
-            <FormGroup row>
+            <AvGroup row>
               <Label for="addProductModel" className="col-sm-2 col-form-label">Model</Label>
               <Col sm="10">
-                <Input type="text" id="addProductModel" name="model" onChange={this.handleInput} />
+                <AvInput type="text" id="addProductModel" name="model"
+                         required
+                         minLength="2"
+                         onChange={this.handleInput} />
+                <AvFeedback>Type product model. Min 2 chars.</AvFeedback>
               </Col>
-            </FormGroup>
+            </AvGroup>
 
             <FormGroup row>
               <Label for="addProductVendor" className="col-sm-2 col-form-label">Vendor</Label>
@@ -114,35 +121,49 @@ class AddProductForm extends React.Component {
               </Col>
             </FormGroup>
 
-            <FormGroup row>
+            <AvGroup row>
               <Label for="addProductDescription" className="col-sm-2 col-form-label">Description</Label>
               <Col sm="10">
-                <Input type="textarea" rows="5" id="addProductDescription" name="description" onChange={this.handleInput} />
+                <AvInput type="textarea" rows="5" id="addProductDescription"
+                         name="description"
+                         required
+                         minLength="20"
+                         onChange={this.handleInput} />
+                <AvFeedback>Add some descriptive information about product.</AvFeedback>
               </Col>
-            </FormGroup>
+            </AvGroup>
 
-            <FormGroup row>
+            <AvGroup row>
               <Label for="addProductPhoto" className="col-sm-2 col-form-label">Photos</Label>
               <Col sm="10">
-                <Input type="file" multiple id="addProductPhoto" name="imgs" style={{marginBottom: 5+'px'}} onChange={this.handleInput} />
+                <AvInput type="file" multiple id="addProductPhoto"
+                         name="imgs"
+                         style={{marginBottom: 5+'px'}}
+                         required
+                         onChange={this.handleInput} />
+                <AvFeedback>Choose at least 1 photo.</AvFeedback>
                 <div className="d-flex flex-row flex-wrap">
                 {
                   this.state.imgs.map((src, i) => {
                     return  <div key={i} className="w-50">
-                              <img src={src} width="100%" height="100%" />
+                              <img src={src} width="100%" height="auto" />
                             </div>;
                   })
                 }
                 </div>
               </Col>
-            </FormGroup>
+            </AvGroup>
 
-            <FormGroup row>
+            <AvGroup row>
               <Label for="addProductPrice" className="col-sm-2 col-form-label">Price</Label>
               <Col sm="10">
-                <Input type="number" id="addProductPrice" name="price" onChange={this.handleInput} />
+                <AvInput type="number" id="addProductPrice"
+                         name="price"
+                         required
+                         onChange={this.handleInput} />
+                <AvFeedback>Very important part.</AvFeedback>
               </Col>
-            </FormGroup>
+            </AvGroup>
 
             <FormGroup row>
               <Col sm="12"><strong>Category specific fields</strong></Col>
@@ -150,16 +171,41 @@ class AddProductForm extends React.Component {
 
             {
               this.props.prodProps.map((property, i) => {
-                return <PropertyField key={i} property={property} handleInput={this.handleInputProps} />
+                function capitalizeFirstLetter(string) {
+                  return string.charAt(0).toUpperCase() + string.slice(1);
+                }
+
+                const name = property.name;
+                const capName = capitalizeFirstLetter(name);
+
+                return (
+                  <AvGroup row key={i}>
+                    <Label for={`addProduct${capName}`} className="col-sm-2 col-form-label">{name}</Label>
+                    <Col sm="10">
+                      <AvInput
+                        type={property.type}
+                        id={`addProduct${capName}`}
+                        name={name}
+                        onChange={this.handleInput}
+                        required
+                      />
+                    </Col>
+                  </AvGroup>
+                );
               })
             }
 
-            <FormGroup row>
-              <Col sm="10">
-                <Button color="primary" onClick={this.add}>Save</Button>
+            <AvGroup row>
+              <Col sm="12" className="d-flex flex-row justify-content-end">
+                <Button color="secondary"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          this.props.history.goBack();
+                        }}>Cancel</Button>
+                <Button color="primary" className="ml-1">Save</Button>
               </Col>
-            </FormGroup>
-          </Form>
+            </AvGroup>
+          </AvForm>
         </Col>
       </Row>
     );

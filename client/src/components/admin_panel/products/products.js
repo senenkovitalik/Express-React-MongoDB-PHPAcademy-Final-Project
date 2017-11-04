@@ -35,14 +35,15 @@ class Products extends React.Component {
         {/*<!-- Add new product -->*/}
         <Route
           path={`${this.props.match.url}/add-new-product`}
-          render={() => <AddProductForm
-            categories={this.props.categories}
-            category={this.props.category}
-            prodProps={this.props.prodProps}
-            handleInput={this.props.handleAddInput}
-            handleInputProps={this.props.handleAddInputProps}
-            add={this.props.add}
-            flash={this.props.flash}
+          render={(props) => <AddProductForm
+                                {...props}
+                                categories={this.props.categories}
+                                category={this.props.category}
+                                prodProps={this.props.prodProps}
+                                handleInput={this.props.handleAddInput}
+                                handleInputProps={this.props.handleAddInputProps}
+                                add={this.props.add}
+                                flash={this.props.flash}
           /> }
         />
 

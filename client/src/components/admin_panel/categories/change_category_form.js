@@ -22,28 +22,18 @@ class ChangeCategoryForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // name: this.props.category.name,
-      // subcategories: this.props.category.subcategories,
-      // description: this.props.category.description,
       fields: this.props.category.prodProps,
       fieldTypes: this.props.fieldTypes,
       newField: {
         name: null,
         type: 'text'
       },
-      // nameValid: false,
-      // isNameDirty: false,
       fieldValid: false,
-      // isFieldDirty: false,
-      // isDataDirty: false,
-      // isSubCatsDirty: false,
-      // subCatsValid: false
     };
 
     this.addField = this.addField.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.remove = this.remove.bind(this);
-    this.save = this.save.bind(this);
     this.handleValidSubmit = this.handleValidSubmit.bind(this);
   }
 
@@ -114,15 +104,7 @@ class ChangeCategoryForm extends React.Component {
     })
   }
 
-  save() {
-
-  }
-
   handleValidSubmit(event, values) {
-    console.log("Valid: ", values);
-    console.log('Subcategories: ', values.subcategories.trim().match(/\w+/gi));
-    console.log('Properties: ', this.state.fields);
-
     this.props.change(
       Object.assign(
         {},
