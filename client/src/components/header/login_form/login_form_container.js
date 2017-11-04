@@ -19,8 +19,10 @@ class LoginFormContainer extends React.Component {
     const name = e.target.name;
     const value = e.target.value;
     this.setState({
-      [name]: value,
-    });
+      [name]: value
+    }, () => this.setState({
+      disabled: !(this.state.password.length > 0 && this.state.login.length > 0)
+    }));
   }
 
   handleLogin(e) {
@@ -37,14 +39,12 @@ class LoginFormContainer extends React.Component {
     this.props.logout();
   }
 
-
-
-
   render() {
     return <LoginForm toggleModal={this.props.toggleModal}
                       handleChange={this.handleChange}
                       handleLogin={this.handleLogin}
                       handleLogout={this.handleLogout}
+                      disabled={this.state.disabled}
                       isLogged={this.props.isLogged} />;
   }
 }

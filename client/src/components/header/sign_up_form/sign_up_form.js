@@ -4,75 +4,104 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Form,
-  FormGroup,
   Label,
-  Input,
   Button
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  AvForm,
+  AvGroup,
+  AvInput,
+  AvFeedback
+} from 'availity-reactstrap-validation';
 
-const SignUpForm = (props) => {
-  return (
-    <Modal isOpen={props.modal} toggle={props.toggle}>
-      <ModalHeader toggle={props.toggle}>Sign up</ModalHeader>
-      <ModalBody>
-        <Form>
-          <FormGroup>
-            <Label for="username">Login</Label>
-            <Input
-              type="text"
-              size="sm"
-              id="username"
-              placeholder="Login"
-              name="login"
-              onChange={props.handleChange}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="email">Email</Label>
-            <Input
-              type="email"
-              size="sm"
-              id="email"
-              placeholder="name@example.com"
-              name="email"
-              onChange={props.handleChange}
-            />
-            <small id="emailHelp" className="form-text text-muted">
-              We'll never share your email with anyone else.
-            </small>
-          </FormGroup>
-          <FormGroup>
-            <Label for="password">Password</Label>
-            <Input
-              type="password"
-              size="sm"
-              id="password"
-              placeholder="Password"
-              name="password"
-              onChange={props.handleChange}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="password">Confirm password</Label>
-            <Input
-              type="password"
-              size="sm"
-              id="confirmPassword"
-              placeholder="Confirm password"
-              name="c_password"
-              onChange={props.handleChange}
-            />
-          </FormGroup>
-        </Form>
-      </ModalBody>
-      <ModalFooter>
-        <Button color="secondary" size="sm" onClick={props.toggle}>Close</Button>
-        <Button color="primary" size="sm" onClick={props.signUp}>Sign Up</Button>
-      </ModalFooter>
-    </Modal>
-  );
-};
+class SignUpForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleValidSubmit = this.handleValidSubmit.bind(this);
+  }
+
+  handleValidSubmit() {
+    this.props.signUp();
+  }
+
+  render() {
+    return (
+      <Modal isOpen={this.props.modal} toggle={this.props.toggle}>
+        <ModalHeader toggle={this.props.toggle}>Sign up</ModalHeader>
+        <AvForm onValidSubmit={this.handleValidSubmit}>
+          <ModalBody>
+
+            <AvGroup>
+              <Label for="username">Login</Label>
+              <AvInput
+                type="text"
+                size="sm"
+                id="username"
+                placeholder="Login"
+                name="login"
+                required
+                minLength="7"
+                onChange={this.props.handleChange}
+              />
+              <AvFeedback>Login must be at least 7 symbols</AvFeedback>
+            </AvGroup>
+            <AvGroup>
+              <Label for="email">Email</Label>
+              <AvInput
+                type="email"
+                size="sm"
+                id="email"
+                placeholder="name@example.com"
+                name="email"
+                onChange={this.props.handleChange}
+              />
+              <small id="emailHelp" className="form-text text-muted">
+                We'll never share your email with anyone else.
+              </small>
+            </AvGroup>
+            <AvGroup>
+              <Label for="password">Password</Label>
+              <AvInput
+                type="password"
+                size="sm"
+                id="password"
+                placeholder="Password"
+                name="password"
+                required
+                minLength="7"
+                onChange={this.props.handleChange}
+              />
+              <AvFeedback>Password must be at least 7 symbols</AvFeedback>
+            </AvGroup>
+            <AvGroup>
+              <Label for="c_password">Confirm password</Label>
+              <AvInput
+                type="password"
+                size="sm"
+                id="c_password"
+                placeholder="Confirm password"
+                name="c_password"
+                required
+                validate={{match: {value: 'password'}}}
+                onChange={this.props.handleChange}
+              />
+              <AvFeedback>Type same password as previously</AvFeedback>
+            </AvGroup>
+
+          </ModalBody>
+          <ModalFooter>
+            <AvGroup>
+              <Button color="secondary" size="sm"
+                      onClick={() => this.props.toggle()}>Close</Button>
+              <Button color="primary" size="sm">Sign Up</Button>
+            </AvGroup>
+
+          </ModalFooter>
+        </AvForm>
+      </Modal>
+    );
+  }
+}
 
 export default SignUpForm;

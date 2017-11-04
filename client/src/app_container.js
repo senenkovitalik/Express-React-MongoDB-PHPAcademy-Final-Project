@@ -41,6 +41,7 @@ class AppContainer extends React.Component {
         this.setState({
           user: res.user
         });
+        window.alert("You successfully create account");
         console.log("You successfully create account");
       } else {
         console.log(res.message);
@@ -67,7 +68,7 @@ class AppContainer extends React.Component {
         });
         console.log("You successfully logged");
       } else {
-        console.log(res.message);
+        window.alert("Wrong username or password");
       }
     })
     .fail(err => {

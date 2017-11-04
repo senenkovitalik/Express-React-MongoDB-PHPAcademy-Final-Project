@@ -1,23 +1,25 @@
 import React from 'react';
 import {
+  Row,
   Form,
   Label,
   Input,
-  Button
+  Button,
+  FormText
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const LoginForm = (props) => {
   const labelStyle = {color: 'white', marginRight: 10+'px'};
   return (
-    <Form inline className="my-2 my-lg-0 flex-wrap">
+    <Form inline className="my-2 my-lg-0 flex-wrap justify-content-sm-center">
       <Label for="login" style={labelStyle}>Login</Label>
       <Input onChange={props.handleChange}
              name="login"
              id="login"
              className="mr-sm-2"
              type="text"
-             placeholder="Login, email or phone number"
+             placeholder="Login"
       />
       <Label for="passwr" style={labelStyle}>Password</Label>
       <Input onChange={props.handleChange}
@@ -35,12 +37,15 @@ const LoginForm = (props) => {
                      className="my-2 my-sm-0 mr-2">Logout</Button>)
           : (<Button onClick={props.handleLogin}
                      color="success"
-                     className="my-2 my-sm-0 mr-2">Login</Button>)
+                     className="my-2 my-sm-0 mr-2"
+                     disabled={props.disabled} >Login</Button>)
       }
 
       <Button onClick={props.toggleModal}
               color="primary"
-              className="my-2 my-sm-0">Sign up</Button>
+              className="my-2 my-sm-0"
+              disabled={props.isLogged}
+      >Sign up</Button>
     </Form>
   )
 };
