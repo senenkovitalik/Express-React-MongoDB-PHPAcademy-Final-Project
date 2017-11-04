@@ -10,34 +10,41 @@ import {
   Label
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  AvForm,
+  AvInput,
+  AvGroup,
+  AvFeedback
+} from 'availity-reactstrap-validation';
 import _ from 'lodash';
 
 class ChangeCategoryForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: this.props.category.name,
-      subcategories: this.props.category.subcategories,
-      description: this.props.category.description,
+      // name: this.props.category.name,
+      // subcategories: this.props.category.subcategories,
+      // description: this.props.category.description,
       fields: this.props.category.prodProps,
       fieldTypes: this.props.fieldTypes,
       newField: {
         name: null,
         type: 'text'
       },
-      nameValid: false,
-      isNameDirty: false,
+      // nameValid: false,
+      // isNameDirty: false,
       fieldValid: false,
-      isFieldDirty: false,
-      isDataDirty: false,
-      isSubCatsDirty: false,
-      subCatsValid: false
+      // isFieldDirty: false,
+      // isDataDirty: false,
+      // isSubCatsDirty: false,
+      // subCatsValid: false
     };
 
     this.addField = this.addField.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.remove = this.remove.bind(this);
     this.save = this.save.bind(this);
+    this.handleValidSubmit = this.handleValidSubmit.bind(this);
   }
 
   addField() {
@@ -54,31 +61,31 @@ class ChangeCategoryForm extends React.Component {
     let stateObj = {};
 
     switch (name) {
-    case "categoryName":
-      stateObj.name = value;
-      stateObj.nameValid = value.length >= 3;
-      stateObj.isNameDirty = value.length > 0;
-      break;
-    case "subCats":
-      const regex = /^(\w+\s*?)*$/gi;
-      const result = regex.test(value);
-
-      let valid = this.state.subCatsValid;
-
-      if (result) {
-        stateObj.subcategories = value.trim().match(/\w+/gi);
-        valid = true;
-      } else {
-        valid = false;
-      }
-
-      stateObj.subCatsValid = valid;
-      stateObj.isSubCatsDirty = value.length > 0;
-      break;
-    case "categoryDescription":
-      stateObj.description = value;
-      stateObj.isDataDirty = true;
-      break;
+    // case "categoryName":
+    //   stateObj.name = value;
+    //   stateObj.nameValid = value.length >= 3;
+    //   stateObj.isNameDirty = value.length > 0;
+    //   break;
+    // case "subCats":
+    //   const regex = /^(\w+\s*?)*$/gi;
+    //   const result = regex.test(value);
+    //
+    //   let valid = this.state.subCatsValid;
+    //
+    //   if (result) {
+    //     stateObj.subcategories = value.trim().match(/\w+/gi);
+    //     valid = true;
+    //   } else {
+    //     valid = false;
+    //   }
+    //
+    //   stateObj.subCatsValid = valid;
+    //   stateObj.isSubCatsDirty = value.length > 0;
+    //   break;
+    // case "categoryDescription":
+    //   stateObj.description = value;
+    //   stateObj.isDataDirty = true;
+    //   break;
     case "fieldName":
       stateObj.newField = {
         name: value,
@@ -108,14 +115,22 @@ class ChangeCategoryForm extends React.Component {
   }
 
   save() {
+
+  }
+
+  handleValidSubmit(event, values) {
+    console.log("Valid: ", values);
+    console.log('Subcategories: ', values.subcategories.trim().match(/\w+/gi));
+    console.log('Properties: ', this.state.fields);
+
     this.props.change(
       Object.assign(
         {},
         this.props.category,
         {
-          name: this.state.name,
-          subcategories: this.state.subcategories,
-          description: this.state.description,
+          name: values.name,
+          subcategories: values.subcategories.trim().match(/\w+/gi),
+          description: values.description,
           prodProps: this.state.fields
         }
       )
@@ -130,96 +145,106 @@ class ChangeCategoryForm extends React.Component {
   }
 
   render() {
+    const defaultValues = Object.assign({}, this.props.category, { subcategories: this.props.category.subcategories.join(" ") });
+
     return (
       <Row style={{marginTop: 20+'px'}}>
         <Col xs="6">
           <h5 color="light">Change category: {this.props.category.name}</h5>
-          <Form>
 
-            <FormGroup row>
-              <Label for="categoryName" className="col-sm-3 col-form-label">Name</Label>
+          <AvForm onValidSubmit={this.handleValidSubmit} model={defaultValues}>
+
+            <AvGroup row>
+              <Label for="categoryName"
+                     className="col-sm-3 col-form-label">Name</Label>
               <Col xs="9">
-                <Input
+                <AvInput
                   type="text"
                   id="categoryName"
-                  name="categoryName"
+                  name="name"
                   placeholder="Category name"
-                  value={this.state.name}
-                  onChange={this.handleInputChange}
-                  { ...this.state.isNameDirty ? {valid: this.state.nameValid} : {} }
-                />
+                  minLength="3"
+                  required />
+                <AvFeedback>Choose the name for category. At least 3 chars.</AvFeedback>
               </Col>
-            </FormGroup>
+            </AvGroup>
 
-            <FormGroup row>
-              <Label for="subcategories" className="col-sm-3 col-form-label">Subcategories</Label>
+            <AvGroup row>
+              <Label for="subcategories"
+                     className="col-sm-3 col-form-label">Subcategories</Label>
               <Col xs="9">
-                <Input
+                <AvInput
                   type="text"
                   id="subCats"
-                  name="subCats"
-                  placeholder="Subcategories list"
-                  defaultValue={this.state.subcategories.join(" ")}
-                  onChange={this.handleInputChange}
-                  { ...this.state.isSubCatsDirty ? { valid: this.state.subCatsValid } : {} }
-                />
+                  name="subcategories"
+                  placeholder="Subcat1 Subcat2 ... SubcatN"
+                  pattern="^(\w+\s*?)*$"
+                  required />
+                <AvFeedback>You need to specify at least 1 subcategory. Use pattern for multiple values.</AvFeedback>
               </Col>
-            </FormGroup>
+            </AvGroup>
 
-            <FormGroup row>
-              <Label for="categoryDescription" className="col-sm-3 col-form-label">Description</Label>
+            <AvGroup row>
+              <Label for="categoryDescription"
+                     className="col-sm-3 col-form-label">Description</Label>
               <Col xs="9">
-                <Input
+                <AvInput
                   type="textarea"
-                  name="categoryDescription"
+                  name="description"
                   id="categoryDescription"
                   rows="5"
-                  value={this.state.description}
-                  onChange={this.handleInputChange}
-                />
+                  required
+                  minLength="15" />
+                <AvFeedback>Add some description. Only 15 chars.</AvFeedback>
               </Col>
-            </FormGroup>
+            </AvGroup>
 
-            <Table>
-              <thead>
-              <tr>
-                <th>#</th>
-                <th>Field name</th>
-                <th>Type</th>
-                <th>-</th>
-              </tr>
-              </thead>
-              {
-                this.state.fields.map((field, i) => {
-                  return  <tbody key={i}>
-                            <tr>
-                              <th scope="row">{i+1}</th>
-                              <td>{field.name}</td>
-                              <td>{field.type}</td>
-                              <td>
-                                <Button onClick={() => this.remove(field)} className="btn-outline-danger" title="Remove category field">
-                                  <i className="fa fa-trash-o" aria-hidden="true"></i>
-                                </Button>
-                              </td>
-                            </tr>
-                          </tbody>;
-              })}
-            </Table>
+            {
+              this.state.fields.length > 0 &&
+              <Table>
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Field name</th>
+                  <th>Type</th>
+                  <th>-</th>
+                </tr>
+                </thead>
+                {this.state.fields.map((field, i) => {
+                  return <tbody key={i}>
+                  <tr>
+                    <th scope="row">{i + 1}</th>
+                    <td>{field.name}</td>
+                    <td>{field.type}</td>
+                    <td>
+                      <Button onClick={() => this.remove(field)}
+                              color="danger"
+                              outline
+                              title="Remove category field">
+                        <i className="fa fa-trash-o" aria-hidden="true"/>
+                      </Button>
+                    </td>
+                  </tr>
+                  </tbody>;
+                })}
+              </Table>
+            }
 
-            <FormGroup row>
-              <Col sm="2">Fields</Col>
-              <Col sm="10">
-                <div className="form-row">
+            <AvGroup row>
+              <Col sm="3">Fields</Col>
+              <Col sm="9">
+                <AvGroup row>
                   <div className="col">
                     <Label for="fieldName">Name</Label>
-                    <Input
+                    <AvInput
                       type="text"
                       id="fieldName"
                       name="fieldName"
                       onChange={this.handleInputChange}
                       placeholder="Field name"
-                      { ...this.state.isFieldDirty ? {valid: this.state.fieldValid} : {} }
-                    />
+                      required={this.state.fields.length === 0}
+                      minLength="3" />
+                    <AvFeedback>Add field name - min 3 chars</AvFeedback>
                   </div>
                   <Col>
                     <Label for="filedType">Type</Label>
@@ -234,12 +259,12 @@ class ChangeCategoryForm extends React.Component {
                       })}
                     </Input>
                   </Col>
-                </div>
+                </AvGroup>
                 <FormGroup row>
                   <Col>
                     <Button
                       onClick={this.addField}
-                      color="success"
+                      color="primary"
                       className="float-right"
                       style={{marginTop: 15+'px'}}
                       disabled={!this.state.fieldValid}
@@ -247,19 +272,20 @@ class ChangeCategoryForm extends React.Component {
                   </Col>
                 </FormGroup>
               </Col>
-            </FormGroup>
+            </AvGroup>
 
-            <FormGroup row>
-              <Col sm="10">
-                <Button
-                  color="primary"
-                  onClick={this.save}
-                  disabled={ !(this.state.nameValid && this.state.isDataDirty && this.state.subcategories) }
-                >Save</Button>
+            <AvGroup row>
+              <Col sm="12" className="d-flex flex-row justify-content-end">
+                <Button color="secondary"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          this.props.history.goBack();
+                        }}>Cancel</Button>
+                <Button color="success" className="ml-1">Save</Button>
               </Col>
-            </FormGroup>
+            </AvGroup>
 
-          </Form>
+          </AvForm>
         </Col>
       </Row>
     );

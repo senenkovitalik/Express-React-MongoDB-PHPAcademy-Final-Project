@@ -58,9 +58,10 @@ class Categories extends React.Component {
           {/*<!-- Change existing category -->*/}
           <Route
             path={`${this.props.match.url}/change-category`}
-            render={() => (
+            render={(props) => (
               this.props.catToChange
-                ? (<ChangeCategoryForm category={this.props.catToChange}
+                ? (<ChangeCategoryForm {...props}
+                                       category={this.props.catToChange}
                                        fieldTypes={this.state.fieldTypes}
                                        change={this.props.change} />)
                 : (<Redirect to={this.props.match.url} />)
