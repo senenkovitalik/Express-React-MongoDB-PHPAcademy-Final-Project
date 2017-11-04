@@ -46,6 +46,12 @@ class Header extends React.Component {
             <NavItem>
               <NavLink tag={Link} to="/contact_us">Contact us</NavLink>
             </NavItem>
+            { this.props.isLogged &&
+              <NavItem>
+                <NavLink tag={Link} to="/personal_cabinet">Personal
+                  cabinet</NavLink>
+              </NavItem>
+            }
           </Nav>
 
           <LoginFormContainer toggleModal={this.toggleModal}

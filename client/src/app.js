@@ -15,6 +15,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import OrderProcessingContainer from "./components/order_processing/order_processing_container";
 import BasketModal from './components/home/basket/basket_modal';
+import PersonalCabinet from "./components/personal_cabinet";
 
 class App extends React.Component {
   constructor(props) {
@@ -103,7 +104,11 @@ class App extends React.Component {
                    render={
                      (props) => this.props.user && this.props.user.role === 'admin'
                        ? <AdminPanel {...props} />
-                       : <Redirect to="/"/> } />
+                       : <Redirect to="/"/> }
+            />
+
+            <Route path="/personal_cabinet"
+                   render={(props) => <PersonalCabinet user={this.props.user} />} />
           </Switch>
           {isModal
             ? <Route path='/basket'
