@@ -50,13 +50,12 @@ class Products extends React.Component {
         {/*<!-- Change product -->*/}
         <Route
           path={`${this.props.match.url}/change-product`}
-          render={() => (
+          render={(props) => (
             this.props.prodToChange
-              ? (<ChangeProductFormContainer
-                  categories={this.props.categories}
-                  product={this.props.prodToChange}
-                  change={this.props.change}
-                />)
+              ? (<ChangeProductFormContainer {...props}
+                                             categories={this.props.categories}
+                                             product={this.props.prodToChange}
+                                             change={this.props.change} />)
               : (<Redirect to={this.props.match.url} />)
           )}
         />

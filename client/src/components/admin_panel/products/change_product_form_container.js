@@ -106,7 +106,7 @@ class ChangeProductFormContainer extends React.Component {
     });
   }
 
-  change() {
+  change(e, values) {
     const formData = new FormData();
     this.state.files.forEach(f => formData.append("imgs", f));
     const savedImages = _.filter(this.state.imgs, { saved: true }).map(img => img.src.slice(1));
@@ -117,16 +117,15 @@ class ChangeProductFormContainer extends React.Component {
   }
 
   render() {
-    return (<ChangeProductForm
-      product={this.state.product}
-      categories={this.state.categories}
-      category={this.state.category}
-      imgs={this.state.imgs}
-      handleInput={this.handleInput}
-      handleInputProp={this.handleInputProp}
-      removeImg={this.removeImg}
-      change={this.change}
-    />);
+    return (<ChangeProductForm {...this.props}
+                               product={this.state.product}
+                               categories={this.state.categories}
+                               category={this.state.category}
+                               imgs={this.state.imgs}
+                               handleInput={this.handleInput}
+                               handleInputProp={this.handleInputProp}
+                               removeImg={this.removeImg}
+                               change={this.change} />);
   }
 }
 

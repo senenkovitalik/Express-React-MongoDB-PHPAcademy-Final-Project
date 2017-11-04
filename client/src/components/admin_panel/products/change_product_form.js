@@ -2,13 +2,18 @@ import React from 'react';
 import {
   Row,
   Col,
-  Form,
   FormGroup,
   Label,
   Input,
   Button
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  AvForm,
+  AvInput,
+  AvGroup,
+  AvFeedback
+} from 'availity-reactstrap-validation';
 import PropertyField from '../categories/property_field';
 
 const ChangeProductForm = (props) => {
@@ -16,9 +21,9 @@ const ChangeProductForm = (props) => {
       <Row style={{marginTop: 20+'px'}}>
         <Col sm="7">
           <h5>Change product: {props.product.name} {props.product.model}</h5>
-          <Form>
+          <AvForm onValidSubmit={props.change}>
             <FormGroup row>
-              <Label for="changeProductCategory" className="col-sm-2 col-form-label">Category</Label>
+              <Label for="addProductCategory" className="col-sm-2 col-form-label">Category</Label>
               <Col sm="10">
                 <Input
                   type="select"
@@ -36,7 +41,7 @@ const ChangeProductForm = (props) => {
             </FormGroup>
 
             <FormGroup row>
-              <Label for="changeProductSubcategory" className="col-sm-2 col-form-label">Subcategory</Label>
+              <Label for="addProductSubcategory" className="col-sm-2 col-form-label">Subcategory</Label>
               <Col sm="10">
                 <Input
                   type="select"
@@ -53,101 +58,95 @@ const ChangeProductForm = (props) => {
               </Col>
             </FormGroup>
 
-            <FormGroup row>
-              <Label for="changeProductName" className="col-sm-2 col-form-label">Name</Label>
+            <AvGroup row>
+              <Label for="addProductName" className="col-sm-2 col-form-label">Name</Label>
               <Col sm="10">
-                <Input
-                  type="text"
-                  id="changeProductName"
-                  name="name"
-                  onChange={props.handleInput}
-                  defaultValue={props.product.name}
-                />
+                <AvInput type="text" id="addProductName" name="name"
+                         minLength="3"
+                         onChange={props.handleInput}
+                         defaultValue={props.product.name}
+                         required />
+                <AvFeedback>Type product name. Min 3 chars.</AvFeedback>
+              </Col>
+            </AvGroup>
+
+            <AvGroup row>
+              <Label for="addProductModel" className="col-sm-2 col-form-label">Model</Label>
+              <Col sm="10">
+                <AvInput type="text" id="addProductModel" name="model"
+                         required
+                         minLength="2"
+                         defaultValue={props.product.model}
+                         onChange={props.handleInput} />
+                <AvFeedback>Type product model. Min 2 chars.</AvFeedback>
+              </Col>
+            </AvGroup>
+
+            <FormGroup row>
+              <Label for="addProductVendor" className="col-sm-2 col-form-label">Vendor</Label>
+              <Col sm="10">
+                <Input type="text" id="addProductVendor" name="vendor"
+                       defaultValue={props.product.vendor}
+                       onChange={props.handleInput} />
               </Col>
             </FormGroup>
 
             <FormGroup row>
-              <Label for="changeProductModel" className="col-sm-2 col-form-label">Model</Label>
+              <Label for="addProductProvider" className="col-sm-2 col-form-label">Provider</Label>
               <Col sm="10">
-                <Input
-                  type="text"
-                  id="changeProductModel"
-                  name="model"
-                  onChange={props.handleInput}
-                  defaultValue={props.product.model}
-                />
+                <Input type="text" id="addProductProvider" name="provider"
+                       defaultValue={props.product.provider}
+                       onChange={props.handleInput} />
               </Col>
             </FormGroup>
 
-            <FormGroup row>
-              <Label for="changeProductVendor" className="col-sm-2 col-form-label">Vendor</Label>
+            <AvGroup row>
+              <Label for="addProductDescription" className="col-sm-2 col-form-label">Description</Label>
               <Col sm="10">
-                <Input
-                  type="text"
-                  id="changeProductVendor"
-                  name="vendor"
-                  onChange={props.handleInput}
-                  defaultValue={props.product.vendor}
-                />
+                <AvInput type="textarea" rows="5" id="addProductDescription"
+                         name="description"
+                         required
+                         minLength="20"
+                         defaultValue={props.product.description}
+                         onChange={props.handleInput} />
+                <AvFeedback>Add some descriptive information about product.</AvFeedback>
               </Col>
-            </FormGroup>
+            </AvGroup>
 
-            <FormGroup row>
-              <Label for="changeProductProvider" className="col-sm-2 col-form-label">Provider</Label>
-              <Col sm="10">
-                <Input
-                  type="text"
-                  id="changeProductProvider"
-                  name="provider"
-                  onChange={props.handleInput}
-                  defaultValue={props.product.provider}
-                />
-              </Col>
-            </FormGroup>
-
-            <FormGroup row>
-              <Label for="changeProductDescription" className="col-sm-2 col-form-label">Description</Label>
-              <Col sm="10">
-                <Input
-                  type="textarea"
-                  rows="5"
-                  id="changeProductDescription"
-                  name="description"
-                  onChange={props.handleInput}
-                  defaultValue={props.product.description}
-                />
-              </Col>
-            </FormGroup>
-
-            <FormGroup row>
+            <AvGroup row>
               <Label for="changeProductPhoto" className="col-sm-2 col-form-label">Photos</Label>
               <Col sm="10">
-                <Input type="file" multiple id="changeProductPhoto" name="imgs" style={{marginBottom: 5+'px'}} onChange={props.handleInput} />
+                <AvInput type="file" multiple id="changeProductPhoto"
+                         name="imgs"
+                         required={props.imgs.length === 0}
+                         style={{marginBottom: 5+'px'}}
+                         onChange={props.handleInput} />
+                <AvFeedback>Must be at least 1 photo</AvFeedback>
                 <div className="d-flex flex-row flex-wrap">
                   {
                     props.imgs.map((img, i) => {
                       return  <div key={i} className="w-50">
-                        <img src={img.src} width="100%" height="100%" onClick={() => props.removeImg(img)} />
+                        <img src={img.src} width="100%" height="auto"
+                             onClick={() => props.removeImg(img)} />
                       </div>;
                     })
                   }
                 </div>
               </Col>
-            </FormGroup>
+            </AvGroup>
 
-            <FormGroup row>
-              <Label for="changeProductPrice" className="col-sm-2 col-form-label">Price</Label>
+            <AvGroup row>
+              <Label for="addProductPrice" className="col-sm-2 col-form-label">Price</Label>
               <Col sm="10">
-                <Input
-                  type="number"
-                  id="changeProductPrice"
-                  name="price"
-                  onChange={props.handleInput}
-                  defaultValue={props.product.price}
-                />
+                <AvInput type="number" id="addProductPrice"
+                         name="price"
+                         required
+                         defaultValue={props.product.price}
+                         onChange={props.handleInput} />
+                <AvFeedback>Very important part.</AvFeedback>
               </Col>
-            </FormGroup>
-
+            </AvGroup>
+            
             <FormGroup row>
               <Col sm="12"><strong>Category specific fields</strong></Col>
             </FormGroup>
@@ -158,12 +157,17 @@ const ChangeProductForm = (props) => {
               })
             }
 
-            <FormGroup row>
-              <Col sm="10">
-                <Button color="primary" onClick={props.change}>Save</Button>
+            <AvGroup row>
+              <Col sm="12" className="d-flex flex-row justify-content-end">
+                <Button color="secondary"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          props.history.goBack();
+                        }}>Cancel</Button>
+                <Button color="primary" className="ml-1">Save</Button>
               </Col>
-            </FormGroup>
-          </Form>
+            </AvGroup>
+          </AvForm>
         </Col>
       </Row>
     );
