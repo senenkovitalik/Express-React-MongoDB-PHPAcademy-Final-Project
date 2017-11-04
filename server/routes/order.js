@@ -23,8 +23,6 @@ router.route('/')
   .post((req, res) => {
     const order = new Order(req.body);
 
-    console.log('\n', order);
-
     order.save(err => {
       if (err) {
         console.error(err);
@@ -33,6 +31,20 @@ router.route('/')
         res.json({ result: true });
       }
     });
+  });
+
+router.route('/:username')
+  .get((req, res) => {
+    Order.find({ name: req.params.username }, (err, docs) => {
+      if (err) {
+        console.error(err);
+        res.json({ result: false });
+      } else if (docs.length > 0) {
+        res.json({ result: true, orders: docs });
+      } else {
+        res.json({ result: false });
+      }
+    })
   });
 
 router.route('/:id')

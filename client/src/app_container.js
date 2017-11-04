@@ -26,6 +26,7 @@ class AppContainer extends React.Component {
     this.remove = this.remove.bind(this);
     this.changeProdCount = this.changeProdCount.bind(this);
     this.saveOrder = this.saveOrder.bind(this);
+    this.changeUserData = this.changeUserData.bind(this);
   }
 
   signUp(userObj) {
@@ -143,6 +144,27 @@ class AppContainer extends React.Component {
     }
   }
 
+  changeUserData(userObj, cb) {
+    console.log(userObj);
+    $.ajax({
+      url: '/users',
+      method: 'PUT',
+      data: JSON.stringify(userObj),
+      contentType: "application/json; charset=utf-8"
+    })
+    .done(res => {
+      if (res.result) {
+        cb(true);
+      } else {
+        cb(false)
+      }
+    })
+    .fail(err => {
+      console.error(err);
+      cb(false);
+    });
+  }
+
   render() {
     return (
     <Router>
@@ -158,7 +180,8 @@ class AppContainer extends React.Component {
                 addToBasket={this.addToBasket}
                 remove={this.remove}
                 changeCount={this.changeProdCount}
-                saveOrder={this.saveOrder} />)} />
+                saveOrder={this.saveOrder}
+                changeUserData={this.changeUserData} />)} />
     </Router>
     )
   }

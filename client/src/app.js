@@ -101,14 +101,16 @@ class App extends React.Component {
             <Route path="/contact_us" component={ContactUs} />
 
             <Route path="/admin"
-                   render={
-                     (props) => this.props.user && this.props.user.role === 'admin'
+                   render={(props) => this.props.user && this.props.user.role === 'admin'
                        ? <AdminPanel {...props} />
                        : <Redirect to="/"/> }
             />
 
             <Route path="/personal_cabinet"
-                   render={(props) => <PersonalCabinet user={this.props.user} />} />
+                   render={(props) => this.props.user
+                     ? <PersonalCabinet user={this.props.user}
+                                        changeUserData={this.props.changeUserData} />
+                     : <Redirect to="/" /> } />
           </Switch>
           {isModal
             ? <Route path='/basket'
