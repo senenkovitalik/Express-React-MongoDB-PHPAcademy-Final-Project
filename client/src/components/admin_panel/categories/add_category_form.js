@@ -2,41 +2,37 @@ import React from 'react';
 import {
   Row,
   Col,
-  Form,
   FormGroup,
-  Input,
   Button,
   Table,
-  Label
+  Label,
+  Input
 } from 'reactstrap';
 import _ from 'lodash';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  AvForm,
+  AvInput,
+  AvGroup,
+  AvFeedback
+} from 'availity-reactstrap-validation';
 
 class AddCategoryForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      subcategories: [],
-      description: '',
       prodProps: [],
       fieldTypes: this.props.fieldTypes,
       newField: {
         name: null,
         type: 'text'
       },
-      nameValid: false,
-      isNameDirty: false,
-      fieldValid: false,
-      isFieldDirty: false,
-      isSubCatsDirty: false,
-      subCatsValid: false
     };
 
     this.addField = this.addField.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.remove = this.remove.bind(this);
-    this.save = this.save.bind(this);
+    this.handleValidSubmit = this.handleValidSubmit.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,37 +55,11 @@ class AddCategoryForm extends React.Component {
     let stateObj = {};
 
     switch (name) {
-    case "categoryName":
-      stateObj.name = value;
-      stateObj.nameValid = value.length >= 3;
-      stateObj.isNameDirty = value.length > 0;
-      break;
-    case "subCats":
-      const regex = /^(\w+\s*?)*$/gi;
-      const result = regex.test(value);
-
-      let valid = this.state.subCatsValid;
-
-      if (result) {
-        stateObj.subcategories = value.trim().match(/\w+/gi);
-        valid = true;
-      } else {
-        valid = false;
-      }
-
-      stateObj.subCatsValid = valid;
-      stateObj.isSubCatsDirty = value.length > 0;
-      break;
-    case "categoryDescription":
-      stateObj.description = value;
-      break;
     case "fieldName":
       stateObj.newField = {
         name: value,
         type: this.state.newField.type
       };
-      stateObj.fieldValid = value.length >= 3;
-      stateObj.isFieldDirty = value.length > 0;
       break;
     case "fieldType":
       stateObj.newField = {
@@ -110,12 +80,16 @@ class AddCategoryForm extends React.Component {
     })
   }
 
-  save() {
+  handleValidSubmit(event, values) {
+    console.log("Valid: ", values);
+    console.log('Subcategories: ', values.subcategories.trim().match(/\w+/gi));
+    console.log('Properties: ', this.state.prodProps);
+
     const obj = {
-      name: this.state.name,
-      subcategories: this.state.subcategories,
+      name: values.name,
+      subcategories: values.subcategories.trim().match(/\w+/gi),
       prodProps: this.state.prodProps,
-      description: this.state.description
+      description: values.description
     };
     this.props.add(obj);
   }
@@ -125,89 +99,99 @@ class AddCategoryForm extends React.Component {
       <Row style={{marginTop: 20+'px'}}>
         <Col xs="6">
           <h5 color="light">Add new category</h5>
-            <Form>
+            <AvForm onValidSubmit={this.handleValidSubmit}>
 
-              <FormGroup row>
-                <Label for="categoryName" className="col-sm-3 col-form-label">Name</Label>
+              <AvGroup row>
+                <Label for="categoryName"
+                       className="col-sm-3 col-form-label">Name</Label>
                 <Col xs="9">
-                  <Input
+                  <AvInput
                     type="text"
                     id="categoryName"
-                    name="categoryName"
+                    name="name"
                     placeholder="Category name"
-                    onChange={this.handleInputChange}
-                    { ...this.state.isNameDirty ? {valid: this.state.nameValid} : {} }
-                  />
+                    minLength="3"
+                    required />
+                  <AvFeedback>Choose the name for new category. At least 3 chars.</AvFeedback>
                 </Col>
-              </FormGroup>
+              </AvGroup>
 
-              <FormGroup row>
-                <Label for="subcategories" className="col-sm-3 col-form-label">Subcategories</Label>
+              <AvGroup row>
+                <Label for="subcategories"
+                       className="col-sm-3 col-form-label">Subcategories</Label>
                 <Col xs="9">
-                  <Input
+                  <AvInput
                     type="text"
                     id="subCats"
-                    name="subCats"
-                    placeholder="Subcategories list"
-                    onChange={this.handleInputChange}
-                    { ...this.state.isSubCatsDirty ? { valid: this.state.subCatsValid } : {} }
-                  />
+                    name="subcategories"
+                    placeholder="Subcat1 Subcat2 ... SubcatN"
+                    pattern="^(\w+\s*?)*$"
+                    required />
+                  <AvFeedback>You need to specify at least 1 subcategory. Use pattern for multiple values.</AvFeedback>
                 </Col>
-              </FormGroup>
+              </AvGroup>
 
-              <FormGroup row>
-                <Label for="categoryDescription" className="col-sm-3 col-form-label">Description</Label>
+              <AvGroup row>
+                <Label for="categoryDescription"
+                       className="col-sm-3 col-form-label">Description</Label>
                 <Col xs="9">
-                  <Input
+                  <AvInput
                     type="textarea"
-                    name="categoryDescription"
+                    name="description"
                     id="categoryDescription"
                     rows="5"
-                    value={this.state.description}
-                    onChange={this.handleInputChange}
-                  />
+                    required
+                    minLength="15" />
+                  <AvFeedback>Add some description. Only 15 chars.</AvFeedback>
                 </Col>
-              </FormGroup>
+              </AvGroup>
 
-              <Table>
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Field name</th>
-                  <th>Type</th>
-                  <th>-</th>
-                </tr>
-                </thead>
-                {this.state.prodProps.map((field, i) => {
-                  return  <tbody key={i}>
-                            <tr>
-                              <th scope="row">{i+1}</th>
-                              <td>{field.name}</td>
-                              <td>{field.type}</td>
-                              <td>
-                                <Button onClick={() => this.remove(field)} className="btn-outline-danger" title="Remove category field">
-                                  <i className="fa fa-trash-o" aria-hidden="true"></i>
-                                </Button>
-                              </td>
-                            </tr>
-                          </tbody>;
-                })}
-              </Table>
+              {
+                this.state.prodProps.length > 0 &&
+                <Table>
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Field name</th>
+                    <th>Type</th>
+                    <th>-</th>
+                  </tr>
+                  </thead>
+                  {this.state.prodProps.map((field, i) => {
+                    return <tbody key={i}>
+                    <tr>
+                      <th scope="row">{i + 1}</th>
+                      <td>{field.name}</td>
+                      <td>{field.type}</td>
+                      <td>
+                        <Button onClick={() => this.remove(field)}
+                                color="danger"
+                                outline
+                                title="Remove category field">
+                          <i className="fa fa-trash-o" aria-hidden="true"/>
+                        </Button>
+                      </td>
+                    </tr>
+                    </tbody>;
+                  })}
+                </Table>
+              }
 
-              <FormGroup row>
-                <Col sm="2">Fields</Col>
-                <Col sm="10">
-                  <div className="form-row">
+              <AvGroup row>
+                <Col sm="3">Fields</Col>
+                <Col sm="9">
+                  <AvGroup row>
                     <div className="col">
                       <Label for="fieldName">Name</Label>
-                      <Input
+                      <AvInput
                         type="text"
                         id="fieldName"
                         name="fieldName"
                         onChange={this.handleInputChange}
                         placeholder="Field name"
-                        { ...this.state.isFieldDirty ? {valid: this.state.fieldValid} : {} }
-                      />
+                        required
+                        minLength="3" />
+                      <AvFeedback>Add field name - min 3 chars</AvFeedback>
                     </div>
                     <Col>
                       <Label for="filedType">Type</Label>
@@ -222,12 +206,12 @@ class AddCategoryForm extends React.Component {
                         })}
                       </Input>
                     </Col>
-                  </div>
+                  </AvGroup>
                   <FormGroup row>
                     <Col>
                       <Button
                         onClick={this.addField}
-                        color="success"
+                        color="primary"
                         className="float-right"
                         style={{marginTop: 15+'px'}}
                         disabled={!this.state.fieldValid}
@@ -235,19 +219,20 @@ class AddCategoryForm extends React.Component {
                     </Col>
                   </FormGroup>
                 </Col>
-              </FormGroup>
+              </AvGroup>
 
-              <FormGroup row>
-                <Col sm="10">
-                  <Button
-                    color="primary"
-                    onClick={this.save}
-                    disabled={ !(this.state.nameValid && this.state.prodProps.length > 0 && this.state.subcategories.length > 0) }
-                  >Save</Button>
+              <AvGroup row>
+                <Col sm="12" className="d-flex flex-row justify-content-end">
+                  <Button color="secondary"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            this.props.history.goBack();
+                          }}>Cancel</Button>
+                  <Button color="success" className="ml-1">Save</Button>
                 </Col>
-              </FormGroup>
+              </AvGroup>
 
-            </Form>
+            </AvForm>
         </Col>
       </Row>
     );

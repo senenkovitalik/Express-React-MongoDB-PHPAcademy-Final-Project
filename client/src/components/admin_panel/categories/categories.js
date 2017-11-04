@@ -50,8 +50,9 @@ class Categories extends React.Component {
           {/* Add new category */}
           <Route
             path={`${this.props.match.url}/add-new-category`}
-            render={() => <AddCategoryForm fieldTypes={this.state.fieldTypes}
-                                           add={this.props.add} />}
+            render={(props) => <AddCategoryForm {...props}
+                                                fieldTypes={this.state.fieldTypes}
+                                                add={this.props.add} />}
           />
 
           {/*<!-- Change existing category -->*/}
