@@ -45,10 +45,11 @@ class App extends React.Component {
 
     return (
         <div style={{ minHeight: 100+'vh', position: 'relative' }}>
-          <Header signUp={this.props.signUp}
-                  login={this.props.login}
-                  isLogged={this.props.isLogged}
-                  logout={this.props.logout} />
+          <Route render={(props) => <Header {...props}
+                                            signUp={this.props.signUp}
+                                            login={this.props.login}
+                                            isLogged={this.props.isLogged}
+                                            logout={this.props.logout} />} />
 
           <Switch location={isModal ? this.previousLocation : location}>
             <Route

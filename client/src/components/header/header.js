@@ -41,15 +41,20 @@ class Header extends React.Component {
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink tag={Link} to="/">Home</NavLink>
+              <NavLink tag={Link}
+                       to="/"
+                       active={this.props.location.pathname === "/"}>Home</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={Link} to="/contact_us">Contact us</NavLink>
+              <NavLink tag={Link}
+                       to="/contact_us"
+                       active={this.props.location.pathname === "/contact_us"}>Contact us</NavLink>
             </NavItem>
             { this.props.isLogged &&
               <NavItem>
-                <NavLink tag={Link} to="/personal_cabinet">Personal
-                  cabinet</NavLink>
+                <NavLink tag={Link}
+                         to="/personal_cabinet"
+                         active={this.props.location.pathname === "/personal_cabinet"}>Personal cabinet</NavLink>
               </NavItem>
             }
           </Nav>
