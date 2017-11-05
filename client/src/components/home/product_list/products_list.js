@@ -24,7 +24,7 @@ class ProductsList extends React.Component {
     }
 
     return (
-      <Col xs="12" md="6" lg="6" className="order-md-2">
+      <Col xs="12" md="6" lg="8" className="order-md-2">
         <Row>
           <Col sm="12" className="d-flex flex-wrap" id="products-list">
 
