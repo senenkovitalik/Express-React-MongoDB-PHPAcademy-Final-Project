@@ -18,7 +18,7 @@ const BasketProductItem = (props) => {
             <p className="mb-0">
               <strong>{props.prod.product.name} {props.prod.product.model}</strong><br />
               <span style={{backgroundColor: '#fff3b5', padding: '6px 5px 5px'}}>
-                {props.prod.product.price}
+                ${props.prod.product.price}
                 </span>
             </p>
           </div>
@@ -36,7 +36,7 @@ const BasketProductItem = (props) => {
               />
             </div>
             <div>
-              <span className="align-middle">{props.prod.count * props.prod.product.price}</span>
+              <span className="align-middle">${props.prod.count * props.prod.product.price}</span>
             </div>
           </div>
 
