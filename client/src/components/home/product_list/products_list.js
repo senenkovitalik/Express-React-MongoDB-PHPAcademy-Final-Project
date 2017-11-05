@@ -4,40 +4,28 @@ import _ from 'lodash';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col } from 'reactstrap';
 
-class ProductsList extends React.Component {
+const ProductsList = (props) => {
+  return (
+    <Col xs="12" md="6" lg="8" className="order-md-2">
+      <Row>
+        <Col sm="12" className="d-flex flex-wrap" id="products-list">
 
-  render() {
+          {
+            props.products.map((product, index) => {
+              const inBasket = _.find(props.prodsInBasket, { product: { name: product.name, model: product.model } } ) !== undefined;
+              return <ProductItem
+                key={index}
+                product={product}
+                addToBasket={props.addToBasket}
+                inBasket={inBasket}
+              />;
+            })
+          }
 
-    let prodItems = '';
-    if (this.props.products.length !== 0) {
-      prodItems = this.props.products.map((product, index) => {
-        const inBasket = _.find(this.props.prodsInBasket, { product: { name: product.name, model: product.model } } ) !== undefined;
-        return <ProductItem
-          key={index}
-          product={product}
-          addToBasket={this.props.addToBasket}
-          inBasket={inBasket}
-        />;
-      });
-    } else {
-      prodItems = "Sorry, there are no products in this category";
-    }
-
-    return (
-      <Col xs="12" md="6" lg="8" className="order-md-2">
-        <Row>
-          <Col sm="12" className="d-flex flex-wrap" id="products-list">
-
-            {prodItems}
-
-          </Col>
-        </Row>
-      </Col>
-    );
-  }
-}
-
-
-
+        </Col>
+      </Row>
+    </Col>
+  );
+};
 
 export default ProductsList;
