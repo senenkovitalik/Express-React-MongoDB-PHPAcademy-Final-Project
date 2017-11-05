@@ -202,7 +202,7 @@ class PersonalCabinet extends React.Component {
                     <li>OrderID: {o._id.substr(-6)}</li>
                     <li>Date: {new Date(o.date).toLocaleString()}</li>
                     <li>Products: {o.products.map((p, i) => {
-                      return `${p.product.name}, ${p.count} = \$${p.product.price * p.count}`
+                      return `${p.product.name} ${p.product.model}, ${p.count} = \$${p.product.price * p.count}; `
                     })}</li>
                     <li>Delivery: {o.delivery}</li>
                     {
