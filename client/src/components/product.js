@@ -54,7 +54,13 @@ class Product extends React.Component {
     });
 
     const images = this.props.product.imgs.map((img, index) => {
-      return <img key={index} src={`/${img}`} className="w-100 mb-1" alt={this.props.product.name} />;
+      return <div key={index} className="text-center">
+              <img key={index}
+                  src={`/${img}`}
+                  className="mb-1"
+                  style={{width: 'auto', height: 'auto'}}
+                  alt={this.props.product.name} />
+             </div>;
     });
 
     const iconStyle = {
@@ -122,6 +128,8 @@ class Product extends React.Component {
             <div className="tab-content mt-2" id="tabContent">
 
               <div className="tab-pane active" id="overview" role="tabpanel">
+
+
                 <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                   <div className="carousel-inner">
                     {imgGalleryItems}
