@@ -12,10 +12,9 @@ import {
 const OrderStatus = (props) => {
   return (
     <Container>
-      <Row>
+      <Row className="mt-3">
         <Col sm="12" className="text-center">
 
-            <div>
               {
                 props.hasCallback
                   ? (
@@ -37,7 +36,6 @@ const OrderStatus = (props) => {
                     )
                   : null
               }
-            </div>
 
           <Link to="/">Back to shopping</Link>
         </Col>
