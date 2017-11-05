@@ -32,7 +32,9 @@ class Users extends React.Component {
         }
 
         {/*<!-- Add new user -->*/}
-        <Route path={`${this.props.match.url}/add-new-user`} render={() => <AddUserFormContainer add={this.props.add} />} />
+        <Route path={`${this.props.match.url}/add-new-user`}
+               render={(props) => <AddUserFormContainer {...props}
+                                                        add={this.props.add} />} />
 
         {/*<!-- Change user data -->*/}
         <Route

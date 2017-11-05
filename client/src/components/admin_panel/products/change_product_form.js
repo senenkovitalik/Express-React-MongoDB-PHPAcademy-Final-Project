@@ -146,7 +146,7 @@ const ChangeProductForm = (props) => {
                 <AvFeedback>Very important part.</AvFeedback>
               </Col>
             </AvGroup>
-            
+
             <FormGroup row>
               <Col sm="12"><strong>Category specific fields</strong></Col>
             </FormGroup>

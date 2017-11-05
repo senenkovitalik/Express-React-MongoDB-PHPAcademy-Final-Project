@@ -34,24 +34,23 @@ class UserContainer extends React.Component {
       contentType: "application/json; charset=utf-8",
       data: JSON.stringify(userObj)
     }, res => {
+      let color = 'success';
+      let message = `User ${userObj.name} successfully added.`;
+
       if (res.result) {
-          let color = 'success';
-          let message = `User ${userObj.name} successfully added.`;
-
-          if (res.result) {
-              this.setState({
-                  users: _.concat(this.state.users, res.user)
-              });
-          } else {
-              color = 'warning';
-              message = `Sorry. Server problems.`;
-          }
-
-          this.props.flash({
-              color: color,
-              message: message
+          this.setState({
+              users: _.concat(this.state.users, res.user)
           });
+          this.props.history.goBack();
+      } else {
+          color = 'warning';
+          message = `Sorry. Server problems.`;
       }
+
+      this.props.flash({
+          color: color,
+          message: message
+      });
     })
   }
 
@@ -94,28 +93,27 @@ class UserContainer extends React.Component {
       contentType: "application/json; charset=utf-8",
       data: JSON.stringify(userObj)
     }, res => {
+      let color = 'success';
+      let message = `User ${userObj.name} successfully updated.`;
+
       if (res.result) {
-        let color = 'success';
-        let message = `User ${userObj.name} successfully updated.`;
+        const index = _.findIndex(this.state.users, { '_id': userObj._id });
+        const users = _.fill(this.state.users, userObj, index, index + 1);
 
-        if (res.result) {
-          const index = _.findIndex(this.state.users, { '_id': userObj._id });
-          const users = _.fill(this.state.users, userObj, index, index + 1);
-
-          this.setState({
-            users: users,
-            userToChange: null
-          });
-        } else {
-          color = 'warning';
-          message = `Sorry. Server problems.`;
-        }
-
-        this.props.flash({
-          color: color,
-          message: message
+        this.setState({
+          users: users,
+          userToChange: null
         });
+        this.props.history.goBack();
+      } else {
+        color = 'warning';
+        message = `Sorry. Server problems.`;
       }
+
+      this.props.flash({
+        color: color,
+        message: message
+      });
     })
   }
 

@@ -36,7 +36,10 @@ class AddUserFormContainer extends React.Component {
   }
 
   render() {
-    return <AddUserForm roles={this.state.roles} handleInput={this.handleInput} add={this.add} />;
+    return <AddUserForm {...this.props}
+                        roles={this.state.roles}
+                        handleInput={this.handleInput}
+                        add={this.add} />;
   }
 }
 
