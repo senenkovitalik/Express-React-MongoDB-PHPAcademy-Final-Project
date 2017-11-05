@@ -61,13 +61,11 @@ class AppContainer extends React.Component {
       contentType: "application/json; charset=utf-8"
     })
     .done(res => {
-      console.log(res);
       if (res.result) {
         this.setState({
           user: res.user,
           isLogged: true
         });
-        console.log("You successfully logged");
       } else {
         window.alert("Wrong username or password");
       }
@@ -136,12 +134,23 @@ class AppContainer extends React.Component {
     });
   }
 
-  saveOrder(result) {
-    if (result) {
+  saveOrder(order) {
+    $.ajax({
+      url: '/orders',
+      method: 'POST',
+      data: JSON.stringify(order),
+      contentType: "application/json; charset=utf-8"
+    })
+    .done(res => {
       this.setState({
-        orderSaved: true
-      })
-    }
+        orderSaved: res,
+        prodsInBasket: []
+      });
+      this.props.history.push('/order_status');
+    })
+    .fail(err => {
+      console.log(err);
+    })
   }
 
   changeUserData(userObj, cb) {
@@ -167,9 +176,9 @@ class AppContainer extends React.Component {
 
   render() {
     return (
-    <Router>
       <Route render = {(props) => (
-          <App  {...props} products={this.state.products}
+          <App  {...props}
+                products={this.state.products}
                 prodsInBasket={this.state.prodsInBasket}
                 user={this.state.user}
                 signUp={this.signUp}
@@ -181,8 +190,8 @@ class AppContainer extends React.Component {
                 remove={this.remove}
                 changeCount={this.changeProdCount}
                 saveOrder={this.saveOrder}
+                orderSaved={this.state.orderSaved}
                 changeUserData={this.changeUserData} />)} />
-    </Router>
     )
   }
 }

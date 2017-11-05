@@ -54,11 +54,8 @@ class Forms extends React.Component {
   }
 
   handleValidConfirm(event, values) {
-    console.log("Valid: ", values);
-
     if (!this.state.nextError) {
       this.props.handleConfirm();
-      this.props.history.push(`${this.props.match.url}/order_status`);
     }
   }
 
@@ -182,6 +179,7 @@ class Forms extends React.Component {
             <Button color="success"
                     block
                     className="mb-2"
+                    disabled={this.state.nextError}
             >Confirm the order</Button>
           </AvGroup>
         </AvForm>

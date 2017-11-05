@@ -16,6 +16,7 @@ import './index.css';
 import OrderProcessingContainer from "./components/order_processing/order_processing_container";
 import BasketModal from './components/home/basket/basket_modal';
 import PersonalCabinet from "./components/personal_cabinet";
+import OrderStatus from './components/order_status';
 
 class App extends React.Component {
   constructor(props) {
@@ -98,6 +99,9 @@ class App extends React.Component {
                      : <Redirect to="/" />
                    }
             />
+
+            <Route path="/order_status"
+                   render={(props) => <OrderStatus orderSaved={this.props.orderSaved} /> } />
 
             <Route path="/contact_us" component={ContactUs} />
 

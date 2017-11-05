@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   Container,
 } from 'reactstrap';
-import OrderStatus from './order_status';
+import OrderStatus from '../order_status';
 import {
   Route
 } from 'react-router-dom';
@@ -22,22 +22,7 @@ class OrderProcessingContainer extends React.Component {
   }
 
   saveOrder(order) {
-    $.ajax({
-      url: '/orders',
-      method: 'POST',
-      data: JSON.stringify(order),
-      contentType: "application/json; charset=utf-8"
-    })
-    .done(res => {
-      this.props.saveOrder(res.result);
-      this.setState({
-        hasCallback: true,
-        result: res.result
-      })
-    })
-    .fail(err => {
-      console.log(err);
-    })
+    this.props.saveOrder(order);
   }
 
   render() {
@@ -53,9 +38,6 @@ class OrderProcessingContainer extends React.Component {
                                    return total + (prod.product.price * prod.count)
                                  }, 0) } />
         } />
-        <Route path={`${this.props.match.url}/order_status`}
-               render={(props) => <OrderStatus result={this.state.result}
-                                               hasCallback={this.state.hasCallback} /> } />
       </Container>
     );
   }
