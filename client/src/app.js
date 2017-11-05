@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import _ from 'lodash';
 import HomeContainer from './components/home/home_container';
-import Product from './components/product.js';
+import Product from './components/product/product.js';
 import Header from "./components/header/header.js";
 import ContactUs from './components/contact_us.js';
 import Footer from './components/footer.jsx';

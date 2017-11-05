@@ -10,6 +10,7 @@ import {
 import {
   Link
 } from 'react-router-dom';
+import Carousel from './carousel';
 
 class Product extends React.Component {
   constructor(props) {
@@ -38,10 +39,8 @@ class Product extends React.Component {
   }
 
   render() {
-    const imgGalleryItems = this.props.product.imgs.map((img, index) => {
-      return  <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
-                <img className="d-block w-100" src={`/${img}`} alt="Carousel" />
-              </div>
+    const items = this.props.product.imgs.map((img, index) => {
+      return  { src: `/${img}`, altText: '', caption: '' }
     });
 
     const characteristics = this.props.product.prodProps.map((item, index) => {
@@ -129,20 +128,7 @@ class Product extends React.Component {
 
               <div className="tab-pane active" id="overview" role="tabpanel">
 
-
-                <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
-                  <div className="carousel-inner">
-                    {imgGalleryItems}
-                  </div>
-                  <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                    <span className="carousel-control-prev-icon" aria-hidden="true"/>
-                    <span className="sr-only">Previous</span>
-                  </a>
-                  <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                    <span className="carousel-control-next-icon" aria-hidden="true"/>
-                    <span className="sr-only">Next</span>
-                  </a>
-                </div>
+                <Carousel items={items} />
 
                 <p>{this.props.product.description}</p>
 
