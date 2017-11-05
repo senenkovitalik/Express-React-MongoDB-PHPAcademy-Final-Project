@@ -27,7 +27,10 @@ class ChangeUserFormContainer extends React.Component {
   }
 
   render() {
-    return <ChangeUserForm user={this.state.user} roles={this.state.roles} handleInput={this.handleInput} change={this.change} />;
+    return <ChangeUserForm user={this.state.user}
+                           roles={this.state.roles}
+                           handleInput={this.handleInput}
+                           change={this.change} />;
   }
 }
 

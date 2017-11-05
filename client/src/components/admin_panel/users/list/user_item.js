@@ -21,16 +21,20 @@ const UserItem = (props) => {
               <Button
                 tag={Link}
                 to={`${props.match.url}/change-user`}
-                className="btn-outline-info"
+                outline
+                color="info"
+                size="sm"
                 title="Change user data"
                 onClick={() => props.chooseToChange(props.user)}>
-                <i className="fa fa-pencil" aria-hidden="true"></i>
+                <i className="fa fa-pencil" aria-hidden="true" />
               </Button>
               <Button
-                className="btn-outline-danger"
+                color="danger"
+                outline
+                size="sm"
                 title="Delete user"
                 onClick={() => props.remove(props.user)}>
-                  <i className="fa fa-trash-o" aria-hidden="true"></i>
+                  <i className="fa fa-trash-o" aria-hidden="true" />
               </Button>
             </td>
           </tr>;
