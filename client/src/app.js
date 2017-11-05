@@ -78,7 +78,8 @@ class App extends React.Component {
               });
 
               if (productToShow) {
-                return <Product product={productToShow}
+                return <Product {...props}
+                                product={productToShow}
                                 add={this.props.addToBasket}
                                 inBasket={!!inBasket}/>
               } else {

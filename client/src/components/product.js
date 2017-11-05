@@ -7,7 +7,9 @@ import {
   Button,
   Table
 } from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  Link
+} from 'react-router-dom';
 
 class Product extends React.Component {
   constructor(props) {
@@ -55,6 +57,12 @@ class Product extends React.Component {
       return <img key={index} src={`/${img}`} className="w-100 mb-1" alt={this.props.product.name} />;
     });
 
+    const iconStyle = {
+      fontSize: 1.1 + 'rem'
+    };
+
+    const linkStyle= {fontSize: 0.8+'rem'};
+
     return (
       <Container fluid>
 
@@ -69,12 +77,35 @@ class Product extends React.Component {
             <Row className="justify-content-center">
               <Col xs="12" lg="7" className="text-center">
                 <div className="px-1" style={{fontSize: 1.3+'rem', backgroundColor: '#fff3b5'}}>
-                  <strong>{this.props.product.price} {this.props.product.currency}</strong>
+                  <strong>${this.props.product.price}</strong>
                   <Row className="justify-content-center">
                     <Col xs="12" lg="6" className="mb-2">
-                      <Button onClick={this.handleClick} color="success" block disabled={this.props.inBasket}>
-                        <i className="fa fa-shopping-cart" aria-hidden="true"></i> Buy
-                      </Button>
+                      {
+                        this.props.inBasket
+                          ? <Button color="success"
+                                    tag={Link}
+                                    to={{
+                                      pathname: '/basket',
+                                      state: { modal: true }
+                                    }}
+                                    block
+                                    className='priceButton'
+                        ><i className="fa fa-shopping-cart"
+                            aria-hidden="true"
+                            style={iconStyle}/> To basket</Button>
+                          : <Button color="success"
+                                    block
+                                    onClick={this.handleClick}
+                                    className='priceButton'
+                        >Buy</Button>
+                      }
+                      <Link to="/" style={linkStyle}>Back to products</Link>
+                      <br />
+                      {
+                        this.props.inBasket &&
+                        <Link to="/order_processing"
+                              style={linkStyle}>To order processing</Link>
+                      }
                     </Col>
                   </Row>
                 </div>
@@ -96,11 +127,11 @@ class Product extends React.Component {
                     {imgGalleryItems}
                   </div>
                   <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span className="carousel-control-prev-icon" aria-hidden="true"/>
                     <span className="sr-only">Previous</span>
                   </a>
                   <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span className="carousel-control-next-icon" aria-hidden="true"/>
                     <span className="sr-only">Next</span>
                   </a>
                 </div>
@@ -126,5 +157,8 @@ class Product extends React.Component {
     );
   }
 }
+
+
+
 
 export default Product;
