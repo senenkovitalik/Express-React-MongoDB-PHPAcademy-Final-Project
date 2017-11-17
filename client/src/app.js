@@ -58,12 +58,12 @@ class App extends React.Component {
                 this.props.user && this.props.user.role === 'admin'
                   ? ( <Redirect to="/admin" /> )
                   : ( <HomeContainer
-                      products={this.props.products}
-                      prodsInBasket={this.props.prodsInBasket}
-                      getProds={this.props.getProds}
-                      remove={this.props.remove}
-                      changeCount={this.props.changeCount}
-                      addToBasket={this.props.addToBasket} /> ))}
+                        products={this.props.products}
+                        prodsInBasket={this.props.prodsInBasket}
+                        getProds={this.props.getProds}
+                        remove={this.props.remove}
+                        changeCount={this.props.changeCount}
+                        addToBasket={this.props.addToBasket} /> ))}
             />
 
             <Route path="/product/:name/:model" render={(props) => {

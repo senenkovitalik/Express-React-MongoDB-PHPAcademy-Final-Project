@@ -6,11 +6,11 @@ const userSchema = require('../db/schemas/user');
 const User = mongoose.model('User', userSchema);
 
 const checkAuth = (req, res, next) => {
-  if (req.session.user.role !== 'admin' && req.session.user.role !== 'user') {
-    console.log('Check auth: ', req.session.user);
-    res.status(403).end();
-  } else {
+  console.log('Check auth: ', req.session.user);
+  if (req.session.user.role === 'admin' || req.session.user.role === 'user') {
     next();
+  } else {
+    res.json({ user: { role: 'anonymous' }});
   }
 };
 
@@ -71,6 +71,10 @@ router.route('/logout')
   });
 
 router.route('/')
+  .get(checkAuth, ((req, res) => {
+    console.log(req.session.user);
+    res.json(req.session.user);
+  }))
   .post(checkAuth, (req, res) => {
     const user = new User(req.body);
     user.save(req.body, (err, user) => {

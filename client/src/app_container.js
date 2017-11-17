@@ -43,7 +43,7 @@ class AppContainer extends React.Component {
           user: res.user
         });
         window.alert("You successfully create account");
-        console.log("You successfully create account");
+        // console.log("You successfully create account");
       } else {
         console.log(res.message);
       }
@@ -85,7 +85,7 @@ class AppContainer extends React.Component {
         user: null,
         isLogged: false
       });
-      console.log("You are logged out");
+      // console.log("You are logged out");
     })
     .fail(err => {
       console.log(err);
@@ -126,7 +126,7 @@ class AppContainer extends React.Component {
   }
 
   changeProdCount(prod, count) {
-    console.log(count);
+    // console.log(count);
     const index = _.findIndex(this.state.prodsInBasket, prod);
     const newProd = Object.assign({}, prod, { count: count === '' ? '' : parseInt(count, 10)  });
     this.setState({
@@ -154,7 +154,7 @@ class AppContainer extends React.Component {
   }
 
   changeUserData(userObj, cb) {
-    console.log(userObj);
+    // console.log(userObj);
     $.ajax({
       url: '/users',
       method: 'PUT',
@@ -174,9 +174,29 @@ class AppContainer extends React.Component {
     });
   }
 
+  componentDidMount() {
+    $.ajax({
+      url: '/users',
+      method: 'GET',
+    })
+    .done(res => {
+      if (res) {
+        this.setState({
+          user: res,
+          isLogged: res.role !== 'anonymous'
+        });
+      } else {
+        // console.error("You are not logged");
+      }
+    })
+    .fail(err => {
+      // console.log("You are not logged");
+    });
+  }
+
   render() {
     return (
-      <Route render = {(props) => (
+      <Route render = {(props) =>
           <App  {...props}
                 products={this.state.products}
                 prodsInBasket={this.state.prodsInBasket}
@@ -191,7 +211,7 @@ class AppContainer extends React.Component {
                 changeCount={this.changeProdCount}
                 saveOrder={this.saveOrder}
                 orderSaved={this.state.orderSaved}
-                changeUserData={this.changeUserData} />)} />
+                changeUserData={this.changeUserData} />} />
     )
   }
 }

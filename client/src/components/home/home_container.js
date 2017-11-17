@@ -11,12 +11,15 @@ class HomeContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: []
+      categories: [],
+      ajax: null
     };
   }
 
   componentDidMount() {
-    $.ajax({
+    this.setState({ isMounted: true });
+
+    const ajax = $.ajax({
       url: '/category/all',
       method: 'GET'
     })
@@ -30,6 +33,12 @@ class HomeContainer extends React.Component {
     .fail(err => {
       console.log('Couldn\'t get data from server', err);
     });
+
+    this.setState({ ajax: ajax });
+  }
+
+  componentWillUnmount() {
+    if (this.state.ajax) this.state.ajax.abort();
   }
 
   render() {
