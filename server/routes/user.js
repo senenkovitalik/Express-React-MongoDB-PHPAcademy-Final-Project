@@ -10,7 +10,7 @@ const checkAuth = (req, res, next) => {
   if (req.session.user.role === 'admin' || req.session.user.role === 'user') {
     next();
   } else {
-    res.json({ user: { role: 'anonymous' }});
+    res.status(403).end();
   }
 };
 
