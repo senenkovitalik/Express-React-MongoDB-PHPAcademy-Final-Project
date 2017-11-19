@@ -5,6 +5,10 @@ const session = require('express-session');
 
 const app = express();
 
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
+
 const category = require('./routes/category');
 const product = require('./routes/product');
 const user = require('./routes/user');
@@ -17,11 +21,13 @@ db.once('open', function() {
   console.log("We successfully connect to MongoDB Atlas");
 });
 
-app.set("port", process.env.PORT || 3001);
-
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
+  app.set("port", 80);
+} else {
+  // development
+  app.set("port", 3001);
 }
 
 app.use(session({
@@ -36,10 +42,10 @@ app.use(session({
 
 app.use((req, res, next) => {
   if (req.session.user) {
-    console.log('\n', 'User: ', req.session.user);
+    // console.log('\n', 'User: ', req.session.user);
     // console.log('Session ID: ', req.session.id, '\n');
   } else {
-    console.log('\n' ,'User is not authorized');
+    // console.log('\n' ,'User is not authorized');
     // console.log('Session ID: ', req.session.id, '\n');
     req.session.user = {
       role: 'anonymous',
@@ -63,6 +69,15 @@ app.use('/users', user);
 
 app.use('/orders', order);
 
-app.listen(app.get("port"), () => {
-  console.log(`Find the server at: http://localhost:${app.get("port")}/`);
-});
+const options = {
+  key: fs.readFileSync('server/ssl/key.pem'),
+  cert: fs.readFileSync('server/ssl/cert.crt')
+};
+
+https.createServer(options, app).listen(443);
+
+http.createServer(function (req, res) {
+  console.log("Redirect to https");
+  res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+  res.end();
+}).listen(80);
