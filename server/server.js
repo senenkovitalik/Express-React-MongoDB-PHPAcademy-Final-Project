@@ -24,10 +24,6 @@ db.once('open', function() {
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
-  app.set("port", 80);
-} else {
-  // development
-  app.set("port", 3001);
 }
 
 app.use(session({

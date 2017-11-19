@@ -57,7 +57,7 @@ class Product extends React.Component {
               <img key={index}
                   src={`/${img}`}
                   className="mb-1"
-                  style={{width: 'auto', height: 'auto'}}
+                  style={{width: 100+'%', height: 'auto'}}
                   alt={this.props.product.name} />
              </div>;
     });
