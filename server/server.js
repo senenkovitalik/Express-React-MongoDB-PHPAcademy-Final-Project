@@ -54,7 +54,7 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // this is used for parsing the JSON object from POST
 
-app.use(express.static('server'));
+// app.use(express.static('server'));
 app.use(express.static('static/img'));
 
 app.use('/product', product);
