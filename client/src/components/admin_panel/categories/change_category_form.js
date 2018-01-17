@@ -51,31 +51,6 @@ class ChangeCategoryForm extends React.Component {
     let stateObj = {};
 
     switch (name) {
-    // case "categoryName":
-    //   stateObj.name = value;
-    //   stateObj.nameValid = value.length >= 3;
-    //   stateObj.isNameDirty = value.length > 0;
-    //   break;
-    // case "subCats":
-    //   const regex = /^(\w+\s*?)*$/gi;
-    //   const result = regex.test(value);
-    //
-    //   let valid = this.state.subCatsValid;
-    //
-    //   if (result) {
-    //     stateObj.subcategories = value.trim().match(/\w+/gi);
-    //     valid = true;
-    //   } else {
-    //     valid = false;
-    //   }
-    //
-    //   stateObj.subCatsValid = valid;
-    //   stateObj.isSubCatsDirty = value.length > 0;
-    //   break;
-    // case "categoryDescription":
-    //   stateObj.description = value;
-    //   stateObj.isDataDirty = true;
-    //   break;
     case "fieldName":
       stateObj.newField = {
         name: value,
@@ -117,6 +92,7 @@ class ChangeCategoryForm extends React.Component {
         }
       )
     );
+    this.props.history.goBack();
   }
 
   componentWillReceiveProps(nextProps) {
