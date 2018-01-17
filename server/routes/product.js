@@ -34,7 +34,7 @@ const productSchema = require('../db/schemas/product');
 const Product = mongoose.model('Product', productSchema);
 
 router.route('/')
-  .post(upload.array('imgs') , (req, res) => {
+  .post((req, res) => {
 
     const prodObj = JSON.parse(req.body.product);
 
@@ -59,6 +59,7 @@ router.route('/')
             console.log(err);
             res.json({ result: false });
           } else {
+            upload.array('imgs', 10);
             res.json({ result: true });
           }
         });
@@ -103,7 +104,6 @@ router.route('/')
 
 router.route('/all')
   .get((req, res) => {
-    // console.log('\n', 'GET /product/all, User: ', req.session.user, '\n');
     Product.find({}, (err, result) => {
       if (err) {
         console.log(err);

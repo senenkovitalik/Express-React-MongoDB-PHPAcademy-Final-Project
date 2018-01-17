@@ -6,7 +6,6 @@ const userSchema = require('../db/schemas/user');
 const User = mongoose.model('User', userSchema);
 
 const checkAuth = (req, res, next) => {
-  // console.log('Check auth: ', req.session.user);
   if (req.session.user.role === 'admin' || req.session.user.role === 'user') {
     next();
   } else {

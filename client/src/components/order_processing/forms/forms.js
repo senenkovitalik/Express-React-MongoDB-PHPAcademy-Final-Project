@@ -43,7 +43,6 @@ class Forms extends React.Component {
   }
 
   handleValidNext(event, values) {
-    console.log("Valid: ", values);
     this.setState({ nextError: false });
     this.toggle();
   }
@@ -122,67 +121,67 @@ class Forms extends React.Component {
         <Badge pill color={this.state.badgeColorSecond}>2</Badge>Delivery
       </h4>
 
-        <AvForm model={defValues}
-                onValidSubmit={this.handleValidConfirm}>
+      <AvForm model={defValues}
+              onValidSubmit={this.handleValidConfirm}>
 
-          <Collapse isOpen={this.state.isOpenSecond}>
+        <Collapse isOpen={this.state.isOpenSecond}>
 
-            <AvGroup row>
-              <Col sm="4">
-                <Label>Delivery</Label>
-              </Col>
-              <Col xs="8">
+          <AvGroup row>
+            <Col sm="4">
+              <Label>Delivery</Label>
+            </Col>
+            <Col xs="8">
 
-                <AvRadioGroup name="delivery">
-                  <AvRadio label="self-checkout from our store"
-                           value="self-checkout"
-                           onChange={this.props.handleChange} />
-                  <FormText color="muted">Free</FormText>
+              <AvRadioGroup name="delivery">
+                <AvRadio label="self-checkout from our store"
+                         value="self-checkout"
+                         onChange={this.props.handleChange} />
+                <FormText color="muted">Free</FormText>
 
-                  <AvRadio label="by courier"
-                           value="courier"
-                           onChange={this.props.handleChange} />
-                  <FormText color="muted">Check price by manager</FormText>
-                </AvRadioGroup>
+                <AvRadio label="by courier"
+                         value="courier"
+                         onChange={this.props.handleChange} />
+                <FormText color="muted">Check price by manager</FormText>
+              </AvRadioGroup>
 
-              </Col>
-            </AvGroup>
-
-            <hr className="mt-1 mb-1"/>
-
-            <AvGroup row>
-              <Col xs="4">
-                <Label htmlFor="deliveryAddress">Address</Label>
-              </Col>
-              <Col xs="8">
-                <AvInput type="text"
-                         size="sm"
-                         className="mt-1"
-                         id="deliveryAddress"
-                         name="address"
-                         minLength="10"
-                         disabled={this.props.checked}
-                         required={!this.props.checked}
-                         onChange={this.props.handleChange}
-                         value={this.props.address} />
-                <AvFeedback>Courier need to know your address</AvFeedback>
-              </Col>
-            </AvGroup>
-
-          </Collapse>
-
-          <Summary count={this.props.products.length}
-                   total={this.props.total}
-                   useCourier={this.state.useCourier} />
-
-          <AvGroup>
-            <Button color="success"
-                    block
-                    className="mb-2"
-                    disabled={this.state.nextError}
-            >Confirm the order</Button>
+            </Col>
           </AvGroup>
-        </AvForm>
+
+          <hr className="mt-1 mb-1"/>
+
+          <AvGroup row>
+            <Col xs="4">
+              <Label htmlFor="deliveryAddress">Address</Label>
+            </Col>
+            <Col xs="8">
+              <AvInput type="text"
+                       size="sm"
+                       className="mt-1"
+                       id="deliveryAddress"
+                       name="address"
+                       minLength="10"
+                       disabled={this.props.checked}
+                       required={!this.props.checked}
+                       onChange={this.props.handleChange}
+                       value={this.props.address} />
+              <AvFeedback>Courier need to know your address</AvFeedback>
+            </Col>
+          </AvGroup>
+
+        </Collapse>
+
+        <Summary count={this.props.products.length}
+                 total={this.props.total}
+                 useCourier={this.state.useCourier} />
+
+        <AvGroup>
+          <Button color="success"
+                  block
+                  className="mb-2"
+                  disabled={this.state.nextError}
+          >Confirm the order</Button>
+        </AvGroup>
+      </AvForm>
       </div>
     );
   }

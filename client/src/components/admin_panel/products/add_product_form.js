@@ -180,14 +180,13 @@ class AddProductForm extends React.Component {
 
                 return (
                   <AvGroup row key={i}>
-                    <Label for={`addProduct${capName}`} className="col-sm-2 col-form-label">{name}</Label>
+                    <Label for={`addProduct${capName}`}
+                           className="col-sm-2 col-form-label">{name}</Label>
                     <Col sm="10">
                       <AvInput
-                        type={property.type}
                         id={`addProduct${capName}`}
                         name={name}
                         onChange={this.handleInput}
-                        required
                       />
                     </Col>
                   </AvGroup>

@@ -23,16 +23,20 @@ class AddCategoryForm extends React.Component {
     this.state = {
       prodProps: [],
       fieldTypes: this.props.fieldTypes,
+      fieldValid: false,
       newField: {
         name: null,
         type: 'text'
       },
+      nextError: true,
+      confirmError: true
     };
 
     this.addField = this.addField.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.remove = this.remove.bind(this);
     this.handleValidSubmit = this.handleValidSubmit.bind(this);
+    this.handleInvalidNext = this.handleInvalidNext.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -60,6 +64,7 @@ class AddCategoryForm extends React.Component {
         name: value,
         type: this.state.newField.type
       };
+      stateObj.fieldValid = (value.length > 3);
       break;
     case "fieldType":
       stateObj.newField = {
@@ -81,6 +86,7 @@ class AddCategoryForm extends React.Component {
   }
 
   handleValidSubmit(event, values) {
+    this.setState({ nextError: false });
     const obj = {
       name: values.name,
       subcategories: values.subcategories.trim().match(/\w+/gi),
@@ -90,12 +96,17 @@ class AddCategoryForm extends React.Component {
     this.props.add(obj);
   }
 
+  handleInvalidNext(event, errors, values) {
+    this.setState({ nextError: true });
+  }
+
   render() {
     return (
       <Row style={{marginTop: 20+'px'}}>
         <Col xs="6">
           <h5 color="light">Add new category</h5>
-            <AvForm onValidSubmit={this.handleValidSubmit}>
+            <AvForm onValidSubmit={this.handleValidSubmit}
+                    onInvalidSubmit={this.handleInvalidNext}>
 
               <AvGroup row>
                 <Label for="categoryName"
@@ -203,7 +214,7 @@ class AddCategoryForm extends React.Component {
                       </Input>
                     </Col>
                   </AvGroup>
-                  <FormGroup row>
+                  <AvGroup row>
                     <Col>
                       <Button
                         onClick={this.addField}
@@ -213,7 +224,7 @@ class AddCategoryForm extends React.Component {
                         disabled={!this.state.fieldValid}
                       >Add field</Button>
                     </Col>
-                  </FormGroup>
+                  </AvGroup>
                 </Col>
               </AvGroup>
 
@@ -224,7 +235,8 @@ class AddCategoryForm extends React.Component {
                             e.preventDefault();
                             this.props.history.goBack();
                           }}>Cancel</Button>
-                  <Button color="success" className="ml-1">Save</Button>
+                  <Button color="success"
+                          className="ml-1">Save</Button>
                 </Col>
               </AvGroup>
 

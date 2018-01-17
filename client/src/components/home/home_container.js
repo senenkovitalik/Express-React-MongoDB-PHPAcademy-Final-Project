@@ -17,8 +17,6 @@ class HomeContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ isMounted: true });
-
     const ajax = $.ajax({
       url: '/category/all',
       method: 'GET'
