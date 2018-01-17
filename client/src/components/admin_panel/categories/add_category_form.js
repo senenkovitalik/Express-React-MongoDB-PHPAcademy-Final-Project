@@ -94,6 +94,7 @@ class AddCategoryForm extends React.Component {
       description: values.description
     };
     this.props.add(obj);
+    this.props.history.goBack();
   }
 
   handleInvalidNext(event, errors, values) {
