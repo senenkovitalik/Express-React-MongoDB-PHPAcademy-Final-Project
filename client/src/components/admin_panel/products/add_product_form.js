@@ -54,6 +54,10 @@ class AddProductForm extends React.Component {
     this.props.handleInputProps(e);
   }
 
+  _capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   render() {
     return (
       <Row style={{marginTop: 20+'px'}}>
@@ -61,9 +65,13 @@ class AddProductForm extends React.Component {
           <h5>Add new product</h5>
           <AvForm onValidSubmit={this.props.add}>
             <FormGroup row>
-              <Label for="addProductCategory" className="col-sm-2 col-form-label">Category</Label>
+              <Label for="addProductCategory"
+                     className="col-sm-2 col-form-label">Category</Label>
               <Col sm="10">
-                <Input type="select" id="addProductCategory" name="category" onChange={this.handleInput}>
+                <Input type="select"
+                       id="addProductCategory"
+                       name="category"
+                       onChange={this.handleInput}>
                   {
                     this.props.categories.map((val, i) => {
                       return <option key={i}>{val.name}</option>;
@@ -74,9 +82,13 @@ class AddProductForm extends React.Component {
             </FormGroup>
 
             <FormGroup row>
-              <Label for="addProductSubcategory" className="col-sm-2 col-form-label">Subcategory</Label>
+              <Label for="addProductSubcategory"
+                     className="col-sm-2 col-form-label">Subcategory</Label>
               <Col sm="10">
-                <Input type="select" id="addProductSubcategory" name="subcategory" onChange={this.handleInput}>
+                <Input type="select"
+                       id="addProductSubcategory"
+                       name="subcategory"
+                       onChange={this.handleInput}>
                   {
                     this.props.category.subcategories.map((val, i) => {
                       return <option key={i}>{val}</option>;
@@ -87,19 +99,26 @@ class AddProductForm extends React.Component {
             </FormGroup>
 
             <AvGroup row>
-              <Label for="addProductName" className="col-sm-2 col-form-label">Name</Label>
+              <Label for="addProductName"
+                     className="col-sm-2 col-form-label">Name</Label>
               <Col sm="10">
-                <AvInput type="text" id="addProductName" name="name"
+                <AvInput type="text"
+                         id="addProductName"
+                         name="name"
                          minLength="3"
-                         onChange={this.handleInput} required />
+                         onChange={this.handleInput}
+                         required />
                 <AvFeedback>Type product name. Min 3 chars.</AvFeedback>
               </Col>
             </AvGroup>
 
             <AvGroup row>
-              <Label for="addProductModel" className="col-sm-2 col-form-label">Model</Label>
+              <Label for="addProductModel"
+                     className="col-sm-2 col-form-label">Model</Label>
               <Col sm="10">
-                <AvInput type="text" id="addProductModel" name="model"
+                <AvInput type="text"
+                         id="addProductModel"
+                         name="model"
                          required
                          minLength="2"
                          onChange={this.handleInput} />
@@ -108,23 +127,34 @@ class AddProductForm extends React.Component {
             </AvGroup>
 
             <FormGroup row>
-              <Label for="addProductVendor" className="col-sm-2 col-form-label">Vendor</Label>
+              <Label for="addProductVendor"
+                     className="col-sm-2 col-form-label">Vendor</Label>
               <Col sm="10">
-                <Input type="text" id="addProductVendor" name="vendor" onChange={this.handleInput} />
+                <Input type="text"
+                       id="addProductVendor"
+                       name="vendor"
+                       onChange={this.handleInput} />
               </Col>
             </FormGroup>
 
             <FormGroup row>
-              <Label for="addProductProvider" className="col-sm-2 col-form-label">Provider</Label>
+              <Label for="addProductProvider"
+                     className="col-sm-2 col-form-label">Provider</Label>
               <Col sm="10">
-                <Input type="text" id="addProductProvider" name="provider" onChange={this.handleInput} />
+                <Input type="text"
+                       id="addProductProvider"
+                       name="provider"
+                       onChange={this.handleInput} />
               </Col>
             </FormGroup>
 
             <AvGroup row>
-              <Label for="addProductDescription" className="col-sm-2 col-form-label">Description</Label>
+              <Label for="addProductDescription"
+                     className="col-sm-2 col-form-label">Description</Label>
               <Col sm="10">
-                <AvInput type="textarea" rows="5" id="addProductDescription"
+                <AvInput type="textarea"
+                         rows="5"
+                         id="addProductDescription"
                          name="description"
                          required
                          minLength="20"
@@ -134,9 +164,12 @@ class AddProductForm extends React.Component {
             </AvGroup>
 
             <AvGroup row>
-              <Label for="addProductPhoto" className="col-sm-2 col-form-label">Photos</Label>
+              <Label for="addProductPhoto"
+                     className="col-sm-2 col-form-label">Photos</Label>
               <Col sm="10">
-                <AvInput type="file" multiple id="addProductPhoto"
+                <AvInput type="file"
+                         multiple
+                         id="addProductPhoto"
                          name="imgs"
                          style={{marginBottom: 5+'px'}}
                          required
@@ -155,9 +188,11 @@ class AddProductForm extends React.Component {
             </AvGroup>
 
             <AvGroup row>
-              <Label for="addProductPrice" className="col-sm-2 col-form-label">Price</Label>
+              <Label for="addProductPrice"
+                     className="col-sm-2 col-form-label">Price</Label>
               <Col sm="10">
-                <AvInput type="number" id="addProductPrice"
+                <AvInput type="number"
+                         id="addProductPrice"
                          name="price"
                          required
                          onChange={this.handleInput} />
@@ -169,17 +204,15 @@ class AddProductForm extends React.Component {
               <Col sm="12"><strong>Category specific fields</strong></Col>
             </FormGroup>
 
+
+
             {
               this.props.prodProps.map((property, i) => {
-                function capitalizeFirstLetter(string) {
-                  return string.charAt(0).toUpperCase() + string.slice(1);
-                }
-
                 const name = property.name;
-                const capName = capitalizeFirstLetter(name);
+                const capName = this._capitalizeFirstLetter(name);
 
                 return (
-                  <AvGroup row key={i}>
+                  <FormGroup row key={i}>
                     <Label for={`addProduct${capName}`}
                            className="col-sm-2 col-form-label">{name}</Label>
                     <Col sm="10">
@@ -189,7 +222,7 @@ class AddProductForm extends React.Component {
                         onChange={this.handleInput}
                       />
                     </Col>
-                  </AvGroup>
+                  </FormGroup>
                 );
               })
             }

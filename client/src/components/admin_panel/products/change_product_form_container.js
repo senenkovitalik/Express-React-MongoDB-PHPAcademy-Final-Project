@@ -109,7 +109,10 @@ class ChangeProductFormContainer extends React.Component {
   change(e, values) {
     const formData = new FormData();
     this.state.files.forEach(f => formData.append("imgs", f));
-    const savedImages = _.filter(this.state.imgs, { saved: true }).map(img => img.src.slice(1));
+
+    const savedImages = _.filter(this.state.imgs, { 'saved': true })
+      .map(img => img.src.slice(1));
+
     const prodToChange = Object.assign({}, this.state.product, { imgs: savedImages });
     formData.append("product", JSON.stringify(prodToChange));
 

@@ -27,8 +27,6 @@ class ProductContainer extends React.Component {
       filter: {
 			  category: '',
         subcategory: '',
-        // name: '',
-        // model: ''
       },
 
       filteredProducts: [],
@@ -128,17 +126,6 @@ class ProductContainer extends React.Component {
         )
       });
       break;
-    // default:
-    //   console.log(name, value);
-    //   this.setState({
-    //     filter: Object.assign(
-    //       {},
-    //       this.state.filter,
-    //       {
-    //         [name]: value
-    //       }
-    //     )
-    //   });
     }
   }
 

@@ -3,10 +3,14 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
+const _ = require('lodash');
+
+const imagesPath = path.join(__dirname, '..', '..', '/static/img');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '..', '..', '/static/img'))
+    cb(null, imagesPath)
   },
   filename: function (req, file, cb) {
     const index = file.originalname.lastIndexOf(".");
@@ -33,11 +37,23 @@ const upload = multer({
 const productSchema = require('../db/schemas/product');
 const Product = mongoose.model('Product', productSchema);
 
+function removeImages(imgPath) {
+  for (let p of imgPath) {
+    fs.stat(p, function (err, stats) {
+      if (err) {
+        return console.error(err);
+      }
+
+      fs.unlink(p,function(err){
+        if (err) return console.log(err);
+      });
+    });
+  }
+}
+
 router.route('/')
-  .post((req, res) => {
-
+  .post(upload.array("imgs", 10), (req, res) => {
     const prodObj = JSON.parse(req.body.product);
-
     const condition = {
       name: prodObj.name,
       category: prodObj.category,
@@ -45,10 +61,13 @@ router.route('/')
       model: prodObj.model
     };
 
+    let remImg = false;
+
     Product.find(condition, (err, doc) => {
-
-      if (err) console.log(err);
-
+      if (err) {
+        console.log(err);
+        remImg = true;
+      }
       if (doc.length === 0) {
         const imgArr = req.files.map(f => f.filename);
         const prodToSave = Object.assign({}, prodObj, { imgs: imgArr });
@@ -57,26 +76,40 @@ router.route('/')
         product.save(err => {
           if (err) {
             console.log(err);
-            res.json({ result: false });
+            remImg = true;
+            res.json({ result: false, message: "successfully saved" });
           } else {
-            upload.array('imgs', 10);
             res.json({ result: true });
           }
         });
       } else {
-        res.json({ result: false });
+        remImg = true;
+        res.json({ result: false, message: "product already exist" });
+      }
+
+
+      if (remImg) {
+        removeImages(req.files.map(f => f.path));
       }
     });
   })
-  .put(upload.array('imgs'), (req, res) => {
-
+  .put(upload.array('imgs', 10), (req, res) => {
     const prodObj = JSON.parse(req.body.product);
-    const imgArr = req.files.map(f => f.filename);
-    const prodToUpdate = Object.assign({}, prodObj, { imgs: imgArr.concat(prodObj.imgs) });
+    const imgArr = req.files.map(f => f.filename);  // new files
+    const prodToUpdate = Object.assign({}, prodObj, { imgs: imgArr.concat(prodObj.imgs)});
+
+    // remove old images
+    Product.find({ _id: prodObj._id }, (err, doc) => {
+      const imgToDelete = _.xor(doc[0].imgs, prodObj.imgs);
+      const imgToDeletex = imgToDelete.map(p => path.join(imagesPath, p));
+      removeImages(imgToDeletex);
+    });
 
     Product.findOneAndUpdate({ _id: prodObj._id }, prodToUpdate, (err) => {
       if (err) {
         console.log(err);
+        // remove files that have been saved by multer
+        removeImages(req.files.map(f => f.path));
         res.json({ result: false, message: 'Can\'t update product' });
       } else {
         res.json({ result: true, message: "Successfully updated" });
@@ -92,11 +125,16 @@ router.route('/')
       model: prod.model
     };
 
+    const imgPath = req.body.imgs.map(
+      p => path.join(__dirname, '..', '..', '/static/img', p)
+    );
+
     Product.remove(condition, (err) => {
       if (err) {
         console.log(err);
         res.json({ result: false, message: "Server error" });
       } else {
+        removeImages(imgPath);
         res.json({ result: true, message: "Product successfully removed" });
       }
     });
